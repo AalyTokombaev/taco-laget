@@ -1,2 +1,2 @@
 # taco-laget
-Repo for Taco laget for INF122 prosjekt 
+Repo for Taco laget for INF112 prosjekt 
