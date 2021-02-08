@@ -92,12 +92,12 @@
     </pluginManagement>
     <resources>
       <resource>
-        <directory>{/Users/alexanderiversen/Documents/inf122/tutorial/Tutorial/src/main/java/inf112/skeleton}/assets/</directory>
+        <directory>${basedir}/src/assets/</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>{/Users/alexanderiversen/Documents/inf122/tutorial/Tutorial/src/test/java/inf112/skeleton}/assets/</directory>
+        <directory>${basedir}/src/assets/</directory>
       </testResource>
     </testResources>
   </build>

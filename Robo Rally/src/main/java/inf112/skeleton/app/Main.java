@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("First Tile display!");
-        cfg.setWindowedMode(500, 500);
+        cfg.setWindowedMode(800, 800 );
         new Lwjgl3Application(new HelloWorld(), cfg);
 
     }
