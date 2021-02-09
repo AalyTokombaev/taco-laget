@@ -62,15 +62,22 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
 
+    private int x,y;
+
     @Override
     public void create() {
+        //Start-pos for player
+        x = 0;
+        y = 0;
+
+        //Hva gjør disse? trenger vi de?
+
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
 
         loader = new TmxMapLoader();
 
-        // yymap = loader.load("/Users/alexanderiversen/Documents/inf122/tutorial/Tutorial/src/main/java/inf112/skeleton/assets/example.tmx");
         map = loader.load("Vault.tmx");
 
         boardLayer = (TiledMapTileLayer) map.getLayers().get("Board");
@@ -98,29 +105,27 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Texture texture = new Texture("player.png");
         TextureRegion[][] portraits = TextureRegion.split(texture, 300, 300);
 
-        playerPosition = new Vector2(1, 1);
+
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
-
 
         playerCell.setTile(new StaticTiledMapTile(portraits[0][0]));
         playerDiedCell.setTile(new StaticTiledMapTile(portraits[0][1]));
         playerWonCell.setTile(new StaticTiledMapTile(portraits[0][2]));
 
+        playerLayer.setCell(x,y,playerCell);
+        playerPosition = new Vector2(x,y);
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 12);
-        playerLayer.setCell(1, 1, playerCell);
+        camera.position.x = 6F; // sentrerer camera
         camera.update();
 
-        float size = (float) 1.0/300.0f;
+        float size = (float) 1.0/300.0F;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
-
         Gdx.input.setInputProcessor(this);
-
-
-
 
     }
 
@@ -136,20 +141,22 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        if (holeLayer.getCell((int)playerPosition.x,(int)playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
+        //flytter disse ut for mer oversikt?
+        x = (int) playerPosition.x;
+        y = (int) playerPosition.y;
+
+
+        if (holeLayer.getCell(x, y) != null) {
+            playerLayer.setCell(x, y, playerDiedCell);
         }
-        if(flagLayer.getCell((int)playerPosition.x, (int)playerPosition.y) != null){
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
+        if (flagLayer.getCell(x, y) != null) {
+            playerLayer.setCell(x, y, playerWonCell);
 
         }
         camera.update();
         renderer.setView(camera);
         renderer.render();
 
-        // batch.begin();
-        //font.draw(batch, "Hello World", 200, 200);
-        // batch.end();
     }
 
     @Override
@@ -171,23 +178,22 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyUp(int i) {
-        Vector2 character_copy = playerPosition;
         if(i == Input.Keys.LEFT)
-            playerPosition = new Vector2(playerPosition.x-1,playerPosition.y);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+            playerPosition = new Vector2(x-1,y);
+            playerLayer.setCell(x,y,null);
+            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
         if(i == Input.Keys.RIGHT)
-            playerPosition = new Vector2(playerPosition.x+1,playerPosition.y);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+            playerPosition = new Vector2(x+1,y);
+            playerLayer.setCell(x,y,null);
+            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
         if(i == Input.Keys.UP)
-            playerPosition = new Vector2(playerPosition.x,playerPosition.y+1);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+            playerPosition = new Vector2(x,y+1);
+            playerLayer.setCell(x,y,null);
+            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
         if(i == Input.Keys.DOWN)
-            playerPosition = new Vector2(playerPosition.x,playerPosition.y-1);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+            playerPosition = new Vector2(x,y-1);
+            playerLayer.setCell(x,y,null);
+            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
         return false;
     }
 
