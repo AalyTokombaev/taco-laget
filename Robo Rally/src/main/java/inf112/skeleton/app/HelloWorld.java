@@ -14,11 +14,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 
 public class HelloWorld extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
@@ -103,7 +101,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
-
         playerCell.setTile(new StaticTiledMapTile(portraits[0][0]));
         playerDiedCell.setTile(new StaticTiledMapTile(portraits[0][1]));
         playerWonCell.setTile(new StaticTiledMapTile(portraits[0][2]));
@@ -119,9 +116,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         Gdx.input.setInputProcessor(this);
 
-
-
-
     }
 
     @Override
@@ -129,7 +123,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         batch.dispose();
         font.dispose();
     }
-
 
     @Override
     public void render() {
@@ -146,10 +139,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
-        // batch.begin();
-        //font.draw(batch, "Hello World", 200, 200);
-        // batch.end();
     }
 
     @Override
@@ -176,14 +165,20 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
             playerPosition = new Vector2(playerPosition.x-1,playerPosition.y);
         playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
         playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+
+
         if(i == Input.Keys.RIGHT)
             playerPosition = new Vector2(playerPosition.x+1,playerPosition.y);
         playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
         playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+
+
         if(i == Input.Keys.UP)
             playerPosition = new Vector2(playerPosition.x,playerPosition.y+1);
         playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
         playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+
+
         if(i == Input.Keys.DOWN)
             playerPosition = new Vector2(playerPosition.x,playerPosition.y-1);
         playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);

@@ -1,3 +1,4 @@
+.DS_store
 *.swp
 target/
 pom.xml.tag
