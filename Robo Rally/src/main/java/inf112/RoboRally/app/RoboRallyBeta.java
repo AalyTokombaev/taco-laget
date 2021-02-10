@@ -182,23 +182,21 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
         // update player position accordingly
         if(i == Input.Keys.UP){
-            playerPosition = new Vector2(x, y + 1);
+            playerPosition.add(0, 1);
         }
         if(i == Input.Keys.DOWN){
-            playerPosition = new Vector2(x, y - 1);
+            playerPosition.add(0, -1);
         }
         if(i == Input.Keys.RIGHT) {
-            playerPosition = new Vector2(x + 1, y);
+            playerPosition.add(1, 0);
         }
         if(i == Input.Keys.LEFT) {
-            playerPosition = new Vector2(x - 1, y);
+            playerPosition.add(-1, 0);
         }
-
         // set the last player position to null
         playerLayer.setCell(x, y, null);
         // update player position
         playerLayer.setCell((int)playerPosition.x , (int)playerPosition.y, playerCell);
-
         return true;
     }
 
