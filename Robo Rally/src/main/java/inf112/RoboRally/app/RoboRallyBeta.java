@@ -1,4 +1,4 @@
-package inf112.skeleton.app;
+package inf112.RoboRally.app;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -18,7 +18,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 
-public class HelloWorld extends InputAdapter implements ApplicationListener {
+
+public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
     private TiledMap map;
@@ -68,52 +69,63 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         loader = new TmxMapLoader();
 
-        // yymap = loader.load("/Users/alexanderiversen/Documents/inf122/tutorial/Tutorial/src/main/java/inf112/skeleton/assets/example.tmx");
+        // load vault map
         map = loader.load("Vault.tmx");
 
+        // get the lower layers of the map
         boardLayer = (TiledMapTileLayer) map.getLayers().get("Board");
         playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
 
+
+        // there are tons of conveyors, load the u/d/l/r conveyors
         yellowConveyorRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRight");
         yellowConveyorLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorLeft");
         yellowConveyorUp = (TiledMapTileLayer) map.getLayers().get("ConveyorUp");
         yellowConveyorDown = (TiledMapTileLayer) map.getLayers().get("ConveyorDown");
 
+
+        // load the clockwise conveyor
         yellowConveyorClockWiseRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpRight");
         yellowConveyorClockWiseLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownLeft");
         yellowConveyorClockWiseUp = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftUp");
         yellowConveyorClockWiseDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightDown");
 
-        // CClockwise rotations
 
+        // load the counter clockwise rotations
         yellowConveyorCClockwiseUpLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpLeft");
         yellowConveyorCClockwiseLeftDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftDown");
         yellowConveyorCClockwiseDownRight= (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownRight");
         yellowConveyorCClockwiseRightUp= (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightUp");
 
+        // load player textures and split them
         Texture texture = new Texture("player.png");
         TextureRegion[][] portraits = TextureRegion.split(texture, 300, 300);
 
+        // initialize player cells
         playerPosition = new Vector2(1, 1);
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
+        // set the appropriate textures for player state
         playerCell.setTile(new StaticTiledMapTile(portraits[0][0]));
         playerDiedCell.setTile(new StaticTiledMapTile(portraits[0][1]));
         playerWonCell.setTile(new StaticTiledMapTile(portraits[0][2]));
 
+        // camera setup
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 12);
         playerLayer.setCell(1, 1, playerCell);
         camera.update();
 
+        // render setup
         float size = (float) 1.0/300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
 
+        // take inputs
         Gdx.input.setInputProcessor(this);
 
     }
@@ -129,9 +141,11 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+        // make the player display ad dead
         if (holeLayer.getCell((int)playerPosition.x,(int)playerPosition.y) != null) {
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
         }
+        // make the player display as a winner 8)
         if(flagLayer.getCell((int)playerPosition.x, (int)playerPosition.y) != null){
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
 
@@ -158,33 +172,36 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         return false;
     }
 
+
     @Override
     public boolean keyUp(int i) {
-        Vector2 character_copy = playerPosition;
-        if(i == Input.Keys.LEFT)
-            playerPosition = new Vector2(playerPosition.x-1,playerPosition.y);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+        // get the last player position
+        int x, y;
+        x = (int) playerPosition.x;
+        y = (int) playerPosition.y;
 
+        // update player position accordingly
+        if(i == Input.Keys.UP){
+            playerPosition = new Vector2(x, y + 1);
+        }
+        if(i == Input.Keys.DOWN){
+            playerPosition = new Vector2(x, y - 1);
+        }
+        if(i == Input.Keys.RIGHT) {
+            playerPosition = new Vector2(x + 1, y);
+        }
+        if(i == Input.Keys.LEFT) {
+            playerPosition = new Vector2(x - 1, y);
+        }
 
-        if(i == Input.Keys.RIGHT)
-            playerPosition = new Vector2(playerPosition.x+1,playerPosition.y);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
+        // set the last player position to null
+        playerLayer.setCell(x, y, null);
+        // update player position
+        playerLayer.setCell((int)playerPosition.x , (int)playerPosition.y, playerCell);
 
-
-        if(i == Input.Keys.UP)
-            playerPosition = new Vector2(playerPosition.x,playerPosition.y+1);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-
-
-        if(i == Input.Keys.DOWN)
-            playerPosition = new Vector2(playerPosition.x,playerPosition.y-1);
-        playerLayer.setCell((int)character_copy.x,(int)character_copy.y,null);
-        playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-        return false;
+        return true;
     }
+
 
     @Override
     public boolean keyTyped(char c) {
