@@ -1,6 +1,6 @@
-#Project RoboRally - __Taco-laget__
+# Project RoboRally - __Taco-laget__
 
-##Part-task 1:
+## Part-task 1:
 
 ### Maria Lidsheim - Team leader
 * __Skills/experience:__ Have worked in teams before, and have a good
@@ -47,7 +47,7 @@ Structured and experienced person.
 test the correct methods and expects the correct outputs. 
   
 
-##Part-task 2:
+## Part-task 2:
 ### Project-methods:
 We have chosen to follow Kanban as our main project-method. We have set up a 
 project-board using git-issues, where we have created tasks which will be placed
@@ -58,7 +58,7 @@ difficult in the beginning to delegate the tasks to everyone as we are not to su
 the difficulty level of the different tasks. We also want to use tests to make the
 methods as good as possible. 
 
-###Meetings, communication and workload:
+### Meetings, communication and workload:
 * We will have at least on weekly meeting in addition to the group session, and 
 probably a few more in the beginning until we have a good strategy and everyone
 is given enough to do and everyone understands all. The meetings will be on Discord
@@ -75,8 +75,8 @@ in Git issues, and moved from there when being worked on. Meeting-minutes and su
 will be shared on Google Disk. 
   
 
-##Part-task 3:
-###Superior goal for the application:
+## Part-task 3:
+### Superior goal for the application:
 * The application in this project RoboRally is based on the boardgame RoboRally,
 which is supposed to become a functional game, coded in Java. In addition, 
 we use LibGDX to display the gameboard and Maven to set up the project. 
