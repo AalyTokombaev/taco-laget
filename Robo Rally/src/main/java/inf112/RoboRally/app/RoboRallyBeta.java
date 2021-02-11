@@ -61,6 +61,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
 
+
     @Override
     public void create() {
         batch = new SpriteBatch();
