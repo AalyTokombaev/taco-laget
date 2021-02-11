@@ -96,8 +96,8 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         // load the counter clockwise rotations
         yellowConveyorCClockwiseUpLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpLeft");
         yellowConveyorCClockwiseLeftDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftDown");
-        yellowConveyorCClockwiseDownRight= (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownRight");
-        yellowConveyorCClockwiseRightUp= (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightUp");
+        yellowConveyorCClockwiseDownRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownRight");
+        yellowConveyorCClockwiseRightUp = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightUp");
 
         // load player textures and split them
         Texture texture = new Texture("player.png");
@@ -121,7 +121,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         camera.update();
 
         // render setup
-        float size = (float) 1.0/300.0f;
+        float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
 
@@ -141,12 +141,12 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        // make the player display ad dead
-        if (holeLayer.getCell((int)playerPosition.x,(int)playerPosition.y) != null) {
+        // make the player display as dead
+        if (holeLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
         }
         // make the player display as a winner 8)
-        if(flagLayer.getCell((int)playerPosition.x, (int)playerPosition.y) != null){
+        if (flagLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
 
         }
@@ -181,22 +181,22 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         y = (int) playerPosition.y;
 
         // update player position accordingly
-        if(i == Input.Keys.UP){
+        if (i == Input.Keys.UP) {
             playerPosition.add(0, 1);
         }
-        if(i == Input.Keys.DOWN){
+        if (i == Input.Keys.DOWN) {
             playerPosition.add(0, -1);
         }
-        if(i == Input.Keys.RIGHT) {
+        if (i == Input.Keys.RIGHT) {
             playerPosition.add(1, 0);
         }
-        if(i == Input.Keys.LEFT) {
+        if (i == Input.Keys.LEFT) {
             playerPosition.add(-1, 0);
         }
         // set the last player position to null
         playerLayer.setCell(x, y, null);
         // update player position
-        playerLayer.setCell((int)playerPosition.x , (int)playerPosition.y, playerCell);
+        playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerCell);
         return true;
     }
 
