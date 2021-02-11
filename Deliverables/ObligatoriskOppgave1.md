@@ -85,7 +85,7 @@ for it to be successful.
   
 ### User-stories:
 * Showing a game-board:
-    * As a player I wish to see the gameboard and place my game pieces.
+    * As a player I wish to see the gameboard and place my game piece.
     * Acceptance Criteria:
         * I see the board with tiles on.
         * There are no players on the board, if I haven’t placed any yet.
