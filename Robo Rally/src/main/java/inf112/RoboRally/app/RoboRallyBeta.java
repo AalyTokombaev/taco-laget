@@ -69,18 +69,14 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         x = 0;
         y = 0;
 
-        //Hva gjør disse? trenger vi de?
-
+        /*
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
-
+        */
         loader = new TmxMapLoader();
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
-=======
         // load vault map
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
         map = loader.load("Vault.tmx");
 
         // get the lower layers of the map
@@ -114,48 +110,33 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Texture texture = new Texture("player.png");
         TextureRegion[][] portraits = TextureRegion.split(texture, 300, 300);
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
 
-=======
         // initialize player cells
         playerPosition = new Vector2(1, 1);
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
-=======
         // set the appropriate textures for player state
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
         playerCell.setTile(new StaticTiledMapTile(portraits[0][0]));
         playerDiedCell.setTile(new StaticTiledMapTile(portraits[0][1]));
         playerWonCell.setTile(new StaticTiledMapTile(portraits[0][2]));
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
         playerLayer.setCell(x,y,playerCell);
         playerPosition = new Vector2(x,y);
-
-=======
         // camera setup
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 12);
         camera.position.x = 6F; // sentrerer camera
         camera.update();
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
-        float size = (float) 1.0/300.0F;
-        renderer = new OrthogonalTiledMapRenderer(map, size);
-        renderer.setView(camera);
-=======
+
         // render setup
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
 
         // take inputs
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
         Gdx.input.setInputProcessor(this);
 
     }
@@ -171,7 +152,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
         //flytter disse ut for mer oversikt?
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
@@ -182,7 +162,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         }
         if (flagLayer.getCell(x, y) != null) {
             playerLayer.setCell(x, y, playerWonCell);
-=======
+        }
         // make the player display as dead
         if (holeLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
@@ -190,16 +170,11 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         // make the player display as a winner 8)
         if (flagLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
             playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
-
         }
         camera.update();
         renderer.setView(camera);
         renderer.render();
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
 
-=======
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
     }
 
     @Override
@@ -222,25 +197,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyUp(int i) {
-<<<<<<< HEAD:Robo Rally/src/main/java/inf112/skeleton/app/HelloWorld.java
-        if(i == Input.Keys.LEFT)
-            playerPosition = new Vector2(x-1,y);
-            playerLayer.setCell(x,y,null);
-            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-        if(i == Input.Keys.RIGHT)
-            playerPosition = new Vector2(x+1,y);
-            playerLayer.setCell(x,y,null);
-            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-        if(i == Input.Keys.UP)
-            playerPosition = new Vector2(x,y+1);
-            playerLayer.setCell(x,y,null);
-            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-        if(i == Input.Keys.DOWN)
-            playerPosition = new Vector2(x,y-1);
-            playerLayer.setCell(x,y,null);
-            playerLayer.setCell((int)playerPosition.x,(int)playerPosition.y,playerCell);
-        return false;
-=======
         // get the last player position
         int x, y;
         x = (int) playerPosition.x;
@@ -264,7 +220,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         // update player position
         playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerCell);
         return true;
->>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/RoboRallyBeta.java
     }
 
 
