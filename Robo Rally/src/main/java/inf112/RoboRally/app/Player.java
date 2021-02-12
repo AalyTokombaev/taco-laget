@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.Objects.Flag;
 
 import javax.swing.text.Position;
 
@@ -13,11 +14,11 @@ public class Player {
     private TiledMapTileLayer.Cell dead;
     private TiledMapTileLayer.Cell winning;
     private int flagsVisited;
-    private int healthPoits;
+    private int healthPoints;
     private int lifeTokens;
 
     public Player(Vector2 position, TextureRegion[][] portraits, int numFlags) {
-        healthPoits = 10;
+        healthPoints = 10;
         lifeTokens = 3;
 
         // 0 means that no flags have been visited
@@ -49,7 +50,7 @@ public class Player {
         state =  winning;
     }
 
-    public boolean vititFlag(Flag flag) {
+    public boolean visitFlag(Flag flag) {
         int id = flag.getId();
         if (id - flagsVisited == 1) {
             // you visited the correct flag

@@ -61,9 +61,11 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
 
+    int x,y;
 
     @Override
     public void create() {
+
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -142,14 +144,16 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+        x = (int) playerPosition.x;
+        y = (int) playerPosition.y;
+
         // make the player display ad dead
-        if (holeLayer.getCell((int)playerPosition.x,(int)playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
+        if (holeLayer.getCell(x,y) != null) {
+            playerLayer.setCell(x, y, playerDiedCell);
         }
         // make the player display as a winner 8)
-        if(flagLayer.getCell((int)playerPosition.x, (int)playerPosition.y) != null){
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
-
+        if(flagLayer.getCell(x, y) != null){
+            playerLayer.setCell(x,y, playerWonCell);
         }
         camera.update();
         renderer.setView(camera);
@@ -173,11 +177,10 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         return false;
     }
 
-
     @Override
     public boolean keyUp(int i) {
         // get the last player position
-        int x, y;
+        //int x, y;
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
 
