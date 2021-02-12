@@ -2,7 +2,7 @@
 
 ## Part-task 1:
 
-### Maria Lidsheim - Team leader
+### Maria Lidsheim - Team leader & Costumer contact
 * __Skills/experience:__ Have worked in teams before, and have a good
 overview of what needs to be done and when it should be done. Structured and experienced
 student.
@@ -85,7 +85,7 @@ for it to be successful.
   
 ### User-stories:
 * Showing a game-board:
-    * As a player I wish to see the gameboard and place my game piece.
+    * As a player I wish to place my game piece on the board.
     * Acceptance Criteria:
         * I see the board with tiles on.
         * There are no players on the board, if I haven’t placed any yet.
@@ -129,7 +129,6 @@ for it to be successful.
     * As a robot I want to win when I visit all three flags, and get minor 
       reminders every time I visit one flag.
     * Acceptance Criteria:
-        * When I visit a flag, something will tell me I have a win
         * When I visit several flags, something will tell me I have won
     * Tasks:
         * Create a method or class that lets the robot change an attribute or 
