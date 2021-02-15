@@ -1,14 +1,11 @@
-package inf112.RoboRally.app;
+package inf112.RoboRally.app.Objects;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.Objects.Flag;
 
-import javax.swing.text.Position;
-
-public class Player {
+public class Player implements IPlayer {
+    private final Vector2 position;
+    private final int numFlags;
     private TiledMapTileLayer.Cell state;
     private TiledMapTileLayer.Cell alive;
     private TiledMapTileLayer.Cell dead;
@@ -17,13 +14,10 @@ public class Player {
     private int healthPoints;
     private int lifeTokens;
 
-    public Player(Vector2 position, TextureRegion[][] portraits, int numFlags) {
-        healthPoints = 10;
-        lifeTokens = 3;
+    public Player(Vector2 position, int numFlags, int healthPoints, int lifeTokens) {
+        /*
 
-        // 0 means that no flags have been visited
-        flagsVisited = 0;
-
+        TextureRegion[][] portraits,
         alive = new TiledMapTileLayer.Cell();
         dead = new TiledMapTileLayer.Cell();
         winning = new TiledMapTileLayer.Cell();
@@ -32,24 +26,62 @@ public class Player {
         dead.setTile(new StaticTiledMapTile(portraits[0][1]));
         winning.setTile(new StaticTiledMapTile(portraits[0][2]));
 
-        state = alive;
+        *
+        *
+        *
+        *
+        * */
+        this.healthPoints = healthPoints;
+        this.lifeTokens = lifeTokens;
+        this.state = state;
+        this.numFlags = numFlags;
+        this.position = position;
+
+        // 0 means that no flags have been visited
+        flagsVisited = 0;
+
+        //TODO take a look at how this systems works, do we need to create three cells here?
 
     }
 
+    /*
+    @Override
     public void setDead() {
         state = dead;
     }
 
 
+    @Override
     public void setAlive() {
         state = alive;
     }
 
 
+    @Override
     public void setWinning() {
         state =  winning;
     }
+*/
+    @Override
+    public void setDamage(int x){
+        healthPoints = healthPoints - x;
+    }
 
+    @Override
+    public TiledMapTileLayer.Cell getState(){
+        if (lifeTokens == 0){
+            return dead;
+        }else{
+            return alive;
+        }
+    }
+
+    @Override
+    public int getHp(){
+        return healthPoints;
+    }
+
+    @Override
     public boolean visitFlag(Flag flag) {
         int id = flag.getId();
         if (id - flagsVisited == 1) {
@@ -59,5 +91,9 @@ public class Player {
         }
         // You have not visited the correct flag
         return false;
+    }
+    @Override
+    public Vector2 getPosition(){
+        return position;
     }
 }
