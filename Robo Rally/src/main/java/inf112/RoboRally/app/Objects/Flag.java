@@ -13,12 +13,12 @@ public class Flag implements IObjects {
 
     @Override
     public Vector2 getPos(){
-        return pos;
+        return this.pos;
     }
 
     @Override
     public int getId(){
-        return id;
+        return this.id;
     }
 
 }

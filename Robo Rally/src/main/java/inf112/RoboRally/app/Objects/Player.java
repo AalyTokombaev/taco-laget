@@ -78,7 +78,7 @@ public class Player implements IPlayer {
 
     @Override
     public int getHp(){
-        return healthPoints;
+        return this.healthPoints;
     }
 
     @Override
@@ -94,6 +94,6 @@ public class Player implements IPlayer {
     }
     @Override
     public Vector2 getPosition(){
-        return position;
+        return this.position;
     }
 }
