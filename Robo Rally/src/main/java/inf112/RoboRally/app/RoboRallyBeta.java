@@ -69,11 +69,11 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         x = 0;
         y = 0;
 
-        /*
+
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
-        */
+
         loader = new TmxMapLoader();
 
         // load vault map
@@ -163,14 +163,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         if (flagLayer.getCell(x, y) != null) {
             playerLayer.setCell(x, y, playerWonCell);
         }
-        // make the player display as dead
-        if (holeLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
-        }
-        // make the player display as a winner 8)
-        if (flagLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
-        }
+
         camera.update();
         renderer.setView(camera);
         renderer.render();
