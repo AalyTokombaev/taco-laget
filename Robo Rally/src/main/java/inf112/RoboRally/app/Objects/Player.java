@@ -9,10 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends TiledMapTileLayer.Cell implements IPlayer {
     private final Vector2 position;
     private int numFlags;
-    private TiledMapTileLayer.Cell state;
-    private final TiledMapTileLayer.Cell alive;
-    private final TiledMapTileLayer.Cell dead;
-    private final TiledMapTileLayer.Cell winning;
+    public TiledMapTileLayer.Cell state, alive, dead, winning;
     private int flagsVisited;
     private int healthPoints;
     private int lifeTokens;
@@ -39,8 +36,6 @@ public class Player extends TiledMapTileLayer.Cell implements IPlayer {
         dead.setTile(new StaticTiledMapTile(portraits[0][1]));
         winning.setTile(new StaticTiledMapTile(portraits[0][2]));
 
-
-
         // 0 means that no flags have been visited
         flagsVisited = 0;
 
@@ -65,22 +60,24 @@ public class Player extends TiledMapTileLayer.Cell implements IPlayer {
 
     @Override
     public void setDamage(int x){
-        healthPoints = this.healthPoints - x;
-        if(healthPoints == 0){
+        healthPoints = healthPoints - x;
+        System.out.println(healthPoints);
+        if(healthPoints <= 0){
             lifeTokens = lifeTokens - 1;
             healthPoints = 10;
-            setAlive();
+            state = alive;
         }
+        if(lifeTokens <= 0){
+            state = dead;
+        }else{
+            state = alive;
+        }
+
     }
 
     @Override
     public TiledMapTileLayer.Cell getState(){
-        if (lifeTokens <= 0){
-            return dead;
-        }else if(numFlags >= 5){
-            return winning;
-        }
-        return alive;
+        return state;
     }
 
     @Override
@@ -114,7 +111,7 @@ public class Player extends TiledMapTileLayer.Cell implements IPlayer {
     }
 
     public void setScore(int x){
-        numFlags = numFlags +1;
+        numFlags = numFlags + x;
 
     }
     public int getScore(){

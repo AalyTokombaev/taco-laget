@@ -20,7 +20,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
     public Board board;
-    private TiledMap map;
 
     private Player player;
     private OrthogonalTiledMapRenderer renderer;
@@ -40,7 +39,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         font.setColor(Color.RED);
 
         board = new Board("Vault.tmx");
-        map = board.makeMap();
+        TiledMap map = board.makeMap();
 
         player = new Player("P1",new Vector2 (x,y), 0,10,3) ;
         playerPosition = player.getPosition();
@@ -80,19 +79,19 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
-
+        board.playerLayer.setCell(x, y, player.getState());
         if (board.holeLayer.getCell(x, y) != null) {
-            player.setDamage(10);
-            //player.setDead();
+            player.setDamage(1);
             //board.playerLayer.setCell(x, y, player.getState());
         }
         if (board.flagLayer.getCell(x, y) != null) {
             player.setScore(1);
-            //player.setWinning();
             //board.playerLayer.setCell(x, y, player.getState());
+        }if(player.getScore() >= 5){
+            player.setWinning();
         }
 
-        board.playerLayer.setCell(x, y, player.getState());
+
 
 
         camera.update();
@@ -122,7 +121,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     public boolean keyUp(int i) {
         // get the last player position
         playerPosition = player.getPosition();
-
         // update player position accordingly
         if (i == Input.Keys.UP) {
             player.setPosition(0, 1);
