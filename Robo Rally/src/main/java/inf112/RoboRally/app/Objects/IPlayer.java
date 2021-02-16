@@ -13,4 +13,12 @@ public interface IPlayer {
     Vector2 getPosition();
 
     void setDamage(int x);
+
+    void setPosition(int x, int y);
+
+    void setAlive();
+
+    void setDead();
+
+    void setWinning();
 }
