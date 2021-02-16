@@ -75,7 +75,10 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        //flytter disse ut for mer oversikt?
+        /*TODO This needs to be done differently
+        * Maybe move the check out of render? :s
+        *
+        * */
 
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
