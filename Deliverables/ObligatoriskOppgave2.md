@@ -32,7 +32,7 @@
 ## Commiting code
 * There are two main programmers, and they often stream for everyone to see when working on it so everyone takes part in the code
 
-# Maximum three improvements for this sprint:
+## Maximum three improvements for this sprint:
 * Set clearer part-goals
 * Everyone must get better at checking the projectboard everytime we start something new
 * Get better at writing tests
