@@ -7,129 +7,52 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.Objects.Board;
+import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Objects.gameMech;
 
 
 public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
-    private TiledMap map;
-    private TiledMapTileLayer boardLayer;
-    private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer flagLayer;
-    private TiledMapTileLayer holeLayer;
-
-    private TiledMapTileLayer wrenchLayer;
-
-    private TiledMapTileLayer upperWallLayer;
-    private TiledMapTileLayer lowerWallLayer;
-    private TiledMapTileLayer rightWallLayer;
-    private TiledMapTileLayer leftWallLayer;
-
-    private TiledMapTileLayer yellowConveyorRight;
-    private TiledMapTileLayer yellowConveyorLeft;
-    private TiledMapTileLayer yellowConveyorUp;
-    private TiledMapTileLayer yellowConveyorDown;
-
-    // Clockwise rotating yellow conveyors
-    private TiledMapTileLayer yellowConveyorClockWiseRight;
-    private TiledMapTileLayer yellowConveyorClockWiseLeft;
-    private TiledMapTileLayer yellowConveyorClockWiseUp;
-    private TiledMapTileLayer yellowConveyorClockWiseDown;
-
-    // Counter clockwise rotating yellow conveyors
-    private TiledMapTileLayer yellowConveyorCClockwiseUpLeft;
-    private TiledMapTileLayer yellowConveyorCClockwiseLeftDown;
-    private TiledMapTileLayer yellowConveyorCClockwiseDownRight;
-    private TiledMapTileLayer yellowConveyorCClockwiseRightUp;
-
+    public Board board;
+    public gameMech game;
+    //TODO should player med moved out
+    public Player player;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private TmxMapLoader loader;
-
-    private Vector2 playerPosition;
-    private TiledMapTileLayer.Cell playerCell;
-    private TiledMapTileLayer.Cell playerWonCell;
-    private TiledMapTileLayer.Cell playerDiedCell;
-
+    public Vector2 playerPosition;
     private int x,y;
+
 
     @Override
     public void create() {
         //Start-pos for player
         x = 0;
         y = 0;
-
-        /*
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
-        */
-        loader = new TmxMapLoader();
 
-        // load vault map
-        map = loader.load("Vault.tmx");
+        board = new Board("Vault.tmx");
+        TiledMap map = board.makeMap();
 
-        // get the lower layers of the map
-        boardLayer = (TiledMapTileLayer) map.getLayers().get("Board");
-        playerLayer = (TiledMapTileLayer) map.getLayers().get("Player");
-        flagLayer = (TiledMapTileLayer) map.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
+        //TODO
+        player = new Player("P1",new Vector2(x,y),0);
+        playerPosition = player.getPosition();
+        board.playerLayer.setCell(x,y,player.getState());
+        game = new gameMech();
 
-
-        // there are tons of conveyors, load the u/d/l/r conveyors
-        yellowConveyorRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRight");
-        yellowConveyorLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorLeft");
-        yellowConveyorUp = (TiledMapTileLayer) map.getLayers().get("ConveyorUp");
-        yellowConveyorDown = (TiledMapTileLayer) map.getLayers().get("ConveyorDown");
-
-
-        // load the clockwise conveyor
-        yellowConveyorClockWiseRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpRight");
-        yellowConveyorClockWiseLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownLeft");
-        yellowConveyorClockWiseUp = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftUp");
-        yellowConveyorClockWiseDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightDown");
-
-
-        // load the counter clockwise rotations
-        yellowConveyorCClockwiseUpLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpLeft");
-        yellowConveyorCClockwiseLeftDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftDown");
-        yellowConveyorCClockwiseDownRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownRight");
-        yellowConveyorCClockwiseRightUp = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightUp");
-
-        // load player textures and split them
-        Texture texture = new Texture("player.png");
-        TextureRegion[][] portraits = TextureRegion.split(texture, 300, 300);
-
-
-        // initialize player cells
-        playerPosition = new Vector2(1, 1);
-        playerCell = new TiledMapTileLayer.Cell();
-        playerWonCell = new TiledMapTileLayer.Cell();
-        playerDiedCell = new TiledMapTileLayer.Cell();
-
-        // set the appropriate textures for player state
-        playerCell.setTile(new StaticTiledMapTile(portraits[0][0]));
-        playerDiedCell.setTile(new StaticTiledMapTile(portraits[0][1]));
-        playerWonCell.setTile(new StaticTiledMapTile(portraits[0][2]));
-
-        playerLayer.setCell(x,y,playerCell);
-        playerPosition = new Vector2(x,y);
         // camera setup
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 12);
         camera.position.x = 6F; // sentrerer camera
         camera.update();
-
 
         // render setup
         float size = (float) 1.0 / 300.0f;
@@ -152,29 +75,15 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        //flytter disse ut for mer oversikt?
-        x = (int) playerPosition.x;
-        y = (int) playerPosition.y;
-
-
-        if (holeLayer.getCell(x, y) != null) {
-            playerLayer.setCell(x, y, playerDiedCell);
-        }
-        if (flagLayer.getCell(x, y) != null) {
-            playerLayer.setCell(x, y, playerWonCell);
-        }
-        // make the player display as dead
-        if (holeLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerDiedCell);
-        }
-        // make the player display as a winner 8)
-        if (flagLayer.getCell((int) playerPosition.x, (int) playerPosition.y) != null) {
-            playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerWonCell);
-        }
+        /*TODO This needs to be done differently
+         * Maybe move the check out of render? :s
+         *
+         * */
+        batch.begin();
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
+        batch.end();
     }
 
     @Override
@@ -194,63 +103,33 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         return false;
     }
 
-
     @Override
     public boolean keyUp(int i) {
         // get the last player position
-        int x, y;
-        x = (int) playerPosition.x;
-        y = (int) playerPosition.y;
-
+        playerPosition = player.getPosition();
         // update player position accordingly
+        System.out.println(i);
         if (i == Input.Keys.UP) {
-            playerPosition.add(0, 1);
+            player.setPosition(0, 1);
         }
         if (i == Input.Keys.DOWN) {
-            playerPosition.add(0, -1);
+            player.setPosition(0, -1);
         }
         if (i == Input.Keys.RIGHT) {
-            playerPosition.add(1, 0);
+            player.setPosition(1, 0);
         }
         if (i == Input.Keys.LEFT) {
-            playerPosition.add(-1, 0);
+            player.setPosition(-1, 0);
         }
         // set the last player position to null
-        playerLayer.setCell(x, y, null);
+        board.playerLayer.setCell(x, y, null);
+        //calls the game-object
+        player = game.Action(board,player);
+        x = (int) playerPosition.x;
+        y = (int) playerPosition.y;
         // update player position
-        playerLayer.setCell((int) playerPosition.x, (int) playerPosition.y, playerCell);
+        board.playerLayer.setCell(x, y, player.getState());
         return true;
-    }
-
-
-    @Override
-    public boolean keyTyped(char c) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int i, int i1, int i2) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int i, int i1) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int i) {
-        return false;
     }
 
 }
