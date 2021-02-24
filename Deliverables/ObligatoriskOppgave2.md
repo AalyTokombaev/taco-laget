@@ -1,35 +1,41 @@
 # Deloppgave 1:
-Hvordan fungerer rollene i teamet? 
-* Ganske flytende
-* Arild(regelholder) fungerer veldig bra, har alt vit renger av tekniske detaljer
-* Både Tore og Alex progger en del på branchen, senior developer 
-* Anders ikke fornøyd med rollen sin, har ikke helt skjønt hva QA/tester går ut på 
-* Viktig at vi tester og at testene passerer før vi pusher til main
-* Junior og senior dev diskuterer implementasjoenen mye og finner de beste løsningene
-* Teamlead setter krav og kaller inn til møter, og passer på progresjon
-* Teamlead bør gjøre seg mer kjent med prosjekt tavla
-* QA skriver issues på manglende funksjonalitet
+## How does the roles in the team work? 
+* Some of the roles sort of mix into eachother, and are done by more than one person
+* Arild(rulekeeper) works very good. He has the answe to all we need of technical information about the game
+* Both Alex and Tore program a lot of code to the branch. It works good that Tore lets Alex go over the code before it is pushed further
+* Anders is not completely satisfied with his role, hasn't really come to an understanding of what a QA/tester actually do, 
+  we have talked more about it and he will start with manually testing everything that can be manually tested.
+* It is important that we test, and that the tests passes before they are pushed to main
+* Junior and senior developers discusses the implementations and finds the best solutions
+* Teamlead sets requirements og call for meetings, and looks after the progression.
+* Teamlead should come a bit more terms with the project board
+* QA writes issues to missing functionality
 
-# Prosjektmetodikk, gode valg, hva kan gjøres bedre?
-* Dynamikke fungerer bra, greier å snakke sammen og blir enige
-* Har god kommunikasjon, møter til møtene, har møter utenfor obligatorisk undervisning
-* Bruker Discord kanaler mye
-* Det fungerer bra med to som har mest med koding å gjøre, men om noen ser en bedre løsning, sier de ifra
-* Har klart å bruke Kanban, bruker projectboardet flittig. Bruken av boardet kan forbedres
-* Rutine på å gå inn å se sjekke hva som blir gjort
-
-# Commits av kode
-* Vi har to stykker som hovedsaklig programmerer, og de streamer ofte mens 
-
-# Maks tre forbedringspunkter:
-* Sette tydeligere delmål
-* Alle må bli flinkere på å bruke project board og sjekke hver gang vi starter på noe
-* Bli flinkere på å skrive tester
-
-Merge everything to dev, before merging to main so to see if anything went wrong. 
+## What does the roles mean to us?
+* Team lead sees everything through and makes sure everything is done when it should be done. Sets meetings and lets people know
+* Costumer contact asks TA if there are something wrong or if they need help and explains about the project when needed
+* Senior and Junior developer mainly takes care of the code, and help eachother to come up with the best solutions
+* QA/tester has a responsibility to makes the tests are made and that they work and tell people they should test things if he don't have time himself
+* Rulekeeper knows everything about the game and can answer everything the rest of the team wonders about rules and the way to play the game.
+* We do not need any more roles atm, as we think the roles we have now fills all the holes we would need to fix.
 
 
+## Project methodology, good choices, what can be done better?
+* The dynamic is good, we talk a lot and agree on everything
+* We have good communication, show up to the meetings, and have several meetings outside of the mandatory ones.
+* We use the Discord-channels a lot
+* It works with the fact that only two people has main control over the code, and if someone sees a better solution they let them know
+* We have managed to use Kanban and use the projectboard. The use of the projectboard can still improve though
+* Everyone should get a routine to go in and check and move cards when starting or completing tasks. 
+* Something new we want to try is to merge everything into the dev branch, before merging it into main so to see that nothing went wrong
 
+## Commiting code
+* There are two main programmers, and they often stream for everyone to see when working on it so everyone takes part in the code
+
+# Maximum three improvements for this sprint:
+* Set clearer part-goals
+* Everyone must get better at checking the projectboard everytime we start something new
+* Get better at writing tests
 
 
 # User stories:
