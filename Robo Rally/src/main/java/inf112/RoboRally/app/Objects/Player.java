@@ -27,6 +27,10 @@ public class Player  {
         flagsVisited = 0;
     }
 
+    public int getLifeTokens() {
+        return lifeTokens;
+    }
+
     public void setDamage(int x){
         healthPoints = healthPoints - x;
         //System.out.println(healthPoints);
