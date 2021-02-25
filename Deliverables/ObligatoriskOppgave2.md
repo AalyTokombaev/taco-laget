@@ -1,7 +1,7 @@
 # Deloppgave 1:
 ## How does the roles in the team work? 
 * Some of the roles sort of mix into eachother, and are done by more than one person
-* Arild(rulekeeper) works very good. He has the answe to all we need of technical information about the game
+* Arild(rulekeeper) works very good. He has the answer to all we need of technical information about the game
 * Both Alex and Tore program a lot of code to the branch. It works good that Tore lets Alex go over the code before it is pushed further
 * Anders is not completely satisfied with his role, hasn't really come to an understanding of what a QA/tester actually do, 
   we have talked more about it and he will start with manually testing everything that can be manually tested.
@@ -28,9 +28,12 @@
 * We have managed to use Kanban and use the projectboard. The use of the projectboard can still improve though
 * Everyone should get a routine to go in and check and move cards when starting or completing tasks. 
 * Something new we want to try is to merge everything into the dev branch, before merging it into main so to see that nothing went wrong
+* The group dynamic is good, we talk a lot and meet three times a week to catch up and see what needs to be done and so on
+* We had way more effective meetings when we could meet physical and hope we can continue doing that.
 
-## Commiting code
+## Committing code
 * There are two main programmers, and they often stream for everyone to see when working on it so everyone takes part in the code
+* Because of this senior and junior developers have a lot more commits than the rest of the group as they are responsible for the code going in and for choosing the best solutions represented by the group
 
 ## Maximum three improvements for this sprint:
 * Set clearer part-goals
@@ -78,5 +81,6 @@
         * Let the player choose what order to put the cards in
         * Make the robot what the card shows
     
+## We chose to focus on getting done everything that has to do with cards. In order to do this the best way we had to down-prioritize the mvp about being able to play multiplayer.
 
         
