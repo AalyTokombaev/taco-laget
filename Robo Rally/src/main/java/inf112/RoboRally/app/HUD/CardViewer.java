@@ -17,6 +17,7 @@ public class CardViewer {
     private Player player;
     private Stage stage;
     private Viewport viewport;
+    // Potential boolean variables in order for a player to pick 5/x cards to playerDeck
     private boolean first, second, third, fourth, fifth, sixth, seventh, eighth, ninth;
     private OrthographicCamera cam;
 
@@ -24,8 +25,9 @@ public class CardViewer {
         cam = new OrthographicCamera();
         viewport = new FitViewport(15, 15, cam);
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
-        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setInputProcessor(stage); // let the stage take clickable inputs (?)
 
+        // Create tables to set their positions (x,y)
         Table table1 = new Table();
         table1.left().bottom();
         Table table2 = new Table();
@@ -45,6 +47,7 @@ public class CardViewer {
         Table table9 = new Table();
         table7.left().bottom();
 
+        // Create containers (tables) to make the contents FIT the other tables
         Table container1 = new Table();
         Table container2 = new Table();
         Table container3 = new Table();
@@ -55,6 +58,7 @@ public class CardViewer {
         Table container8 = new Table();
         Table container9 = new Table();
 
+        // Load the textures of the move cards in the game (with fixed priority number :s)
         Texture move1 = new Texture("Move 1.jpg");
         Texture move2 = new Texture("Move 2.jpg");
         Texture move3 = new Texture("Move 3.jpg");
@@ -63,6 +67,7 @@ public class CardViewer {
         Texture rotateRight = new Texture("RotateRight.jpg");
         Texture rotateLeft = new Texture("RotateLeft.jpg");
 
+        // Create images
         Image move1Image = new Image(move1);
         Image move2Image = new Image(move2);
         Image move3Image = new Image(move3);
@@ -71,6 +76,7 @@ public class CardViewer {
         Image rotateRightImage = new Image(rotateRight);
         Image rotateLeftImage = new Image(rotateLeft);
 
+        // Encapsulate images in containers
         container1.addActor(move1Image);
         container2.addActor(move2Image);
         container3.addActor(move3Image);
@@ -79,22 +85,16 @@ public class CardViewer {
         container6.addActor(rotateRightImage);
         container7.addActor(rotateLeftImage);
 
-        move1Image.setSize(1.5f,3f);
-        move2Image.setSize(1.5f,3f);
-        move3Image.setSize(1.5f,3f);
-        backUpImage.setSize(1.5f,3f);
-        uTurnImage.setSize(1.5f,3f);
-        rotateRightImage.setSize(1.5f,3f);
-        rotateLeftImage.setSize(1.5f,3f);
+        // Downscale massive images (resizing to fit)
+        move1Image.setSize(1.5f, 3f);
+        move2Image.setSize(1.5f, 3f);
+        move3Image.setSize(1.5f, 3f);
+        backUpImage.setSize(1.5f, 3f);
+        uTurnImage.setSize(1.5f, 3f);
+        rotateRightImage.setSize(1.5f, 3f);
+        rotateLeftImage.setSize(1.5f, 3f);
 
-        move1Image.addListener(new ClickListener());
-        move2Image.addListener(new ClickListener());
-        move3Image.addListener(new ClickListener());
-        backUpImage.addListener(new ClickListener());
-        uTurnImage.addListener(new ClickListener());
-        rotateRightImage.addListener(new ClickListener());
-        rotateLeftImage.addListener(new ClickListener());
-
+        // Add containers to table
         table1.add(container1).width(1.5f).height(3f);
         table2.add(container2).width(1.5f).height(3f);
         table3.add(container3).width(1.5f).height(3f);
@@ -103,7 +103,7 @@ public class CardViewer {
         table6.add(container6).width(1.5f).height(3f);
         table7.add(container7).width(1.5f).height(3f);
 
-
+        // Set table positions to correctly align encapsulated images
         table1.setPosition(0f, 12f);
         table2.setPosition(1.5f, 12f);
         table3.setPosition(3f, 12f);
@@ -114,6 +114,7 @@ public class CardViewer {
         table8.setPosition(10.5f, 12f);
         table9.setPosition(12f, 12f);
 
+        // Set debug-mode ON to reveal true gridlines of tables (outer red lines showing table positioning)
         table1.setDebug(true);
         table2.setDebug(true);
         table3.setDebug(true);
@@ -124,6 +125,7 @@ public class CardViewer {
         table8.setDebug(true);
         table9.setDebug(true);
 
+        // Add actors to stage to enable inputProcessor to register clicks (?)
         stage.addActor(table1);
         stage.addActor(table2);
         stage.addActor(table3);
@@ -133,6 +135,15 @@ public class CardViewer {
         stage.addActor(table7);
         stage.addActor(table8);
         stage.addActor(table9);
+
+        // ClickListeners for future functionality
+        move1Image.addListener(new ClickListener());
+        move2Image.addListener(new ClickListener());
+        move3Image.addListener(new ClickListener());
+        backUpImage.addListener(new ClickListener());
+        uTurnImage.addListener(new ClickListener());
+        rotateRightImage.addListener(new ClickListener());
+        rotateLeftImage.addListener(new ClickListener());
 
 
         /**
