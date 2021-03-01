@@ -95,5 +95,15 @@ public class Player  {
         return numFlags;
     }
 
+    public boolean isAlive(){
+        if (lifeTokens <= 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
+    public void repair(){
+        setHP(10);
+    }
 }
