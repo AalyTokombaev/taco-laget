@@ -47,6 +47,16 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/assets/</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${basedir}/src/src/assets/</directory>
+      </testResource>
+    </testResources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -90,15 +100,5 @@
         </plugin>
       </plugins>
     </pluginManagement>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/assets/</directory>
-      </resource>
-    </resources>
-    <testResources>
-      <testResource>
-        <directory>${basedir}/src/assets/</directory>
-      </testResource>
-    </testResources>
   </build>
 </project>
