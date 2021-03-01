@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Objects.Player;
@@ -27,12 +26,35 @@ public class CardViewer {
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         Gdx.input.setInputProcessor(stage);
 
-        Table table = new Table();
-        table.left().bottom();
         Table table1 = new Table();
         table1.left().bottom();
-        Table container = new Table();
+        Table table2 = new Table();
+        table2.left().bottom();
+        Table table3 = new Table();
+        table3.left().bottom();
+        Table table4 = new Table();
+        table4.left().bottom();
+        Table table5 = new Table();
+        table5.left().bottom();
+        Table table6 = new Table();
+        table6.left().bottom();
+        Table table7 = new Table();
+        table7.left().bottom();
+        Table table8 = new Table();
+        table7.left().bottom();
+        Table table9 = new Table();
+        table7.left().bottom();
+
         Table container1 = new Table();
+        Table container2 = new Table();
+        Table container3 = new Table();
+        Table container4 = new Table();
+        Table container5 = new Table();
+        Table container6 = new Table();
+        Table container7 = new Table();
+        Table container8 = new Table();
+        Table container9 = new Table();
+
         Texture move1 = new Texture("Move 1.jpg");
         Texture move2 = new Texture("Move 2.jpg");
         Texture move3 = new Texture("Move 3.jpg");
@@ -40,6 +62,7 @@ public class CardViewer {
         Texture uTurn = new Texture("U-Turn.jpg");
         Texture rotateRight = new Texture("RotateRight.jpg");
         Texture rotateLeft = new Texture("RotateLeft.jpg");
+
         Image move1Image = new Image(move1);
         Image move2Image = new Image(move2);
         Image move3Image = new Image(move3);
@@ -47,32 +70,69 @@ public class CardViewer {
         Image uTurnImage = new Image(uTurn);
         Image rotateRightImage = new Image(rotateRight);
         Image rotateLeftImage = new Image(rotateLeft);
-        container.addActor(move2Image);
+
         container1.addActor(move1Image);
-        move2Image.setSize(1.5f,3f);
+        container2.addActor(move2Image);
+        container3.addActor(move3Image);
+        container4.addActor(backUpImage);
+        container5.addActor(uTurnImage);
+        container6.addActor(rotateRightImage);
+        container7.addActor(rotateLeftImage);
+
         move1Image.setSize(1.5f,3f);
+        move2Image.setSize(1.5f,3f);
+        move3Image.setSize(1.5f,3f);
+        backUpImage.setSize(1.5f,3f);
+        uTurnImage.setSize(1.5f,3f);
+        rotateRightImage.setSize(1.5f,3f);
+        rotateLeftImage.setSize(1.5f,3f);
+
+        move1Image.addListener(new ClickListener());
         move2Image.addListener(new ClickListener());
-
-
-        table.add(container).width(1.5f).height(3f);
+        move3Image.addListener(new ClickListener());
+        backUpImage.addListener(new ClickListener());
+        uTurnImage.addListener(new ClickListener());
+        rotateRightImage.addListener(new ClickListener());
+        rotateLeftImage.addListener(new ClickListener());
 
         table1.add(container1).width(1.5f).height(3f);
+        table2.add(container2).width(1.5f).height(3f);
+        table3.add(container3).width(1.5f).height(3f);
+        table4.add(container4).width(1.5f).height(3f);
+        table5.add(container5).width(1.5f).height(3f);
+        table6.add(container6).width(1.5f).height(3f);
+        table7.add(container7).width(1.5f).height(3f);
 
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
-        table.add().size(1.5f, 3f);
 
-        table1.setPosition(1.5f, 12f);
-        table.setPosition(0f, 12f);
+        table1.setPosition(0f, 12f);
+        table2.setPosition(1.5f, 12f);
+        table3.setPosition(3f, 12f);
+        table4.setPosition(4.5f, 12f);
+        table5.setPosition(6f, 12f);
+        table6.setPosition(7.5f, 12f);
+        table7.setPosition(9f, 12f);
+        table8.setPosition(10.5f, 12f);
+        table9.setPosition(12f, 12f);
+
         table1.setDebug(true);
-        table.setDebug(true);
-        stage.addActor(table);
+        table2.setDebug(true);
+        table3.setDebug(true);
+        table4.setDebug(true);
+        table5.setDebug(true);
+        table6.setDebug(true);
+        table7.setDebug(true);
+        table8.setDebug(true);
+        table9.setDebug(true);
+
         stage.addActor(table1);
+        stage.addActor(table2);
+        stage.addActor(table3);
+        stage.addActor(table4);
+        stage.addActor(table5);
+        stage.addActor(table6);
+        stage.addActor(table7);
+        stage.addActor(table8);
+        stage.addActor(table9);
 
 
         /**
@@ -81,6 +141,7 @@ public class CardViewer {
          }
          });
          */
+
     }
 
     public void draw() {
