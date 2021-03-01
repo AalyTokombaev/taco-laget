@@ -1,53 +1,51 @@
-ALL Program Cards in Priority order (low to high) are:
-
-10 U Turn
-20 U Turn
-30 U Turn
-40 U Turn
-50 U Turn
-60 U Turn
-70 Rotate Left
-80 Rotate Right
-90 Rotate Left
-100 Rotate Right
-110 Rotate Left
-120 Rotate Right
-130 Rotate Left
-140 Rotate Right
-150 Rotate Left
-160 Rotate Right
-170 Rotate Left
-180 Rotate Right
-190 Rotate Left
-200 Rotate Right
-210 Rotate Left
-220 Rotate Right
-230 Rotate Left
-240 Rotate Right
-250 Rotate Left
-260 Rotate Right
-270 Rotate Left
-280 Rotate Right
-290 Rotate Left
-300 Rotate Right
-310 Rotate Left
-320 Rotate Right
-330 Rotate Left
-340 Rotate Right
-350 Rotate Left
-360 Rotate Right
-370 Rotate Left
-380 Rotate Right
-390 Rotate Left
-400 Rotate Right
-410 Rotate Left
-420 Rotate Right
-430 Back Up
-440 Back Up
-450 Back Up
-460 Back Up
-470 Back Up
-480 Back Up
+10 U-Turn
+20 U-Turn
+30 U-Turn
+40 U-Turn
+50 U-Turn
+60 U-Turn
+70 RotateLeft
+80 RotateRight
+90 RotateLeft
+100 RotateRight
+110 RotateLeft
+120 RotateRight
+130 RotateLeft
+140 RotateRight
+150 RotateLeft
+160 RotateRight
+170 RotateLeft
+180 RotateRight
+190 RotateLeft
+200 RotateRight
+210 RotateLeft
+220 RotateRight
+230 RotateLeft
+240 RotateRight
+250 RotateLeft
+260 RotateRight
+270 RotateLeft
+280 RotateRight
+290 RotateLeft
+300 RotateRight
+310 RotateLeft
+320 RotateRight
+330 RotateLeft
+340 RotateRight
+350 RotateLeft
+360 RotateRight
+370 RotateLeft
+380 RotateRight
+390 RotateLeft
+400 RotateRight
+410 RotateLeft
+420 RotateRight
+430 Back-Up
+440 Back-Up
+450 Back-Up
+460 Back-Up
+470 Back-Up
+480 Back-Up
 490 Move 1
 500 Move 1
 510 Move 1
@@ -84,32 +82,3 @@ ALL Program Cards in Priority order (low to high) are:
 820 Move 3
 830 Move 3
 840 Move 3
-
-Option Cards
-
-Ablative Coat
-Abort Switch
-Brakes
-Circuit Breaker
-Conditional Program
-Crab Legs
-Double-Barreled Laser
-Dual Processor
-Extra Memory
-Fire Control
-Flywheel
-Fourth Gear
-Gyroscopic Stabilizer
-High-Powered Laser
-Mechanical Arm
-Mini Howitzer
-Power-Down Shield
-Pressor Beam
-Radio Control
-Ramming Gear
-Rear-Firing Laser
-Recompile
-Reverse Gear
-Scrambler
-Superior Archive
-Tractor Beam

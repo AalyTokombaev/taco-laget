@@ -1,10 +1,12 @@
 package inf112.RoboRally.app.Objects;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.Cards.PlayerDeck;
 
 public class Player  {
     final Vector2 position;
     public TiledMapTileLayer.Cell state;
+    private PlayerDeck deck;
     private int numFlags;
     private int flagsVisited;
     private int healthPoints;
