@@ -29,29 +29,50 @@ public class CardViewer {
 
         Table table = new Table();
         table.left().bottom();
+        Table table1 = new Table();
+        table1.left().bottom();
         Table container = new Table();
-        Table container2 = new Table();
-        Texture texture = new Texture("button.png");
-        Image buttonImage = new Image(texture);
-        container.addActor(buttonImage);
-        container2.addActor(buttonImage);
-        buttonImage.setSize(1.66666666667f,3f);
-        buttonImage.addListener(new ClickListener());
+        Table container1 = new Table();
+        Texture move1 = new Texture("Move 1.jpg");
+        Texture move2 = new Texture("Move 2.jpg");
+        Texture move3 = new Texture("Move 3.jpg");
+        Texture backUp = new Texture("Back-Up.jpg");
+        Texture uTurn = new Texture("U-Turn.jpg");
+        Texture rotateRight = new Texture("RotateRight.jpg");
+        Texture rotateLeft = new Texture("RotateLeft.jpg");
+        Image move1Image = new Image(move1);
+        Image move2Image = new Image(move2);
+        Image move3Image = new Image(move3);
+        Image backUpImage = new Image(backUp);
+        Image uTurnImage = new Image(uTurn);
+        Image rotateRightImage = new Image(rotateRight);
+        Image rotateLeftImage = new Image(rotateLeft);
+        container.addActor(move2Image);
+        container1.addActor(move1Image);
+        move2Image.setSize(1.5f,3f);
+        move1Image.setSize(1.5f,3f);
+        move2Image.addListener(new ClickListener());
 
-        table.add(container).width(1.66666666667f).height(3f);
-        table.add(container2).width(1.66666666667f).height(3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
-        table.add().size(1.66666666667f, 3f);
 
+        table.add(container).width(1.5f).height(3f);
+
+        table1.add(container1).width(1.5f).height(3f);
+
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+        table.add().size(1.5f, 3f);
+
+        table1.setPosition(1.5f, 12f);
         table.setPosition(0f, 12f);
+        table1.setDebug(true);
         table.setDebug(true);
         stage.addActor(table);
+        stage.addActor(table1);
 
 
         /**
