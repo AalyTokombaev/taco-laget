@@ -4,14 +4,22 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.RoboRally.app.HUD.CardViewer;
 import inf112.RoboRally.app.Objects.Board;
 import inf112.RoboRally.app.Objects.Player;
 import inf112.RoboRally.app.Objects.gameMech;
@@ -28,7 +36,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private OrthographicCamera camera;
     public Vector2 playerPosition;
     private int x,y;
-
+    private CardViewer cardViewer;
 
     @Override
     public void create() {
@@ -36,6 +44,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         x = 0;
         y = 0;
         batch = new SpriteBatch();
+        cardViewer = new CardViewer(batch);
         font = new BitmapFont();
         font.setColor(Color.RED);
 
@@ -50,7 +59,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
         // camera setup
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 12, 12);
+        camera.setToOrtho(false, 12, 15);
         camera.position.x = 6F; // sentrerer camera
         camera.update();
 
@@ -61,6 +70,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
         // take inputs
         Gdx.input.setInputProcessor(this);
+
 
     }
 
@@ -75,19 +85,22 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
+        cardViewer.draw();
+
         /*TODO This needs to be done differently
          * Maybe move the check out of render? :s
          *
          * */
-        batch.begin();
         camera.update();
         renderer.setView(camera);
         renderer.render();
-        batch.end();
+
     }
 
     @Override
     public void resize(int width, int height) {
+        cardViewer.resize(width,height);
+
     }
 
     @Override
