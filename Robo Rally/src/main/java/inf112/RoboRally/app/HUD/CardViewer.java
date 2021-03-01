@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Objects.Player;
@@ -28,12 +29,17 @@ public class CardViewer {
 
         Table table = new Table();
         table.left().bottom();
+        Table container = new Table();
+        Table container2 = new Table();
         Texture texture = new Texture("button.png");
         Image buttonImage = new Image(texture);
-
+        container.addActor(buttonImage);
+        container2.addActor(buttonImage);
+        buttonImage.setSize(1.66666666667f,3f);
         buttonImage.addListener(new ClickListener());
 
-        table.add(buttonImage).size(1.66666666667f, 3f);
+        table.add(container).width(1.66666666667f).height(3f);
+        table.add(container2).width(1.66666666667f).height(3f);
         table.add().size(1.66666666667f, 3f);
         table.add().size(1.66666666667f, 3f);
         table.add().size(1.66666666667f, 3f);
