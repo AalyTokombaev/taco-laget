@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Objects.Player;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class CardViewer {
@@ -119,37 +118,37 @@ public class CardViewer {
         container9.addActor(image9);
 
         // Downscale massive images (resizing to fit)
-        image1.setSize(1.5f, 3f);
-        image2.setSize(1.5f, 3f);
-        image3.setSize(1.5f, 3f);
-        image4.setSize(1.5f, 3f);
-        image5.setSize(1.5f, 3f);
-        image6.setSize(1.5f, 3f);
-        image7.setSize(1.5f, 3f);
-        image8.setSize(1.5f, 3f);
-        image9.setSize(1.5f, 3f);
+        image1.setSize(1.667f, 3f);
+        image2.setSize(1.667f, 3f);
+        image3.setSize(1.667f, 3f);
+        image4.setSize(1.667f, 3f);
+        image5.setSize(1.667f, 3f);
+        image6.setSize(1.667f, 3f);
+        image7.setSize(1.667f, 3f);
+        image8.setSize(1.667f, 3f);
+        image9.setSize(1.667f, 3f);
 
         // Add containers to table
-        table1.add(container1).width(1.5f).height(3f);
-        table2.add(container2).width(1.5f).height(3f);
-        table3.add(container3).width(1.5f).height(3f);
-        table4.add(container4).width(1.5f).height(3f);
-        table5.add(container5).width(1.5f).height(3f);
-        table6.add(container6).width(1.5f).height(3f);
-        table7.add(container7).width(1.5f).height(3f);
-        table8.add(container8).width(1.5f).height(3f);
-        table9.add(container9).width(1.5f).height(3f);
+        table1.add(container1).width(1.667f).height(3f);
+        table2.add(container2).width(1.667f).height(3f);
+        table3.add(container3).width(1.667f).height(3f);
+        table4.add(container4).width(1.667f).height(3f);
+        table5.add(container5).width(1.667f).height(3f);
+        table6.add(container6).width(1.667f).height(3f);
+        table7.add(container7).width(1.667f).height(3f);
+        table8.add(container8).width(1.667f).height(3f);
+        table9.add(container9).width(1.667f).height(3f);
 
         // Set table positions to correctly align encapsulated images
         table1.setPosition(0f, 12f);
-        table2.setPosition(1.5f, 12f);
-        table3.setPosition(3f, 12f);
-        table4.setPosition(4.5f, 12f);
-        table5.setPosition(6f, 12f);
-        table6.setPosition(7.5f, 12f);
-        table7.setPosition(9f, 12f);
-        table8.setPosition(10.5f, 12f);
-        table9.setPosition(12f, 12f);
+        table2.setPosition(1.66667f, 12f);
+        table3.setPosition(3.33333f, 12f);
+        table4.setPosition(5f, 12f);
+        table5.setPosition(6.66667f, 12f);
+        table6.setPosition(8.33333f, 12f);
+        table7.setPosition(10f, 12f);
+        table8.setPosition(11.66667f, 12f);
+        table9.setPosition(13.33333f, 12f);
 
         // Add actors to stage to enable inputProcessor to register clicks
         stage.addActor(table1);
