@@ -27,6 +27,7 @@ public class CardViewer {
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         Gdx.input.setInputProcessor(stage); // let the stage take clickable inputs (?)
 
+
         // Create tables to set their positions (x,y)
         Table table1 = new Table();
         table1.left().bottom();
@@ -114,16 +115,6 @@ public class CardViewer {
         table8.setPosition(10.5f, 12f);
         table9.setPosition(12f, 12f);
 
-        // Set debug-mode ON to reveal true gridlines of tables (outer red lines showing table positioning)
-        table1.setDebug(true);
-        table2.setDebug(true);
-        table3.setDebug(true);
-        table4.setDebug(true);
-        table5.setDebug(true);
-        table6.setDebug(true);
-        table7.setDebug(true);
-        table8.setDebug(true);
-        table9.setDebug(true);
 
         // Add actors to stage to enable inputProcessor to register clicks (?)
         stage.addActor(table1);
