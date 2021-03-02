@@ -1,9 +1,6 @@
 package inf112.RoboRally.app;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -69,7 +66,10 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         renderer.setView(camera);
 
         // take inputs
-        Gdx.input.setInputProcessor(this);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(this);
+        inputMultiplexer.addProcessor(cardViewer.getStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
 
     }
@@ -86,6 +86,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         cardViewer.draw();
+
 
         /*TODO This needs to be done differently
          * Maybe move the check out of render? :s

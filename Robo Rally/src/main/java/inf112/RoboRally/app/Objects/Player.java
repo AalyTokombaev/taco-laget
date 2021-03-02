@@ -1,11 +1,13 @@
 package inf112.RoboRally.app.Objects;
+
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.PlayerDeck;
 
-public class Player  {
+public class Player {
     final Vector2 position;
     public TiledMapTileLayer.Cell state;
+
     private PlayerDeck deck;
     private int numFlags;
     private int flagsVisited;
@@ -29,36 +31,32 @@ public class Player  {
         flagsVisited = 0;
     }
 
-    public int getLifeTokens() {
-        return lifeTokens;
-    }
-
-    public void setDamage(int x){
+    public void setDamage(int x) {
         healthPoints = healthPoints - x;
         //System.out.println(healthPoints);
-        if(healthPoints <= 0){
+        if (healthPoints <= 0) {
             lifeTokens = lifeTokens - 1;
             healthPoints = 10;
             System.out.println("you've lost 10 hp");
             state = states.alive();
         }
-        if(lifeTokens == 0){
+        if (lifeTokens == 0) {
             //TODO Add remove player/end player interaction, maybe its own class?
             state = states.dead();
-        }else{
+        } else {
             state = states.alive();
         }
     }
 
-    public TiledMapTileLayer.Cell getState(){
+    public TiledMapTileLayer.Cell getState() {
         return state;
     }
 
-    public void setHP(int hp){
+    public void setHP(int hp) {
         healthPoints = healthPoints + hp;
     }
 
-    public int getHp(){
+    public int getHp() {
         return healthPoints;
     }
 
@@ -73,31 +71,35 @@ public class Player  {
         // You have not visited the correct flag
         return false;
     }
-    public Vector2 getPosition(){
+
+    public PlayerDeck getDeck() {
+        return deck;
+    }
+
+    public Vector2 getPosition() {
         return position;
     }
 
-
-    public void setPosition(int x, int y){
-        position.add(x,y);
+    public void setPosition(int x, int y) {
+        position.add(x, y);
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setScore(int x){
+    public void setScore(int x) {
         numFlags = numFlags + x;
-        if (numFlags > 5){
+        if (numFlags > 5) {
             //TODO add something that registers the win
             state = states.win();
 
         }
 
     }
-    public int getScore(){
+
+    public int getScore() {
         return numFlags;
     }
-
 
 }
