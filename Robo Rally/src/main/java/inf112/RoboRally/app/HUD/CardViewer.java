@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -25,9 +26,11 @@ public class CardViewer {
         cam = new OrthographicCamera();
         viewport = new FitViewport(15, 15, cam);
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
-        Gdx.input.setInputProcessor(stage); // let the stage take clickable inputs (?)
+        buildMenu();
 
+    }
 
+    public void buildMenu(){
         // Create tables to set their positions (x,y)
         Table table1 = new Table();
         table1.left().bottom();
@@ -115,8 +118,7 @@ public class CardViewer {
         table8.setPosition(10.5f, 12f);
         table9.setPosition(12f, 12f);
 
-
-        // Add actors to stage to enable inputProcessor to register clicks (?)
+        // Add actors to stage to enable inputProcessor to register clicks
         stage.addActor(table1);
         stage.addActor(table2);
         stage.addActor(table3);
@@ -127,26 +129,53 @@ public class CardViewer {
         stage.addActor(table8);
         stage.addActor(table9);
 
-        // ClickListeners for future functionality
-        move1Image.addListener(new ClickListener());
-        move2Image.addListener(new ClickListener());
-        move3Image.addListener(new ClickListener());
-        backUpImage.addListener(new ClickListener());
-        uTurnImage.addListener(new ClickListener());
-        rotateRightImage.addListener(new ClickListener());
-        rotateLeftImage.addListener(new ClickListener());
-
-
-        /**
-         @Override public void clicked(InputEvent inputEvent, float x, float y) {
-         System.out.println("clicked");
-         }
-         });
-         */
-
+        // Add ClickListeners to register clicks inside tables
+        table1.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked1!");
+            }
+        });
+        move2Image.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked2!");
+            }
+        });
+        move3Image.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked3!");
+            }
+        });
+        backUpImage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked4!");
+            }
+        });
+        uTurnImage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked5!");
+            }
+        });
+        rotateRightImage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked6!");
+            }
+        });
+        rotateLeftImage.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("clicked7!");
+            }
+        });
     }
 
     public void draw() {
+        stage.act();
         stage.draw();
     }
 
