@@ -1,6 +1,5 @@
 package inf112.RoboRally.app.HUD;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +29,7 @@ public class CardViewer {
 
     }
 
-    public void buildMenu(){
+    public void buildMenu() {
         // Create tables to set their positions (x,y)
         Table table1 = new Table();
         table1.left().bottom();
@@ -47,9 +46,9 @@ public class CardViewer {
         Table table7 = new Table();
         table7.left().bottom();
         Table table8 = new Table();
-        table7.left().bottom();
+        table8.left().bottom();
         Table table9 = new Table();
-        table7.left().bottom();
+        table9.left().bottom();
 
         // Create containers (tables) to make the contents FIT the other tables
         Table container1 = new Table();
@@ -72,31 +71,37 @@ public class CardViewer {
         Texture rotateLeft = new Texture("RotateLeft.jpg");
 
         // Create images
-        Image move1Image = new Image(move1);
-        Image move2Image = new Image(move2);
-        Image move3Image = new Image(move3);
-        Image backUpImage = new Image(backUp);
-        Image uTurnImage = new Image(uTurn);
-        Image rotateRightImage = new Image(rotateRight);
-        Image rotateLeftImage = new Image(rotateLeft);
+        Image image1 = new Image(move1);
+        Image image2 = new Image(move2);
+        Image image3 = new Image(move3);
+        Image image4 = new Image(backUp);
+        Image image5 = new Image(uTurn);
+        Image image6 = new Image(rotateRight);
+        Image image7 = new Image(rotateLeft);
+        Image image8 = new Image(move1);
+        Image image9 = new Image(move2);
 
         // Encapsulate images in containers
-        container1.addActor(move1Image);
-        container2.addActor(move2Image);
-        container3.addActor(move3Image);
-        container4.addActor(backUpImage);
-        container5.addActor(uTurnImage);
-        container6.addActor(rotateRightImage);
-        container7.addActor(rotateLeftImage);
+        container1.addActor(image1);
+        container2.addActor(image2);
+        container3.addActor(image3);
+        container4.addActor(image4);
+        container5.addActor(image5);
+        container6.addActor(image6);
+        container7.addActor(image7);
+        container8.addActor(image8);
+        container9.addActor(image9);
 
         // Downscale massive images (resizing to fit)
-        move1Image.setSize(1.5f, 3f);
-        move2Image.setSize(1.5f, 3f);
-        move3Image.setSize(1.5f, 3f);
-        backUpImage.setSize(1.5f, 3f);
-        uTurnImage.setSize(1.5f, 3f);
-        rotateRightImage.setSize(1.5f, 3f);
-        rotateLeftImage.setSize(1.5f, 3f);
+        image1.setSize(1.5f, 3f);
+        image2.setSize(1.5f, 3f);
+        image3.setSize(1.5f, 3f);
+        image4.setSize(1.5f, 3f);
+        image5.setSize(1.5f, 3f);
+        image6.setSize(1.5f, 3f);
+        image7.setSize(1.5f, 3f);
+        image8.setSize(1.5f, 3f);
+        image9.setSize(1.5f, 3f);
 
         // Add containers to table
         table1.add(container1).width(1.5f).height(3f);
@@ -106,6 +111,8 @@ public class CardViewer {
         table5.add(container5).width(1.5f).height(3f);
         table6.add(container6).width(1.5f).height(3f);
         table7.add(container7).width(1.5f).height(3f);
+        table8.add(container8).width(1.5f).height(3f);
+        table9.add(container9).width(1.5f).height(3f);
 
         // Set table positions to correctly align encapsulated images
         table1.setPosition(0f, 12f);
@@ -129,47 +136,80 @@ public class CardViewer {
         stage.addActor(table8);
         stage.addActor(table9);
 
+        /**
+        table1.setDebug(true);
+        table2.setDebug(true);
+        table3.setDebug(true);
+        table4.setDebug(true);
+        table5.setDebug(true);
+        table6.setDebug(true);
+        table7.setDebug(true);
+        table8.setDebug(true);
+        table9.setDebug(true);
+         */
+
         // Add ClickListeners to register clicks inside tables
-        table1.addListener(new ClickListener(){
+        table1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                first = true;
                 System.out.println("clicked1!");
             }
         });
-        move2Image.addListener(new ClickListener(){
+        image2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                second = true;
                 System.out.println("clicked2!");
             }
         });
-        move3Image.addListener(new ClickListener(){
+        image3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                third = true;
                 System.out.println("clicked3!");
             }
         });
-        backUpImage.addListener(new ClickListener(){
+        image4.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                fourth = true;
                 System.out.println("clicked4!");
             }
         });
-        uTurnImage.addListener(new ClickListener(){
+        image5.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                fifth = true;
                 System.out.println("clicked5!");
             }
         });
-        rotateRightImage.addListener(new ClickListener(){
+        image6.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                sixth = true;
                 System.out.println("clicked6!");
             }
         });
-        rotateLeftImage.addListener(new ClickListener(){
+        image7.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                seventh = true;
                 System.out.println("clicked7!");
+            }
+        });
+        image8.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                eighth = true;
+                System.out.println("clicked8!");
+            }
+        });
+        image9.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ninth = true;
+                System.out.println("clicked9!");
             }
         });
     }
