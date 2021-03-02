@@ -12,6 +12,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Objects.Player;
 
+import java.util.HashMap;
+import java.util.Random;
+
 public class CardViewer {
 
     private Player player;
@@ -61,25 +64,48 @@ public class CardViewer {
         Table container8 = new Table();
         Table container9 = new Table();
 
-        // Load the textures of the move cards in the game (with fixed priority number :s)
-        Texture move1 = new Texture("Move 1.jpg");
-        Texture move2 = new Texture("Move 2.jpg");
-        Texture move3 = new Texture("Move 3.jpg");
-        Texture backUp = new Texture("Back-Up.jpg");
-        Texture uTurn = new Texture("U-Turn.jpg");
-        Texture rotateRight = new Texture("RotateRight.jpg");
-        Texture rotateLeft = new Texture("RotateLeft.jpg");
+        // Create and load random textures of the move cards in the game (Visual player deck)
+        Random rand = new Random();
+        int randomNumber1 = rand.nextInt(84);
+        int randomNumber2 = rand.nextInt(84);
+        int randomNumber3 = rand.nextInt(84);
+        int randomNumber4 = rand.nextInt(84);
+        int randomNumber5 = rand.nextInt(84);
+        int randomNumber6 = rand.nextInt(84);
+        int randomNumber7 = rand.nextInt(84);
+        int randomNumber8 = rand.nextInt(84);
+        int randomNumber9 = rand.nextInt(84);
+
+        String string1 = pickCard(randomNumber1);
+        String string2 = pickCard(randomNumber2);
+        String string3 = pickCard(randomNumber3);
+        String string4 = pickCard(randomNumber4);
+        String string5 = pickCard(randomNumber5);
+        String string6 = pickCard(randomNumber6);
+        String string7 = pickCard(randomNumber7);
+        String string8 = pickCard(randomNumber8);
+        String string9 = pickCard(randomNumber9);
+
+        Texture texture1 = new Texture(string1);
+        Texture texture2 = new Texture(string2);
+        Texture texture3 = new Texture(string3);
+        Texture texture4 = new Texture(string4);
+        Texture texture5 = new Texture(string5);
+        Texture texture6 = new Texture(string6);
+        Texture texture7 = new Texture(string7);
+        Texture texture8 = new Texture(string8);
+        Texture texture9 = new Texture(string9);
 
         // Create images
-        Image image1 = new Image(move1);
-        Image image2 = new Image(move2);
-        Image image3 = new Image(move3);
-        Image image4 = new Image(backUp);
-        Image image5 = new Image(uTurn);
-        Image image6 = new Image(rotateRight);
-        Image image7 = new Image(rotateLeft);
-        Image image8 = new Image(move1);
-        Image image9 = new Image(move2);
+        Image image1 = new Image(texture1);
+        Image image2 = new Image(texture2);
+        Image image3 = new Image(texture3);
+        Image image4 = new Image(texture4);
+        Image image5 = new Image(texture5);
+        Image image6 = new Image(texture6);
+        Image image7 = new Image(texture7);
+        Image image8 = new Image(texture8);
+        Image image9 = new Image(texture9);
 
         // Encapsulate images in containers
         container1.addActor(image1);
@@ -212,6 +238,24 @@ public class CardViewer {
                 System.out.println("clicked9!");
             }
         });
+    }
+
+    private String pickCard(int number){
+        if(18>=number){
+            return "Move 1.jpg";
+        }else if(30>=number&&number>18){
+            return "Move 2.jpg";
+        }else if(36>=number&&number>30){
+            return "Move 3.jpg";
+        }else if(54>=number&&number>36){
+            return "RotateRight.jpg";
+        }else if(72>=number&&number>54){
+            return "RotateLeft.jpg";
+        }else if(78>=number&&number>72){
+            return "Back-Up.jpg";
+        }else{
+            return "U-Turn.jpg";
+        }
     }
 
     public void draw() {
