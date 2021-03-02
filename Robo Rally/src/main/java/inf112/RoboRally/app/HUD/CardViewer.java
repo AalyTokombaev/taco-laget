@@ -10,7 +10,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.RoboRally.app.Cards.CardInitializer;
+import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Objects.Player;
+
+import java.io.IOException;
 
 public class CardViewer {
 
@@ -26,7 +30,6 @@ public class CardViewer {
         viewport = new FitViewport(15, 15, cam);
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         buildMenu();
-
     }
 
     public void buildMenu() {
@@ -62,9 +65,9 @@ public class CardViewer {
         Table container9 = new Table();
 
         // Load the textures of the move cards in the game (with fixed priority number :s)
-        Texture move1 = new Texture("Move 1.jpg");
-        Texture move2 = new Texture("Move 2.jpg");
-        Texture move3 = new Texture("Move 3.jpg");
+        Texture move1 = new Texture("Move-1.jpg");
+        Texture move2 = new Texture("Move-2.jpg");
+        Texture move3 = new Texture("Move-3.jpg");
         Texture backUp = new Texture("Back-Up.jpg");
         Texture uTurn = new Texture("U-Turn.jpg");
         Texture rotateRight = new Texture("RotateRight.jpg");
