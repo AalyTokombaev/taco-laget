@@ -1,84 +1,84 @@
-10 U-Turn
-20 U-Turn
-30 U-Turn
-40 U-Turn
-50 U-Turn
-60 U-Turn
-70 RotateLeft
-80 RotateRight
-90 RotateLeft
-100 RotateRight
-110 RotateLeft
-120 RotateRight
-130 RotateLeft
-140 RotateRight
-150 RotateLeft
-160 RotateRight
-170 RotateLeft
-180 RotateRight
-190 RotateLeft
-200 RotateRight
-210 RotateLeft
-220 RotateRight
-230 RotateLeft
-240 RotateRight
-250 RotateLeft
-260 RotateRight
-270 RotateLeft
-280 RotateRight
-290 RotateLeft
-300 RotateRight
-310 RotateLeft
-320 RotateRight
-330 RotateLeft
-340 RotateRight
-350 RotateLeft
-360 RotateRight
-370 RotateLeft
-380 RotateRight
-390 RotateLeft
-400 RotateRight
-410 RotateLeft
-420 RotateRight
-430 Back-Up
-440 Back-Up
-450 Back-Up
-460 Back-Up
-470 Back-Up
-480 Back-Up
-490 Move 1
-500 Move 1
-510 Move 1
-520 Move 1
-530 Move 1
-540 Move 1
-550 Move 1
-560 Move 1
-570 Move 1
-580 Move 1
-590 Move 1
-600 Move 1
-610 Move 1
-620 Move 1
-630 Move 1
-640 Move 1
-650 Move 1
-660 Move 1
-670 Move 2
-680 Move 2
-690 Move 2
-700 Move 2
-710 Move 2
-720 Move 2
-730 Move 2
-740 Move 2
-750 Move 2
-760 Move 2
-770 Move 2
-780 Move 2
-790 Move 3
-800 Move 3
-810 Move 3
-820 Move 3
-830 Move 3
-840 Move 3
+10 U-Turn 0
+20 U-Turn 0
+30 U-Turn 0
+40 U-Turn 0
+50 U-Turn 0
+60 U-Turn 0
+70 RotateLeft 0
+80 RotateRight 0
+90 RotateLeft 0
+100 RotateRight 0
+110 RotateLeft 0
+120 RotateRight 0
+130 RotateLeft 0
+140 RotateRight 0
+150 RotateLeft 0
+160 RotateRight 0
+170 RotateLeft 0
+180 RotateRight 0
+190 RotateLeft 0
+200 RotateRight 0
+210 RotateLeft 0
+220 RotateRight 0
+230 RotateLeft 0
+240 RotateRight 0
+250 RotateLeft 0
+260 RotateRight 0
+270 RotateLeft 0
+280 RotateRight 0
+290 RotateLeft 0
+300 RotateRight 0
+310 RotateLeft 0
+320 RotateRight 0
+330 RotateLeft 0
+340 RotateRight 0
+350 RotateLeft 0
+360 RotateRight 0
+370 RotateLeft 0
+380 RotateRight 0
+390 RotateLeft 0
+400 RotateRight 0
+410 RotateLeft 0
+420 RotateRight 0
+430 Back-Up 0
+440 Back-Up 0
+450 Back-Up 0
+460 Back-Up 0
+470 Back-Up 0
+480 Back-Up 0
+490 Move-1 1
+500 Move-1 1
+510 Move-1 1
+520 Move-1 1
+530 Move-1 1
+540 Move-1 1
+550 Move-1 1
+560 Move-1 1
+570 Move-1 1
+580 Move-1 1
+590 Move-1 1
+600 Move-1 1
+610 Move-1 1
+620 Move-1 1
+630 Move-1 1
+640 Move-1 1
+650 Move-1 1
+660 Move-1 1
+670 Move-2 2
+680 Move-2 2
+690 Move-2 2
+700 Move-2 2
+710 Move-2 2
+720 Move-2 2
+730 Move-2 2
+740 Move-2 2
+750 Move-2 2
+760 Move-2 2
+770 Move-2 2
+780 Move-2 2
+790 Move-3 3
+800 Move-3 3
+810 Move-3 3
+820 Move-3 3
+830 Move-3 3
+840 Move-3 3
