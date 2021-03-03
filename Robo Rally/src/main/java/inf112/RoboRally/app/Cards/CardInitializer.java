@@ -54,7 +54,7 @@ public class CardInitializer {
 
     }
 
-    public void shufle() {
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
