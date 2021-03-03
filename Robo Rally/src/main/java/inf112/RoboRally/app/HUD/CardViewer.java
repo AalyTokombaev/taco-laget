@@ -40,14 +40,8 @@ public class CardViewer {
         ArrayList<Table> tableContainer = new ArrayList();
         ArrayList<Image> imageList = new ArrayList();
         ArrayList<ProgramCard> programCards = new ArrayList();
+        //TODO look into the iterator-method and look for more optimalization, maybe try to reduce the number of lists
 
-        for (int i = 0; i < 24; i++) {
-            Table table = new Table();
-            Table container = new Table();
-            table.left().bottom();
-            tableList.add(table);
-            containerList.add(container);
-        }
 
         // Try to load textures of the move cards in the game (Visual player deck)
         try {
@@ -59,6 +53,13 @@ public class CardViewer {
             for (int x = 0; x < 9; x++) {
                 programCards.add(cards.deal());
             }
+            for (int i = 0; i < 24; i++) {
+                Table table = new Table();
+                Table container = new Table();
+                table.left().bottom();
+                tableList.add(table);
+                containerList.add(container);
+            }
 
             // Load base textures for PowerDown, DamageToken & LifeToken
             Texture texture1 = new Texture("DamageToken.jpg");
@@ -68,102 +69,52 @@ public class CardViewer {
             float h = 13f;
             int bw = 0;
             int bh = 12;
+            Texture texture;
+            Image image;
+            ProgramCard card;
 
             // Card texture loading using ProgramCard information
-            for (int j = 0; j < programCards.size(); j++) {
-                ProgramCard card = programCards.get(j);
-                Texture texture = new Texture(card.getFilename());
-                Image image = new Image(texture);
-                Table table = new Table();
-                Table container = new Table();
+            for (int j = 0; j < 9; j++) {
+                card = programCards.get(j);
+                texture = new Texture(card.getFilename());
+                image = new Image(texture);
                 image.setSize(1.667f, 2f);
-                imageList.add(image);
-                table = tableList.get(j);
-                container = containerList.get(j);
-                container.addActor(imageList.get(j));
-                table.add(container);
-                tableContainer.add(table);
-                table.setPosition(w, h);
-                stage.addActor(table);
+                toBigMethod(tableList, containerList, tableContainer, imageList, w, h, image, j);
                 w = w + 1.66667f;
             }
 
             // PowerDown texture loading
-            Image powerDownImage = new Image(texture2);
-            Table powerDownTable = new Table();
-            Table powerDownContainer = new Table();
-            powerDownImage.setSize(1f, 1f);
-            imageList.add(powerDownImage);
-            powerDownTable = tableList.get(9);
-            powerDownContainer = containerList.get(9);
-            powerDownContainer.addActor(imageList.get(9));
-            powerDownTable.add(powerDownContainer);
-            tableContainer.add(powerDownTable);
-            powerDownTable.setPosition(bw, bh);
-            stage.addActor(powerDownTable);
+            image = new Image(texture2);
+            image.setSize(1f, 1f);
+            toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,9);
             bw += 1;
-
             // Empty texture loading
-            Image emptyImage = new Image();
-            Table emptyTable = new Table();
-            Table emptyContainer = new Table();
-            emptyImage.setSize(1f, 1f);
-            imageList.add(emptyImage);
-            emptyTable = tableList.get(10);
-            emptyContainer = containerList.get(10);
-            emptyContainer.addActor(imageList.get(10));
-            emptyTable.add(emptyContainer);
-            tableContainer.add(emptyTable);
-            emptyTable.setPosition(bw, bh);
-            stage.addActor(emptyTable);
+            //TODO see if this can be done with table.row()
+            image = new Image();
+            image.setSize(1f, 1f);
+            toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,10);
             bw += 1;
-
             // LifeToken texture loading
             for (int j = 11; j < 14; j++) {
-                Image image = new Image(texture3);
-                Table table = new Table();
-                Table container = new Table();
+                image = new Image(texture3);
                 image.setSize(1f, 1f);
-                imageList.add(image);
-                table = tableList.get(j);
-                container = containerList.get(j);
-                container.addActor(imageList.get(j));
-                table.add(container);
-                tableContainer.add(table);
-                table.setPosition(bw, bh);
-                stage.addActor(table);
+                toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
                 bw += 1;
             }
 
             // Empty texture loading
-            Image emptyImage1 = new Image();
-            Table emptyTable1 = new Table();
-            Table emptyContainer1 = new Table();
-            emptyImage1.setSize(1f, 1f);
-            imageList.add(emptyImage1);
-            emptyTable1 = tableList.get(14);
-            emptyContainer1 = containerList.get(14);
-            emptyContainer1.addActor(imageList.get(14));
-            emptyTable.add(emptyContainer1);
-            tableContainer.add(emptyTable1);
-            emptyTable1.setPosition(bw, bh);
-            stage.addActor(emptyTable1);
+            //TODO see if this can be done with table.row()
+            image = new Image();
+            image.setSize(1f, 1f);
+            imageList.add(image);
+            toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, 14);
             bw += 1;
 
             // DamageToken texture loading
             for (int j = 15; j < 24; j++) {
-                Image image = new Image(texture1);
-                Table table = new Table();
-                Table container = new Table();
+                image = new Image(texture1);
                 image.setSize(1f, 1f);
-                imageList.add(image);
-                table = tableList.get(j);
-                container = containerList.get(j);
-                container.addActor(imageList.get(j));
-                table.add(container);
-                tableContainer.add(table);
-                table.setPosition(bw, bh);
-                stage.addActor(table);
+                toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
                 bw += 1;
             }
 
@@ -181,6 +132,19 @@ public class CardViewer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void toBigMethod(ArrayList<Table> tableList, ArrayList<Table> containerList, ArrayList<Table> tableContainer, ArrayList<Image> imageList, float w, float h, Image image, int j) {
+        Table table;
+        Table container;
+        imageList.add(image);
+        table = tableList.get(j);
+        container = containerList.get(j);
+        container.addActor(imageList.get(j));
+        table.add(container);
+        tableContainer.add(table);
+        table.setPosition(w, h);
+        stage.addActor(table);
     }
 
     public void draw() {
@@ -201,5 +165,6 @@ public class CardViewer {
 
     }
 
-}
+    }
+
 
