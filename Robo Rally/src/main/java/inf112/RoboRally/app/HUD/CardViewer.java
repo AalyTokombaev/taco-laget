@@ -3,9 +3,11 @@ package inf112.RoboRally.app.HUD;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Cards.CardInitializer;
@@ -31,21 +33,20 @@ public class CardViewer {
     }
 
     public void buildMenu() {
-        // Create tables to set their positions (x,y)
-        ArrayList<Table> tableList = new ArrayList<Table>();
-        ArrayList<Table> containerList = new ArrayList<Table>();
-        ArrayList<Table> tableContainer = new ArrayList<Table>();
-        ArrayList<Image> imageList = new ArrayList<Image>();
-        ArrayList<ProgramCard> stack = new ArrayList();
-        //Stack stack = new Stack();
 
-        for(int i=0;i<9;i++){
+        // Create tables to set their positions (x,y)
+        ArrayList<Table> tableList = new ArrayList();
+        ArrayList<Table> containerList = new ArrayList();
+        ArrayList<Table> tableContainer = new ArrayList();
+        ArrayList<Image> imageList = new ArrayList();
+        ArrayList<ProgramCard> programCards = new ArrayList();
+
+        for (int i = 0; i < 24; i++) {
             Table table = new Table();
             Table container = new Table();
             table.left().bottom();
             tableList.add(table);
             containerList.add(container);
-
         }
 
         // Try to load textures of the move cards in the game (Visual player deck)
@@ -55,106 +56,128 @@ public class CardViewer {
             cards.shuffle();
 
             // Draw cards from the shuffled list of cards
-
-            for(int x = 0;x<9;x++){
-                stack.add(cards.deal());
-
+            for (int x = 0; x < 9; x++) {
+                programCards.add(cards.deal());
             }
 
-            // Use the card information to load textures
+            // Load base textures for PowerDown, DamageToken & LifeToken
+            Texture texture1 = new Texture("DamageToken.jpg");
+            Texture texture2 = new Texture("PowerDown.jpg");
+            Texture texture3 = new Texture("LifeToken.jpg");
+            float w = 0f;
+            float h = 13f;
+            int bw = 0;
+            int bh = 12;
 
-            for(int j=0;j<stack.size();j++){
-                ProgramCard card = stack.get(j);
+            // Card texture loading using ProgramCard information
+            for (int j = 0; j < programCards.size(); j++) {
+                ProgramCard card = programCards.get(j);
                 Texture texture = new Texture(card.getFilename());
                 Image image = new Image(texture);
                 Table table = new Table();
                 Table container = new Table();
-                image.setSize(1.667f,3f);
+                image.setSize(1.667f, 2f);
                 imageList.add(image);
                 table = tableList.get(j);
                 container = containerList.get(j);
                 container.addActor(imageList.get(j));
                 table.add(container);
                 tableContainer.add(table);
-
-                //stack.push(card);
-
-            }
-
-            // Set table positions to correctly align encapsulated images
-            float w = 0f;
-            float h = 12f;
-            for (Table table : tableList) {
                 table.setPosition(w, h);
                 stage.addActor(table);
                 w = w + 1.66667f;
             }
 
-             /*
-            // Add ClickListeners to register clicks inside tables
-            table1.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card1);
-                    System.out.println("clicked1!");
-                }
-            });
-            image2.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card2);
-                    System.out.println("clicked2!");
-                }
-            });
-            image3.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card3);
-                    System.out.println("clicked3!");
-                }
-            });
-            image4.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card4);
-                    System.out.println("clicked4!");
-                }
-            });
-            image5.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card5);
-                    System.out.println("clicked5!");
-                }
-            });
-            image6.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card6);
-                    System.out.println("clicked6!");
-                }
-            });
-            image7.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card7);
-                    System.out.println("clicked7!");
-                }
-            });
-            image8.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card8);
-                    System.out.println("clicked8!");
-                }
-            });
-            image9.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    player.getDeck().takeCard(card9);
-                    System.out.println("clicked9!");
-                }
-            });*/
+            // PowerDown texture loading
+            Image powerDownImage = new Image(texture2);
+            Table powerDownTable = new Table();
+            Table powerDownContainer = new Table();
+            powerDownImage.setSize(1f, 1f);
+            imageList.add(powerDownImage);
+            powerDownTable = tableList.get(9);
+            powerDownContainer = containerList.get(9);
+            powerDownContainer.addActor(imageList.get(9));
+            powerDownTable.add(powerDownContainer);
+            tableContainer.add(powerDownTable);
+            powerDownTable.setPosition(bw, bh);
+            stage.addActor(powerDownTable);
+            bw += 1;
+
+            // Empty texture loading
+            Image emptyImage = new Image();
+            Table emptyTable = new Table();
+            Table emptyContainer = new Table();
+            emptyImage.setSize(1f, 1f);
+            imageList.add(emptyImage);
+            emptyTable = tableList.get(10);
+            emptyContainer = containerList.get(10);
+            emptyContainer.addActor(imageList.get(10));
+            emptyTable.add(emptyContainer);
+            tableContainer.add(emptyTable);
+            emptyTable.setPosition(bw, bh);
+            stage.addActor(emptyTable);
+            bw += 1;
+
+            // LifeToken texture loading
+            for (int j = 11; j < 14; j++) {
+                Image image = new Image(texture3);
+                Table table = new Table();
+                Table container = new Table();
+                image.setSize(1f, 1f);
+                imageList.add(image);
+                table = tableList.get(j);
+                container = containerList.get(j);
+                container.addActor(imageList.get(j));
+                table.add(container);
+                tableContainer.add(table);
+                table.setPosition(bw, bh);
+                stage.addActor(table);
+                bw += 1;
+            }
+
+            // Empty texture loading
+            Image emptyImage1 = new Image();
+            Table emptyTable1 = new Table();
+            Table emptyContainer1 = new Table();
+            emptyImage1.setSize(1f, 1f);
+            imageList.add(emptyImage1);
+            emptyTable1 = tableList.get(14);
+            emptyContainer1 = containerList.get(14);
+            emptyContainer1.addActor(imageList.get(14));
+            emptyTable.add(emptyContainer1);
+            tableContainer.add(emptyTable1);
+            emptyTable1.setPosition(bw, bh);
+            stage.addActor(emptyTable1);
+            bw += 1;
+
+            // DamageToken texture loading
+            for (int j = 15; j < 24; j++) {
+                Image image = new Image(texture1);
+                Table table = new Table();
+                Table container = new Table();
+                image.setSize(1f, 1f);
+                imageList.add(image);
+                table = tableList.get(j);
+                container = containerList.get(j);
+                container.addActor(imageList.get(j));
+                table.add(container);
+                tableContainer.add(table);
+                table.setPosition(bw, bh);
+                stage.addActor(table);
+                bw += 1;
+            }
+
+            // Add ClickListeners to tables containing cards (making cards clickable and addable to playerDeck)
+            for (int j = 0; j < programCards.size(); j++) {
+                int finalJ = j;
+                tableList.get(j).addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        player.getDeck().takeCard(programCards.get(finalJ));
+                        System.out.println("clicked" + (finalJ + 1) + "!");
+                    }
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
