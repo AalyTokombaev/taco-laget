@@ -32,16 +32,15 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     public Vector2 playerPosition;
-    private int x,y;
+    private int x, y;
     private CardViewer cardViewer;
 
     @Override
     public void create() {
         //Start-pos for player
-        x = 0;
+        x = 2;
         y = 0;
         batch = new SpriteBatch();
-        cardViewer = new CardViewer(batch);
         font = new BitmapFont();
         font.setColor(Color.RED);
 
@@ -49,14 +48,15 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         TiledMap map = board.makeMap();
 
         //TODO
-        player = new Player("P1",new Vector2(x,y),0);
+        player = new Player("P1", new Vector2(x, y), 0);
+        cardViewer = new CardViewer(batch, player);
         playerPosition = player.getPosition();
-        board.playerLayer.setCell(x,y,player.getState());
+        board.playerLayer.setCell(x, y, player.getState());
         game = new gameMech();
 
         // camera setup
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 12, 15);
+        camera.setToOrtho(false, 12, 18.8f);
         camera.position.x = 6F; // sentrerer camera
         camera.update();
 
@@ -70,14 +70,13 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         inputMultiplexer.addProcessor(this);
         inputMultiplexer.addProcessor(cardViewer.getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         font.dispose();
+        cardViewer.dispose();
     }
 
     @Override
@@ -86,22 +85,14 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         cardViewer.draw();
-
-
-        /*TODO This needs to be done differently
-         * Maybe move the check out of render? :s
-         *
-         * */
         camera.update();
         renderer.setView(camera);
         renderer.render();
-
     }
 
     @Override
     public void resize(int width, int height) {
-        cardViewer.resize(width,height);
-
+        cardViewer.resize(width, height);
     }
 
     @Override
@@ -138,7 +129,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         // set the last player position to null
         board.playerLayer.setCell(x, y, null);
         //calls the game-object
-        player = game.Action(board,player);
+        player = game.Action(board, player);
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
         // update player position
