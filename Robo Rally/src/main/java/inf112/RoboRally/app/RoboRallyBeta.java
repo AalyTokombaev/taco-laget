@@ -41,7 +41,6 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         x = 0;
         y = 0;
         batch = new SpriteBatch();
-        cardViewer = new CardViewer(batch);
         font = new BitmapFont();
         font.setColor(Color.RED);
 
@@ -50,6 +49,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
 
         //TODO
         player = new Player("P1",new Vector2(x,y),0);
+        cardViewer = new CardViewer(batch, player);
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x,y,player.getState());
         game = new gameMech();

@@ -21,6 +21,7 @@ public class Player {
         states = new States();
 
         //is this proper?
+        this.deck = new PlayerDeck();
         this.state = states.alive();
         this.healthPoints = 10;
         this.lifeTokens = 3;

@@ -10,7 +10,7 @@ public class CardInitializer {
     BufferedReader reader;
 ;
     public CardInitializer() throws IOException {
-        reader = new BufferedReader(new FileReader("/Users/alexanderiversen/git_projects/Prosjekt/Robo Rally/src/main/java/inf112/RoboRally/app/Cards/CardInfo.txt"));
+        reader = new BufferedReader(new FileReader("Robo Rally/src/assets/CardInfo.txt"));
         cardsStrings = new ArrayList<>();
         cards = new ArrayList<>();
         initialize();
@@ -23,7 +23,7 @@ public class CardInitializer {
 
 
     private void initialize() throws IOException {
-        System.out.println("Initializing card");
+        System.out.println("Initializing cards");
         String line = reader.readLine();
         while (line != null) {
             cardsStrings.add(line);
