@@ -48,6 +48,17 @@ public class CardViewer {
             // Initialize a list of ProgramCards that holds all the cards in the game
             CardInitializer cards = new CardInitializer();
             cards.shuffle();
+            // Load base textures for PowerDown, DamageToken & LifeToken
+            Texture texture1 = new Texture("DamageToken.jpg");
+            Texture texture2 = new Texture("PowerDown.jpg");
+            Texture texture3 = new Texture("LifeToken.jpg");
+            float w = 0f;
+            float h = 13f;
+            int bw = 0;
+            int bh = 12;
+            Texture texture;
+            Image image;
+            ProgramCard card;
 
             // Draw cards from the shuffled list of cards
             for (int x = 0; x < 9; x++) {
@@ -61,18 +72,6 @@ public class CardViewer {
                 containerList.add(container);
             }
 
-            // Load base textures for PowerDown, DamageToken & LifeToken
-            Texture texture1 = new Texture("DamageToken.jpg");
-            Texture texture2 = new Texture("PowerDown.jpg");
-            Texture texture3 = new Texture("LifeToken.jpg");
-            float w = 0f;
-            float h = 13f;
-            int bw = 0;
-            int bh = 12;
-            Texture texture;
-            Image image;
-            ProgramCard card;
-
             // Card texture loading using ProgramCard information
             for (int j = 0; j < 9; j++) {
                 card = programCards.get(j);
@@ -83,40 +82,30 @@ public class CardViewer {
                 w = w + 1.66667f;
             }
 
-            // PowerDown texture loading
-            image = new Image(texture2);
-            image.setSize(1f, 1f);
-            toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,9);
-            bw += 1;
-            // Empty texture loading
-            //TODO see if this can be done with table.row()
-            image = new Image();
-            image.setSize(1f, 1f);
-            toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,10);
-            bw += 1;
-            // LifeToken texture loading
-            for (int j = 11; j < 14; j++) {
-                image = new Image(texture3);
-                image.setSize(1f, 1f);
-                toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
-                bw += 1;
+            for(int j = 9; j<24;j++){
+                if(j==9){
+                    image = new Image(texture2);
+                    image.setSize(1f, 1f);
+                    toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
+                    bw += 1;
+                }else if(j==10){
+                    image = new Image();
+                    image.setSize(1f, 1f);
+                    toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
+                    bw += 1;
+                }else if(j<14){
+                    image = new Image(texture3);
+                    image.setSize(1f, 1f);
+                    toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
+                    bw += 1;
+                }else{
+                    image = new Image(texture1);
+                    image.setSize(1f, 1f);
+                    toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
+                    bw += 1;
+                }
             }
 
-            // Empty texture loading
-            //TODO see if this can be done with table.row()
-            image = new Image();
-            image.setSize(1f, 1f);
-            imageList.add(image);
-            toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, 14);
-            bw += 1;
-
-            // DamageToken texture loading
-            for (int j = 15; j < 24; j++) {
-                image = new Image(texture1);
-                image.setSize(1f, 1f);
-                toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
-                bw += 1;
-            }
 
             // Add ClickListeners to tables containing cards (making cards clickable and addable to playerDeck)
             for (int j = 0; j < programCards.size(); j++) {
@@ -134,7 +123,8 @@ public class CardViewer {
         }
     }
 
-    private void toBigMethod(ArrayList<Table> tableList, ArrayList<Table> containerList, ArrayList<Table> tableContainer, ArrayList<Image> imageList, float w, float h, Image image, int j) {
+    private void toBigMethod(ArrayList<Table> tableList, ArrayList<Table> containerList, ArrayList<Table> tableContainer,
+                             ArrayList<Image> imageList, float w, float h, Image image, int j) {
         Table table;
         Table container;
         imageList.add(image);
