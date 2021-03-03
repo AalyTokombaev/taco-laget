@@ -11,12 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Cards.CardInitializer;
-import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Objects.Player;
-import inf112.RoboRally.app.RoboRallyBeta;
 
-import java.util.Random;
 import java.io.IOException;
 
 public class CardViewer {
@@ -24,13 +21,11 @@ public class CardViewer {
     private Player player;
     private Stage stage;
     private Viewport viewport;
-    // Potential boolean variables in order for a player to pick 5/x cards to playerDeck
-    private boolean first, second, third, fourth, fifth, sixth, seventh, eighth, ninth;
     private OrthographicCamera cam;
 
     public CardViewer(SpriteBatch spriteBatch, Player player) {
         cam = new OrthographicCamera();
-        viewport = new FitViewport(15, 15, cam);
+        viewport = new FitViewport(15, 15, cam); // Define aspect ratio window
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         this.player = player;
         buildMenu();
@@ -68,11 +63,13 @@ public class CardViewer {
         Table container8 = new Table();
         Table container9 = new Table();
 
-        // Try to create and load textures of the move cards in the game (Visual player deck)
-        // Initialize cards
+        // Try to load textures of the move cards in the game (Visual player deck)
         try {
+            // Initialize a list of ProgramCards that holds all the cards in the game
             CardInitializer cards = new CardInitializer();
             cards.shufle();
+
+            // Draw cards from the shuffled list of cards
             ProgramCard card1 = cards.deal();
             ProgramCard card2 = cards.deal();
             ProgramCard card3 = cards.deal();
@@ -83,6 +80,7 @@ public class CardViewer {
             ProgramCard card8 = cards.deal();
             ProgramCard card9 = cards.deal();
 
+            // Use the card information to load textures
             Texture texture1 = new Texture(card1.getFilename());
             Texture texture2 = new Texture(card2.getFilename());
             Texture texture3 = new Texture(card3.getFilename());
@@ -93,7 +91,7 @@ public class CardViewer {
             Texture texture8 = new Texture(card8.getFilename());
             Texture texture9 = new Texture(card9.getFilename());
 
-            // Create images
+            // Create images to hold textures
             Image image1 = new Image(texture1);
             Image image2 = new Image(texture2);
             Image image3 = new Image(texture3);
@@ -175,7 +173,6 @@ public class CardViewer {
             table1.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    first = true;
                     player.getDeck().takeCard(card1);
                     System.out.println("clicked1!");
                 }
@@ -183,7 +180,6 @@ public class CardViewer {
             image2.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    second = true;
                     player.getDeck().takeCard(card2);
                     System.out.println("clicked2!");
                 }
@@ -191,7 +187,6 @@ public class CardViewer {
             image3.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    third = true;
                     player.getDeck().takeCard(card3);
                     System.out.println("clicked3!");
                 }
@@ -199,7 +194,6 @@ public class CardViewer {
             image4.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    fourth = true;
                     player.getDeck().takeCard(card4);
                     System.out.println("clicked4!");
                 }
@@ -207,7 +201,6 @@ public class CardViewer {
             image5.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    fifth = true;
                     player.getDeck().takeCard(card5);
                     System.out.println("clicked5!");
                 }
@@ -215,7 +208,6 @@ public class CardViewer {
             image6.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    sixth = true;
                     player.getDeck().takeCard(card6);
                     System.out.println("clicked6!");
                 }
@@ -223,7 +215,6 @@ public class CardViewer {
             image7.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    seventh = true;
                     player.getDeck().takeCard(card7);
                     System.out.println("clicked7!");
                 }
@@ -231,7 +222,6 @@ public class CardViewer {
             image8.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    eighth = true;
                     player.getDeck().takeCard(card8);
                     System.out.println("clicked8!");
                 }
@@ -239,14 +229,14 @@ public class CardViewer {
             image9.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    ninth = true;
                     player.getDeck().takeCard(card9);
                     System.out.println("clicked9!");
                 }
             });
         } catch (IOException e) {
             e.printStackTrace();
-        }}
+        }
+    }
 
     public void draw() {
         stage.act();
@@ -264,41 +254,5 @@ public class CardViewer {
     public void dispose() {
         stage.dispose();
 
-    }
-
-    public boolean isFirst() {
-        return first;
-    }
-
-    public boolean isSecond() {
-        return second;
-    }
-
-    public boolean isThird() {
-        return third;
-    }
-
-    public boolean isFourth() {
-        return fourth;
-    }
-
-    public boolean isFifth() {
-        return fifth;
-    }
-
-    public boolean isSixth() {
-        return sixth;
-    }
-
-    public boolean isSeventh() {
-        return seventh;
-    }
-
-    public boolean isEighth() {
-        return eighth;
-    }
-
-    public boolean isNinth() {
-        return ninth;
     }
 }
