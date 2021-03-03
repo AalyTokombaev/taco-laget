@@ -8,7 +8,7 @@ public class Player {
     final Vector2 position;
     public TiledMapTileLayer.Cell state;
 
-    private PlayerDeck deck;
+    private final PlayerDeck deck;
     private int numFlags;
     private int flagsVisited;
     private int healthPoints;
@@ -103,4 +103,7 @@ public class Player {
         return numFlags;
     }
 
+    public int getLifeTokens() {
+        return lifeTokens;
+    }
 }
