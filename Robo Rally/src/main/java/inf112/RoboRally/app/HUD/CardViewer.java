@@ -88,7 +88,7 @@ public class CardViewer {
                     image.setSize(1f, 1f);
                     toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
                     bw += 1;
-                }else if(j==10){
+                }else if(j==10||j==14){
                     image = new Image();
                     image.setSize(1f, 1f);
                     toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
