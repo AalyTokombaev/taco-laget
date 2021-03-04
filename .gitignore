@@ -30,6 +30,7 @@ buildNumber.properties
 
 # Generated files
 .idea/**/contentModel.xml
+Robo Rally/mvn-app.iml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
