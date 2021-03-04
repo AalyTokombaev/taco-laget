@@ -97,4 +97,9 @@ public class Board {
         return this.name;
     }
 
+    public TiledMapTileLayer getHoleLayer() {
+        return holeLayer;
+    }
 }
+
+

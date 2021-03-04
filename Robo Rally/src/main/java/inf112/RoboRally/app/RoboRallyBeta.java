@@ -1,17 +1,22 @@
 package inf112.RoboRally.app;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL30;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import inf112.RoboRally.app.HUD.CardViewer;
 import inf112.RoboRally.app.Objects.Board;
 import inf112.RoboRally.app.Objects.Player;
 import inf112.RoboRally.app.Objects.gameMech;
@@ -27,13 +32,13 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     public Vector2 playerPosition;
-    private int x,y;
-
+    private int x, y;
+    private CardViewer cardViewer;
 
     @Override
     public void create() {
         //Start-pos for player
-        x = 0;
+        x = 2;
         y = 0;
         batch = new SpriteBatch();
         font = new BitmapFont();
@@ -43,14 +48,15 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         TiledMap map = board.makeMap();
 
         //TODO
-        player = new Player("P1",new Vector2(x,y),0);
+        player = new Player("P1", new Vector2(x, y), 0);
+        cardViewer = new CardViewer(batch, player);
         playerPosition = player.getPosition();
-        board.playerLayer.setCell(x,y,player.getState());
+        board.playerLayer.setCell(x, y, player.getState());
         game = new gameMech();
 
         // camera setup
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 12, 12);
+        camera.setToOrtho(false, 12, 18.8f);
         camera.position.x = 6F; // sentrerer camera
         camera.update();
 
@@ -60,14 +66,17 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         renderer.setView(camera);
 
         // take inputs
-        Gdx.input.setInputProcessor(this);
-
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(this);
+        inputMultiplexer.addProcessor(cardViewer.getStage());
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         font.dispose();
+        cardViewer.dispose();
     }
 
     @Override
@@ -75,19 +84,15 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        /*TODO This needs to be done differently
-         * Maybe move the check out of render? :s
-         *
-         * */
-        batch.begin();
+        cardViewer.draw();
         camera.update();
         renderer.setView(camera);
         renderer.render();
-        batch.end();
     }
 
     @Override
     public void resize(int width, int height) {
+        cardViewer.resize(width, height);
     }
 
     @Override
@@ -124,7 +129,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         // set the last player position to null
         board.playerLayer.setCell(x, y, null);
         //calls the game-object
-        player = game.Action(board,player);
+        player = game.Action(board, player);
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
         // update player position
