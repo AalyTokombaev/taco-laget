@@ -1,7 +1,8 @@
 # Deloppgave 1:
+
 ## How does the roles in the team work? 
 * Some of the roles sort of mix into eachother, and are done by more than one person
-* Arild(rulekeeper) works very good. He has the answe to all we need of technical information about the game
+* Arild(rulekeeper) works very good. He has the answer to all we need of technical information about the game
 * Both Alex and Tore program a lot of code to the branch. It works good that Tore lets Alex go over the code before it is pushed further
 * Anders is not completely satisfied with his role, hasn't really come to an understanding of what a QA/tester actually do, 
   we have talked more about it and he will start with manually testing everything that can be manually tested.
@@ -19,6 +20,11 @@
 * Rulekeeper knows everything about the game and can answer everything the rest of the team wonders about rules and the way to play the game.
 * We do not need any more roles atm, as we think the roles we have now fills all the holes we would need to fix.
 
+## Retrospective
+* Managed to have a lot of meetings and discuss strategies to find the best possible solutions
+* Developed the code and program based on the plans discussed in the meetings
+* Achieved a lot of what we wanted with the code
+* We are very happy with the code associated to the cards, and how it is shown on the board
 
 ## Project methodology, good choices, what can be done better?
 * The dynamic is good, we talk a lot and agree on everything
@@ -28,15 +34,27 @@
 * We have managed to use Kanban and use the projectboard. The use of the projectboard can still improve though
 * Everyone should get a routine to go in and check and move cards when starting or completing tasks. 
 * Something new we want to try is to merge everything into the dev branch, before merging it into main so to see that nothing went wrong
+* The group dynamic is good, we talk a lot and meet three times a week to catch up and see what needs to be done and so on
+* We had way more effective meetings when we could meet physical and hope we can continue doing that.
 
-## Commiting code
+## Committing code
 * There are two main programmers, and they often stream for everyone to see when working on it so everyone takes part in the code
+* Because of this senior and junior developers have a lot more commits than the rest of the group as they are responsible for the code going in and for choosing the best solutions represented by the group
+
+## MVP's
+* We have not completed two of the MVPs because we have focused on getting very good quality on the code associated to the code, and making the board look nice.
+* We want high quality on the board and have therefore spent more time improving that, rather than finishing the rest of the code.
+
+## Bugs
+* Aspect ratio is wrong on Mac. The tecture is loaded wrong.
+* The one card-graphic does not load properly on the one Linux-computer we have tested the game one. We are not sure if it is a local bug or not.
 
 ## Maximum three improvements for this sprint:
 * Set clearer part-goals
 * Everyone must get better at checking the projectboard everytime we start something new
 * Get better at writing tests
 
+## To build and run the program, run the Main.java class in inf112.RoboRally.app.
 
 # User stories:
 
@@ -79,4 +97,6 @@
         * Make the robot what the card shows
     
 
-        
+
+
+
