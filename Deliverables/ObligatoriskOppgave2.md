@@ -1,4 +1,5 @@
 # Deloppgave 1:
+
 ## How does the roles in the team work? 
 * Some of the roles sort of mix into eachother, and are done by more than one person
 * Arild(rulekeeper) works very good. He has the answer to all we need of technical information about the game
@@ -19,6 +20,11 @@
 * Rulekeeper knows everything about the game and can answer everything the rest of the team wonders about rules and the way to play the game.
 * We do not need any more roles atm, as we think the roles we have now fills all the holes we would need to fix.
 
+## Retrospective
+* Managed to have a lot of meetings and discuss strategies to find the best possible solutions
+* Developed the code and program based on the plans discussed in the meetings
+* Achieved a lot of what we wanted with the code
+* We are very happy with the code associated to the cards, and how it is shown on the board
 
 ## Project methodology, good choices, what can be done better?
 * The dynamic is good, we talk a lot and agree on everything
@@ -35,11 +41,20 @@
 * There are two main programmers, and they often stream for everyone to see when working on it so everyone takes part in the code
 * Because of this senior and junior developers have a lot more commits than the rest of the group as they are responsible for the code going in and for choosing the best solutions represented by the group
 
+## MVP's
+* We have not completed two of the MVPs because we have focused on getting very good quality on the code associated to the code, and making the board look nice.
+* We want high quality on the board and have therefore spent more time improving that, rather than finishing the rest of the code.
+
+## Bugs
+* Aspect ratio is wrong on Mac. The tecture is loaded wrong.
+* The one card-graphic does not load properly on the one Linux-computer we have tested the game one. We are not sure if it is a local bug or not.
+
 ## Maximum three improvements for this sprint:
 * Set clearer part-goals
 * Everyone must get better at checking the projectboard everytime we start something new
 * Get better at writing tests
 
+## To build and run the program, run the Main.java class in inf112.RoboRally.app.
 
 # User stories:
 
@@ -81,6 +96,7 @@
         * Let the player choose what order to put the cards in
         * Make the robot what the card shows
     
-## We chose to focus on getting done everything that has to do with cards. In order to do this the best way we had to down-prioritize the mvp about being able to play multiplayer.
 
-        
+
+
+
