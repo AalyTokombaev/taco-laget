@@ -54,6 +54,8 @@
 * Everyone must get better at checking the projectboard everytime we start something new
 * Get better at writing tests
 
+## Class Diagram
+ ![Image](../Deliverables/ClassDiagram/class-diagram.png)
 ## To build and run the program, run the Main.java class in inf112.RoboRally.app.
 
 # User stories:
