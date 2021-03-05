@@ -13,17 +13,39 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Cards.CardInitializer;
 import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Objects.Player;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This class is a tool to create an environment for viewing the cards relevant for the player over the game board
+ * This class also acts as a second camera, made visible by utilizing the scalable aspect ratio of the game board,
+ * making room for a Heads-Up-Display
+ * By specifying positions by units of width and height, tables containing the textures are aligned to provide a
+ * clickable graphical user interface. This user interface allows the player to select program cards,
+ * further adding them to the PlayerDeck.
+ * State based information like player hp, life tokens and power down are also visually represented through this class.
+ */
 public class CardViewer {
 
+    /**
+     * @param stage handles the viewport and distributes InputEvents to Actors (in this case the tables)
+     * @param viewport handles aspect ratio and uses worldWidth and worldHeight to direct camera
+     * @param cam handles the projection of the textures on screen
+     */
     private final Player player;
     private final Stage stage;
     private final Viewport viewport;
     private final OrthographicCamera cam;
 
+    /**
+     * Constructs a new object of CardViewer for building a graphical user interface and loading base textures
+     * Initializes a list of ProgramCards that holds all the cards in the game
+     * Initializes tables and images and sets their positions in range of the camera
+     *
+     * @param spriteBatch use the predefined existing spriteBatch object to collect the textures and geometry to be drawn&rendered
+     * @param player      use the player object to collect information concerning what to be displayed on the HUD,
+     *                    also used to add cards to PlayerDeck
+     */
     public CardViewer(SpriteBatch spriteBatch, Player player) {
         cam = new OrthographicCamera();
         viewport = new FitViewport(15, 15, cam); // Define aspect ratio window
@@ -32,18 +54,23 @@ public class CardViewer {
         buildMenu();
     }
 
+    /**
+     * Helper method called in the constructor of the CardViewer class:
+     * Takes care of initializing the cards, loading textures, creating tables to contain said textures,
+     * setting the positions of said tables, further adding them to the stage as Actors,
+     * finally adding clickListeners to all tables (Actors) to receive inputEvents
+     * <p>
+     * Throws an exception if the textures fail to load
+     */
     public void buildMenu() {
-
-        // Create tables to set their positions (x,y)
         ArrayList<Table> tableList = new ArrayList();
         ArrayList<Table> containerList = new ArrayList();
-        ArrayList<Table> tableContainer = new ArrayList();
         ArrayList<Image> imageList = new ArrayList();
         ArrayList<ProgramCard> programCards = new ArrayList();
-        //TODO look into the iterator-method and look for more optimalization, maybe try to reduce the number of lists
+        //TODO look into the iterator-method and look for more optimization, maybe try to reduce the number of lists
 
 
-        // Try to load textures of the move cards in the game (Visual player deck)
+        // Try to load textures and parse CardInfo.txt located in assets
         try {
             // Initialize a list of ProgramCards that holds all the cards in the game
             CardInitializer cards = new CardInitializer();
@@ -52,6 +79,7 @@ public class CardViewer {
             Texture texture1 = new Texture("DamageToken.jpg");
             Texture texture2 = new Texture("PowerDown.jpg");
             Texture texture3 = new Texture("LifeToken.jpg");
+            // Variables to keep track of distance in terms of height and width for positioning of objects
             float w = 0f;
             float h = 13f;
             int bw = 0;
@@ -64,6 +92,7 @@ public class CardViewer {
             for (int x = 0; x < 9; x++) {
                 programCards.add(cards.deal());
             }
+            // Create all tables
             for (int i = 0; i < 24; i++) {
                 Table table = new Table();
                 Table container = new Table();
@@ -72,43 +101,13 @@ public class CardViewer {
                 containerList.add(container);
             }
 
-            // Card texture loading using ProgramCard information
+            // Card texture loading using ProgramCard information, make cards clickable
             for (int j = 0; j < 9; j++) {
                 card = programCards.get(j);
                 texture = new Texture(card.getFilename());
                 image = new Image(texture);
                 image.setSize(1.667f, 2f);
-                toBigMethod(tableList, containerList, tableContainer, imageList, w, h, image, j);
-                w = w + 1.66667f;
-            }
-
-            for(int j = 9; j<24;j++){
-                if(j==9){
-                    image = new Image(texture2);
-                    image.setSize(1f, 1f);
-                    toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
-                    bw += 1;
-                }else if(j==10||j==14){
-                    image = new Image();
-                    image.setSize(1f, 1f);
-                    toBigMethod(tableList,containerList,tableContainer,imageList,bw,bh,image,j);
-                    bw += 1;
-                }else if(j<14){
-                    image = new Image(texture3);
-                    image.setSize(1f, 1f);
-                    toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
-                    bw += 1;
-                }else{
-                    image = new Image(texture1);
-                    image.setSize(1f, 1f);
-                    toBigMethod(tableList, containerList, tableContainer, imageList, bw, bh, image, j);
-                    bw += 1;
-                }
-            }
-
-
-            // Add ClickListeners to tables containing cards (making cards clickable and addable to playerDeck)
-            for (int j = 0; j < programCards.size(); j++) {
+                builder(tableList, containerList, imageList, w, h, image, j);
                 int finalJ = j;
                 tableList.get(j).addListener(new ClickListener() {
                     @Override
@@ -117,14 +116,51 @@ public class CardViewer {
                         System.out.println("clicked" + (finalJ + 1) + "!");
                     }
                 });
+                w = w + 1.66667f;
+            }
+
+            // Texture loading (PowerDown, LifeToken, DamageToken)
+            for (int j = 9; j < 24; j++) {
+                if (j == 9) {
+                    image = new Image(texture2);
+                    image.setSize(1f, 1f);
+                    builder(tableList, containerList, imageList, bw, bh, image, j);
+                    bw += 1;
+                } else if (j == 10 || j == 14) {
+                    image = new Image();
+                    image.setSize(1f, 1f);
+                    builder(tableList, containerList, imageList, bw, bh, image, j);
+                    bw += 1;
+                } else if (j < 14) {
+                    image = new Image(texture3);
+                    image.setSize(1f, 1f);
+                    builder(tableList, containerList, imageList, bw, bh, image, j);
+                    bw += 1;
+                } else {
+                    image = new Image(texture1);
+                    image.setSize(1f, 1f);
+                    builder(tableList, containerList, imageList, bw, bh, image, j);
+                    bw += 1;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void toBigMethod(ArrayList<Table> tableList, ArrayList<Table> containerList, ArrayList<Table> tableContainer,
-                             ArrayList<Image> imageList, float w, float h, Image image, int j) {
+    /**
+     * Takes an image, adds said image to a container, adds container to table, sets table position, adds table to stage
+     *
+     * @param tableList     A list of all tables to be added to stage as Actors
+     * @param containerList A list of tables to contain images
+     * @param imageList     A list of images containing textures
+     * @param w             width in world units
+     * @param h             height in world units
+     * @param image         The image to be used
+     * @param j             index number of object position
+     */
+    private void builder(ArrayList<Table> tableList, ArrayList<Table> containerList,
+                         ArrayList<Image> imageList, float w, float h, Image image, int j) {
         Table table;
         Table container;
         imageList.add(image);
@@ -132,29 +168,38 @@ public class CardViewer {
         container = containerList.get(j);
         container.addActor(imageList.get(j));
         table.add(container);
-        tableContainer.add(table);
         table.setPosition(w, h);
         stage.addActor(table);
     }
 
+    /**
+     * Draws objects for rendering
+     */
     public void draw() {
         stage.act();
         stage.draw();
     }
 
+    /**
+     * Resizes objects in correlation with window size adjustment
+     *
+     * @param width  worldWidth
+     * @param height worldHeight
+     */
     public void resize(int width, int height) {
         viewport.update(width, height);
+    }
+
+    /**
+     * Disposes the loaded texture to free memory
+     */
+    public void dispose() {
+        stage.dispose();
     }
 
     public Stage getStage() {
         return stage;
     }
-
-    public void dispose() {
-        stage.dispose();
-
-    }
-
-    }
+}
 
 

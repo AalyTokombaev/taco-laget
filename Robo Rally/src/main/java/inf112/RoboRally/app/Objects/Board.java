@@ -4,10 +4,16 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+/**
+ * This class represents a Board or a Map in the Robo Rally game
+ * This class takes care of loading the map file, and the map layers created in Tiled
+ */
 public class Board {
 
+    // Map name
     public String name;
 
+    // Floor tiles, playerLayer, Flag tiles, Hole tiles, Wrench tiles
     public TiledMapTileLayer boardLayer;
     public TiledMapTileLayer playerLayer;
     public TiledMapTileLayer flagLayer;
@@ -38,12 +44,20 @@ public class Board {
     public TiledMapTileLayer yellowConveyorCClockwiseDownRight;
     public TiledMapTileLayer yellowConveyorCClockwiseRightUp;
 
+    /**
+     * Constructs a board with a given name
+     *
+     * @param name
+     */
     public Board(String name) {
-
         this.name = name;
-
     }
 
+    /**
+     * Loads the map file and passes the layer information to the Board object (field variables)
+     *
+     * @return the map with pre-constructed name
+     */
     public TiledMap makeMap() {
         TiledMap map = new TmxMapLoader().load(name);
 
@@ -58,13 +72,11 @@ public class Board {
         // load the wrenches
         wrenchLayer = (TiledMapTileLayer) map.getLayers().get("Wrench");
 
-
         // load the walls
         upperWallLayer = (TiledMapTileLayer) map.getLayers().get("UpperWall");
         lowerWallLayer = (TiledMapTileLayer) map.getLayers().get("LowerWall");
         rightWallLayer = (TiledMapTileLayer) map.getLayers().get("RightWall");
         leftWallLayer = (TiledMapTileLayer) map.getLayers().get("LeftWall");
-
 
         // load the u/d/l/r conveyors
         yellowConveyorRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRight");
@@ -72,13 +84,11 @@ public class Board {
         yellowConveyorUp = (TiledMapTileLayer) map.getLayers().get("ConveyorUp");
         yellowConveyorDown = (TiledMapTileLayer) map.getLayers().get("ConveyorDown");
 
-
         // load the clockwise rotation conveyors
         yellowConveyorClockWiseRight = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpRight");
         yellowConveyorClockWiseLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateDownLeft");
         yellowConveyorClockWiseUp = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateLeftUp");
         yellowConveyorClockWiseDown = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateRightDown");
-
 
         // load the counter clockwise rotation conveyors
         yellowConveyorCClockwiseUpLeft = (TiledMapTileLayer) map.getLayers().get("ConveyorRotateUpLeft");
@@ -89,16 +99,14 @@ public class Board {
         return map;
     }
 
+    // Getters and setters for class field variables
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public TiledMapTileLayer getHoleLayer() {
-        return holeLayer;
     }
 }
 

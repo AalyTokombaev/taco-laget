@@ -4,10 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.PlayerDeck;
 
+/**
+ * This class represents a Player in the Robo Rally game
+ * This class holds all the information directly related to a Player
+ */
+
 public class Player {
     final Vector2 position;
     public TiledMapTileLayer.Cell state;
-
     private final PlayerDeck deck;
     private int numFlags;
     private int flagsVisited;
@@ -16,11 +20,15 @@ public class Player {
     private final String name;
     final States states;
 
+    /**
+     * Constructs a new Player to be placed on the Board and play the Robo Rally game
+     *
+     * @param name     is the name of the Player
+     * @param position is the position of where the Player should spawn on the Board
+     * @param numFlags is the total number of Flags on the Board
+     */
     public Player(String name, Vector2 position, int numFlags) {
-
         states = new States();
-
-        //is this proper?
         this.deck = new PlayerDeck();
         this.state = states.alive();
         this.healthPoints = 10;
@@ -28,26 +36,63 @@ public class Player {
         this.numFlags = numFlags;
         this.position = position;
         this.name = name;
-        // 0 means that no flags have been visited
         flagsVisited = 0;
     }
 
+    /**
+     * Inflicts damage on the Player by decreasing the healthPoints variable by the input amount
+     * Removes a LifeToken if the Player dies
+     * Sets the alive/dead state of the Player
+     *
+     * @param x is the input amount of damage
+     */
     public void setDamage(int x) {
         healthPoints = healthPoints - x;
-        //System.out.println(healthPoints);
         if (healthPoints <= 0) {
             lifeTokens = lifeTokens - 1;
             healthPoints = 10;
-            System.out.println("you've lost 10 hp");
+            System.out.println("You've lost 10 hp and 1 lifeToken");
             state = states.alive();
         }
         if (lifeTokens == 0) {
-            //TODO Add remove player/end player interaction, maybe its own class?
             state = states.dead();
         } else {
             state = states.alive();
         }
     }
+
+    /**
+     * Checks if the Player is standing on the next correct Flag according to previous visits,
+     * and the chronological order of Flags on the Board
+     *
+     * @param flag is the flag the Player is standing on
+     * @return true if the Player visited the correct Flag, false otherwise
+     */
+    public boolean visitFlag(Flag flag) {
+        int id = flag.getId();
+        if (id - flagsVisited == 1) {
+            // You visited the correct flag
+            flagsVisited = id;
+            return true;
+        }
+        // You have not visited the correct flag
+        return false;
+    }
+
+    /**
+     * Method to add an Integer value x to the number of Flags visited by a Player
+     * Sets the Player State to win if numFlags
+     *
+     * @param x Integer value to be added to numFlags > 5
+     */
+    public void setScore(int x) {
+        numFlags = numFlags + x;
+        if (numFlags > 5) {
+            state = states.win();
+        }
+    }
+
+    // Getters and setters for class field variables
 
     public TiledMapTileLayer.Cell getState() {
         return state;
@@ -59,18 +104,6 @@ public class Player {
 
     public int getHp() {
         return healthPoints;
-    }
-
-    public boolean visitFlag(Flag flag) {
-        //TODO Can this be its own object?
-        int id = flag.getId();
-        if (id - flagsVisited == 1) {
-            // you visited the correct flag
-            flagsVisited = id;
-            return true;
-        }
-        // You have not visited the correct flag
-        return false;
     }
 
     public PlayerDeck getDeck() {
@@ -89,30 +122,8 @@ public class Player {
         return name;
     }
 
-    public void setScore(int x) {
-        numFlags = numFlags + x;
-        if (numFlags > 5) {
-            //TODO add something that registers the win
-            state = states.win();
-
-        }
-
-    }
-
     public int getScore() {
         return numFlags;
-    }
-
-    public boolean isAlive(){
-        if (lifeTokens <= 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public void repair(){
-        setHP(10);
     }
 
     public int getLifeTokens() {

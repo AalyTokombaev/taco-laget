@@ -3,6 +3,9 @@ package inf112.RoboRally.app;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
+/**
+ * RUN THIS CLASS TO START THE RoboRally APPLICATION AND PLAY THE GAME
+ */
 
 public class Main {
     public static void main(String[] args) {

@@ -4,29 +4,24 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.HUD.CardViewer;
 import inf112.RoboRally.app.Objects.Board;
 import inf112.RoboRally.app.Objects.Player;
-import inf112.RoboRally.app.Objects.gameMech;
+import inf112.RoboRally.app.Objects.GameMechanics;
 
+/**
+ * This class handles the camera and the rendering of objects in the Robo Rally game
+ * More specifically, takes care of the initializing, rendering, resizing, disposing and taking inputs for the application
+ */
 
 public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private SpriteBatch batch;
     private BitmapFont font;
     public Board board;
-    public gameMech game;
+    public GameMechanics game;
     //TODO should player med moved out
     public Player player;
     private OrthogonalTiledMapRenderer renderer;
@@ -35,9 +30,14 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     private int x, y;
     private CardViewer cardViewer;
 
+    /**
+     * Initializes and creates all needed assets for rendering
+     * Sets up camera
+     * Creates InputMultiplexer to handle multiple input sources
+     */
     @Override
     public void create() {
-        //Start-pos for player
+        // Start-pos for player
         x = 2;
         y = 0;
         batch = new SpriteBatch();
@@ -47,31 +47,33 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         board = new Board("Vault.tmx");
         TiledMap map = board.makeMap();
 
-        //TODO
         player = new Player("P1", new Vector2(x, y), 0);
         cardViewer = new CardViewer(batch, player);
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x, y, player.getState());
-        game = new gameMech();
+        game = new GameMechanics();
 
-        // camera setup
+        // Camera setup
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 18.8f);
-        camera.position.x = 6F; // sentrerer camera
+        camera.position.x = 6F; // Centers camera
         camera.update();
 
-        // render setup
+        // Render setup
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
 
-        // take inputs
+        // Take inputs
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(this);
         inputMultiplexer.addProcessor(cardViewer.getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+    /**
+     * Gets rid of textures to free up memory space
+     */
     @Override
     public void dispose() {
         batch.dispose();
@@ -79,6 +81,9 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         cardViewer.dispose();
     }
 
+    /**
+     * Renders the game and draws the CardViewer
+     */
     @Override
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -90,6 +95,12 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         renderer.render();
     }
 
+    /**
+     * Resizes the game contents in correlation to resizing of application window
+     *
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         cardViewer.resize(width, height);
@@ -108,6 +119,12 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         return false;
     }
 
+    /**
+     * Enables the arrow keys to move the Player
+     *
+     * @param i is the key pressed
+     * @return true
+     */
     @Override
     public boolean keyUp(int i) {
         // get the last player position

@@ -1,14 +1,23 @@
 package inf112.RoboRally.app.Cards;
 
-import java.util.Objects;
 
+/**
+ * This class represents a Program Card with the same information as the cards from the board game Robo Rally
+ */
 public class ProgramCard {
-    private int move; // 0 hvis snukort, 1-3 ellers
-    private String turn; // høyre, venstre, opp, ned, nei for move kort feks?
-    private int priority; // prioriteten på hvilke kort som skal brukes først
-    private String filename;
+    private int move; // 0 for rotational movement cards, 1-3 for directional movement cards
+    private String turn; // Right, Left, left empty for directional movement cards
+    private int priority; // Priority number on card
+    private String filename; // String with card name + .jpg suffix
 
-
+    /**
+     * Constructs a new ProgramCard
+     *
+     * @param numberOfMoves is the number of moves in a direction
+     * @param turn          is the rotational value
+     * @param priority      is the priority value
+     * @param filename      is the file name
+     */
     public ProgramCard(int numberOfMoves, String turn, int priority, String filename) {
         this.move = numberOfMoves;
         this.turn = turn;
@@ -16,6 +25,7 @@ public class ProgramCard {
         this.filename = filename;
     }
 
+    // Getters for class field variables
 
     public int getNumberOfMoves() {
         return this.move;
@@ -33,16 +43,5 @@ public class ProgramCard {
         return this.filename;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProgramCard)) return false;
-        ProgramCard that = (ProgramCard) o;
-        return move == that.move && Objects.equals(getTurn(), that.getTurn());
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(move, getTurn());
-    }
 }
