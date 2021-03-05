@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This class represents a programmable deck of ProgramCards to be used as a program by a Player in a round of Robo Rally
  * ProgramCards can be added to PlayerDecks by clicking on the ProgramCards
- * PlayerDecks are unique to Players, and should be different for every round ov Robo Rally
+ * PlayerDecks are unique to Players, and should be different for every round of Robo Rally
  */
 public class PlayerDeck {
 

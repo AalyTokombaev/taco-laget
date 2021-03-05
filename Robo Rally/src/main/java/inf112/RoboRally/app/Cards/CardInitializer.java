@@ -7,7 +7,7 @@ import java.util.Collections;
 /**
  * This class is a tool for initializing ProgramCard objects by parsing information contained in CardInfo.txt
  * This class practically creates a full deck of Program Cards, with the same contents as a full deck from the physical board game,
- * represented by a sorted list ProgramCards
+ * represented by a sorted list of ProgramCards
  */
 public class CardInitializer {
     ArrayList<String> cardsStrings;
