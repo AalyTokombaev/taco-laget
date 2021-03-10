@@ -1,0 +1,2 @@
+# Deloppgave 1:
+
