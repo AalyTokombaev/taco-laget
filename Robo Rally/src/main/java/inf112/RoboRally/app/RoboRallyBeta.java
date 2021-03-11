@@ -122,7 +122,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     /**
      * Enables the arrow keys to move the Player
      *
-     * @param i is the key pressed
+     * @param i is a numerical value of the key pressed
      * @return true
      */
     @Override
