@@ -22,8 +22,7 @@ import inf112.RoboRally.app.Objects.Player;
 public class RoboRallyBeta extends InputAdapter implements Screen {
 
 
-    final RoboRally game;
-
+    private RoboRally game;
     public Board board;
     public GameMechanics gamez;
     public Player player;
@@ -33,7 +32,7 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
     private int x, y;
     private final CardViewer cardViewer;
 
-    public RoboRallyBeta(final RoboRally game) {
+    public RoboRallyBeta(RoboRally game) {
         this.game = game;
 
         // Start-pos for player
@@ -92,7 +91,6 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         camera.update();
-        //game.batch.setProjectionMatrix(camera.combined);
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
