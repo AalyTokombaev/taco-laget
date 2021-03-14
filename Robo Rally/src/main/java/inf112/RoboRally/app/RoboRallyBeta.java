@@ -31,6 +31,8 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
     public Vector2 playerPosition;
     private int x, y;
     private final CardViewer cardViewer;
+    private Controlls ctrl;
+    private InputMultiplexer inputMultiplexer;
 
     public RoboRallyBeta(RoboRally game) {
         this.game = game;
@@ -41,6 +43,8 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
         game.batch = new SpriteBatch();
         game.font = new BitmapFont();
         game.font.setColor(Color.RED);
+
+        ctrl = new Controlls();
 
         board = new Board("Vault.tmx");
         TiledMap map = board.makeMap();
@@ -63,10 +67,11 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
         renderer.setView(camera);
 
         // Take inputs
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(this);
+        inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(cardViewer.getStage());
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        inputMultiplexer.addProcessor(ctrl);
+
+
     }
 
     /**
@@ -83,7 +88,7 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override
@@ -136,6 +141,8 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
      * @return true
      */
     @Override
+
+    //TODO move this out to game or gamemechanics
     public boolean keyUp(int i) {
         // get the last player position
         playerPosition = player.getPosition();
