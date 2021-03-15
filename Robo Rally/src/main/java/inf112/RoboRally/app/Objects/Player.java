@@ -3,6 +3,7 @@ package inf112.RoboRally.app.Objects;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.PlayerDeck;
+import inf112.RoboRally.app.Controlls;
 
 /**
  * This class represents a Player in the Robo Rally game
@@ -19,6 +20,7 @@ public class Player {
     private int lifeTokens;
     private final String name;
     final States states;
+    private Controlls ctrl;
 
     /**
      * Constructs a new Player to be placed on the Board and play the Robo Rally game
@@ -27,7 +29,7 @@ public class Player {
      * @param position is the position of where the Player should spawn on the Board
      * @param numFlags is the total number of Flags on the Board
      */
-    public Player(String name, Vector2 position, int numFlags) {
+    public Player(String name, Vector2 position, int numFlags, Controlls ctrl) {
         states = new States();
         this.deck = new PlayerDeck();
         this.state = states.alive();
@@ -36,6 +38,7 @@ public class Player {
         this.numFlags = numFlags;
         this.position = position;
         this.name = name;
+        this.ctrl = ctrl;
         flagsVisited = 0;
     }
 
@@ -54,7 +57,7 @@ public class Player {
             System.out.println("You've lost 10 hp and 1 lifeToken");
             state = states.alive();
         }
-        if (lifeTokens == 0) {
+        if (lifeTokens <= 0) {
             state = states.dead();
         } else {
             state = states.alive();
@@ -91,6 +94,23 @@ public class Player {
             state = states.win();
         }
     }
+
+
+     public void movement(){
+        if(ctrl.isKeyPressed(19)){
+            System.out.println("Test");
+            setPosition(0,1);
+        }else if(ctrl.isKeyPressed(20)){
+            setPosition(0,-1);
+        }else if(ctrl.isKeyPressed(22)){
+            setPosition(1,0);
+        }else if(ctrl.isKeyPressed(21)){
+            setPosition(-1,0);
+        }
+
+
+    }
+
 
     // Getters and setters for class field variables
 

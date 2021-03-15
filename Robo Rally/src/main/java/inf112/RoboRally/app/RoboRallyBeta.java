@@ -1,6 +1,8 @@
 package inf112.RoboRally.app;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,8 +21,8 @@ import inf112.RoboRally.app.Objects.Player;
  * More specifically, takes care of the initializing, rendering, resizing, disposing and taking inputs for the application
  */
 
-public class RoboRallyBeta extends InputAdapter implements Screen {
-
+public class RoboRallyBeta implements Screen {
+    public boolean isGameRunning = true;
 
     private RoboRally game;
     public Board board;
@@ -44,16 +46,18 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
         game.font = new BitmapFont();
         game.font.setColor(Color.RED);
 
-        ctrl = new Controlls();
-
+        gamez = new GameMechanics();
         board = new Board("Vault.tmx");
         TiledMap map = board.makeMap();
 
-        player = new Player("P1", new Vector2(x, y), 0);
+        ctrl = new Controlls();
+        player = new Player("P1", new Vector2(x, y), 0, ctrl);
+
         cardViewer = new CardViewer(game.batch, player);
+
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x, y, player.getState());
-        gamez = new GameMechanics();
+
 
         // Camera setup
         camera = new OrthographicCamera();
@@ -66,13 +70,9 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
 
-        // Take inputs
-        inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(cardViewer.getStage());
-        inputMultiplexer.addProcessor(ctrl);
-
-
     }
+
+
 
     /**
      * Gets rid of textures to free up memory space
@@ -88,17 +88,24 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        // Take inputs from multiple sources
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(cardViewer.getStage());
+        inputMultiplexer.addProcessor(ctrl);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+
     @Override
     public void render(float v) {
+        camera.update();
+        player.movement();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-        camera.update();
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
+        ctrl.update();
 
     }
 
@@ -127,48 +134,13 @@ public class RoboRallyBeta extends InputAdapter implements Screen {
     public void hide() {
 
     }
-
-
-    @Override
-    public boolean keyDown(int i) {
-        return false;
-    }
-
-    /**
-     * Enables the arrow keys to move the Player
-     *
-     * @param i is a numerical value of the key pressed
-     * @return true
-     */
-    @Override
-
-    //TODO move this out to game or gamemechanics
-    public boolean keyUp(int i) {
-        // get the last player position
+    public void updateBoard(){
         playerPosition = player.getPosition();
-        // update player position accordingly
-        System.out.println(i);
-        if (i == Input.Keys.UP) {
-            player.setPosition(0, 1);
-        }
-        if (i == Input.Keys.DOWN) {
-            player.setPosition(0, -1);
-        }
-        if (i == Input.Keys.RIGHT) {
-            player.setPosition(1, 0);
-        }
-        if (i == Input.Keys.LEFT) {
-            player.setPosition(-1, 0);
-        }
-        // set the last player position to null
-        board.playerLayer.setCell(x, y, null);
-        //calls the game-object
-        player = gamez.Action(board, player);
+        board.playerLayer.setCell(x,y,null);
+        player = gamez.Action(board,player);
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
-        // update player position
-        board.playerLayer.setCell(x, y, player.getState());
-        return true;
+        board.playerLayer.setCell(x,y, player.getState());
     }
 
 }

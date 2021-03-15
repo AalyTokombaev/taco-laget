@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardInitializer;
+import inf112.RoboRally.app.Controlls;
 import inf112.RoboRally.app.Objects.Board;
 import inf112.RoboRally.app.Objects.Player;
 import org.junit.Test;
@@ -18,8 +19,8 @@ public class AppTest {
     /**
      * Rigorous Test :-)
      */
-
-    Player player = new Player("P1", new Vector2(0,0), 0);
+    Controlls ctrl = new Controlls();
+    Player player = new Player("P1", new Vector2(0,0), 0, ctrl);
 
     @Test
     public void shouldAnswerWithTrue() {
