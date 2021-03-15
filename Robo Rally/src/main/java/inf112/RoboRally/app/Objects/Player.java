@@ -92,6 +92,15 @@ public class Player {
         }
     }
 
+    /**
+     * Method that checks if a player is still alive.
+     *
+     * @return true if player has more than 0 lifeTokens, false otherwise.
+     */
+    public boolean isAlive(){
+        return (this.lifeTokens > 0);
+    }
+
     // Getters and setters for class field variables
 
     public TiledMapTileLayer.Cell getState() {
@@ -128,5 +137,9 @@ public class Player {
 
     public int getLifeTokens() {
         return lifeTokens;
+    }
+
+    public void setLifeTokens(int lives){
+        this.lifeTokens = lives;
     }
 }

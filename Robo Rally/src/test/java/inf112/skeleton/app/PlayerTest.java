@@ -64,29 +64,24 @@ public class PlayerTest {
     public void repairPlayerTest(){
         player.setHP(10);
         player.setDamage(5);
-        // player.repair();
-
-        //assertEquals(10, player.getHp());
+        assertEquals(10, player.getHp());
     }
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        /*
-        player.setLifeTokens(3);
-        player.repair();
+        if (!player.getHp() == 10)
+            player.setHP(10);
+        if (player.getLifeTokens() != 3)
+            player.setLifeTokens(3);
 
         player.setDamage(10);
-        player.repair()
+        player.setHP(10);
 
         player.setDamage(10);
-        player.repair()
+        player.setHP(10)
 
         player.setDamage(10);
-        player.repair()
-
         assertFalse(player.isAlive());
-
-         */
     }
 
 }
