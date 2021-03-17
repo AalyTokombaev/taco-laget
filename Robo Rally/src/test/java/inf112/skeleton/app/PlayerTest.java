@@ -69,7 +69,7 @@ public class PlayerTest {
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        if (!player.getHp() == 10)
+        if (!(player.getHp() == 10))
             player.setHP(10);
         if (player.getLifeTokens() != 3)
             player.setLifeTokens(3);
@@ -78,7 +78,7 @@ public class PlayerTest {
         player.setHP(10);
 
         player.setDamage(10);
-        player.setHP(10)
+        player.setHP(10);
 
         player.setDamage(10);
         assertFalse(player.isAlive());
