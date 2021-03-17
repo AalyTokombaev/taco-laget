@@ -10,7 +10,7 @@ import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
-public class GameClient extends InputAdapter {
+public class GameClient {
     private Client client;
     private int id;
 
@@ -26,9 +26,6 @@ public class GameClient extends InputAdapter {
             }
         });
 
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(this);
-        Gdx.input.setInputProcessor(inputMultiplexer);
 
     }
 

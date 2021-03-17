@@ -12,16 +12,18 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Queue;
 
-public class GameServer extends RoboRallyBeta{
+public class GameServer{
     private Server server;
     private boolean active;
     int numPlayers;
+    RoboRallyBeta parent;
 
     Queue<Action> actions;
 
 
     public GameServer(){
         server = new Server();
+
 
 
         server.addListener(new Listener(){
@@ -35,7 +37,6 @@ public class GameServer extends RoboRallyBeta{
                     }
                     if (msg[0].equals("keyUpClient")) {
                         int i = Integer.parseInt(msg[1]);
-                        keyUp(i);
                     }
                 }
             }
