@@ -1,29 +1,29 @@
 # Deloppgave 1:
 
-## Hvordan fungerer rollene i teamet? Trenger dere å oppdatere de?
-* Rollene fungererer bra, og all uklarhet er oppklart.
-* Alle fungerer godt i sin rolle. 
-* Maria som teadlead og kundekontakt tar ansvar for møter og referater.
-* Anders som QA og tester tar ansvar for at alt som kan testes, testes og at tester som ikke fungerer eller ikke er ferdige tas bort før innvelvering
-* Alex og Tore som senior og junior dev lager mye bra kode og sørger for de mest optimale løsningene og samarbeider mye med 
-Arild som er rulekeeper som og koder mye og finner mye bra løsninger.
-* Arild har full kontroll på om ting stemmer overens med reglene i spillet. 
+## Does the roles in the team work?
+* The roles work good, and all ambiguity that arised in the beginnning of the project is cleared up. Everyone is confident with their role in the project.
+* Teamlead takes responsibility for the meetings and meeting minutes and for clearing up whatever is unclear at the time. Makes sure all the user stories applies and is put down on "paper"
+* QA is taking resonsibility for everything needed ot be tested and makes sure tests that do are not optimal or not in use are removed before the final commit.
+* Senior and Junior developers comes up with a lot of good code and solutions for the most optimal solutions. They cooperate a lot with rulekeeper, shich also contributes with a lot of good solutions to problems.
+* Rulekeeper has everything under control regarding rules and makes sure the game is developed correctly according to the rules of the traditional board game, Roborally.
 
-## Er det noen erfaringer som er verdt å nevne enten teammessig eller mtp prosjektmetodikk?
-* Teamet fungerer bra og samarbeider godt. Snakker sammen flere ganger i uken og har tydelig fremdrift med spillet
-* Det går mye fortere og er mer effektivt å ha fysiske møter, men vi har flest digitale da vi har mulighet til å ha oftere møter da
-* Fungerer bra å fokusere på et problem av gangen mtp at mye foregår digitalt så man ikke er usikker på hva som trengs å gjøre
-* Multiplayer har tatt mye mer tid og er mer utfordrende enn forventet. 
-* Etter å ha satt oss mer inn i MVP og hva som er mest kritisk og hva som burde prioriteres ser vi at vi burde startet
-med Multiplayer tidligere. Vi prioriterte å bli ferdig med flest mulig krav istedenfor å bli ferdig med de mer kritiske kravene.
-  Til neste gang vet vi dermed at det er smart å starte med større oppgaver tidligere, selv om det har gått fint denne gangen.
+## Are there experiences worth mentioning reagarding the team or the teams method?
+* The team works good and we collaborate very well. We meet and talk several times a week and you can see that we have progress in the project.
+* Physical meetings work a lot better, faster is more effective. We still keep most meetings digital because the team has more time to meet then.
+* It works good for the team to focus on one problem at a time considering that most of the meetings and lectures are digital, so we do not need to wonder what is going on since we do not yet trust the project board 100%.
+* Playing multiplayer from several computers has taken a lot more time and is a lot more challenging than expected.
+* We have now learned from about MVP and what it means and takes to satisfy and MVP. We have learned that time-demanding tasks should be started pretty early in the process. We chose to delay the most demanding task till the end, since we wanted 
+  as most as possibly done early. For next time we know to start earlier on critical/demanding tasks. Despite pushing it, it has worked out fine.
 
-## Synes teamet at de valgene dere har tatt er gode? Hvis ikke, hva kan endre for å få ting til å fungere bedre?
-* Vi har hatt en god dialog gjennom hele prosjektet, og valgene er diskutert med de som har ønsket å ta del i de. Vi har møttes flere ganger i uken.
-* Om det har vært et stort problem, så har det blitt tatt opp på møtene med alle for å finne en løsning så fort som mulig.
-* Vi syns selv at vi har gjort gode valg underveis. Som sagt så er det eneste at vi kunne startet på MVP krav: 5 om multiplayer tidligere da dette var en noe større oppgave enn vi først forventet.
-* Noen små oppgaver kan ha blitt gjort i litt siste liten, så det har blitt litt stress til siste versjon før en innlevering.
-* Så til denne innlevering skal vi ha alt klart minst en dag før slik at det ikke blir stress en time før innelvering, eller at folk må jobbe sent for å bli ferdig m/ eventuelle oppgaver. 
+## Does the team agree on the choices taken, and if not what could be improved?
+* We have had a good dialog thoughout the project, and the choices have been discussed with everyone that wished to take part.
+* We have met several times a week to discuss potential problems and progress.  
+* Whenever there has been a big issue, it has been dicussed in the meetings with everyone to find a solution as quickly as possible.  
+* We all agree on the choices we have done throughout.
+* If there is something we would change it is starting earlier on the multiplayer part of the MVPs since it was a bigger task than first expected.  
+* There has been a few cases where the tasks have been done in the last minute, which could have been avoided with a bit more planning.
+* For the third sprint we should have everything ready at least a day before the deadline, so no one needs to work at night or right before the deadline to finish tasks.
+
 
 
  
