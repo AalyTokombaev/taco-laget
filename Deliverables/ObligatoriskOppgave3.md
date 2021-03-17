@@ -97,6 +97,12 @@ med Multiplayer tidligere. Vi prioriterte å bli ferdig med flest mulig krav ist
 * Da vi har ulike ansvarområder blir det mye ulikhet i commits der Alex og Tore vil ha en del fler commits enn resten av teamet
 siden de har ansvar for at det er de beste løsningene som blir brukt og pushet til prosjektet sin main branch.
 
+## Document how to run the game on all operative systems from git to playing for newbs
+* Explain what buttons are used to play
+* Linux, OS, Windows
+
+## Update readmed in project to include intro on the team and the project
+  * Short intro on the game
 
 ## User stories:
 
