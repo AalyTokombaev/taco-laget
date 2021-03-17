@@ -8,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.HUD.CardViewer;
+import inf112.RoboRally.app.Multiplayer.GameClient;
+import inf112.RoboRally.app.Multiplayer.GameServer;
 import inf112.RoboRally.app.Objects.Board;
 import inf112.RoboRally.app.Objects.Player;
 import inf112.RoboRally.app.Objects.GameMechanics;
@@ -29,6 +31,11 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
     public Vector2 playerPosition;
     private int x, y;
     private CardViewer cardViewer;
+
+    // multiplayer start
+    private GameServer server;
+    private GameClient client;
+    // multiplayer end
 
     /**
      * Initializes and creates all needed assets for rendering
@@ -69,6 +76,17 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         inputMultiplexer.addProcessor(this);
         inputMultiplexer.addProcessor(cardViewer.getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+
+        //******************
+        // Multiplayer stuff start
+        server = new GameServer();
+        client = new GameClient();
+
+        server.host();
+        client.connect("localhost", 1337);
+        // Multiplayer stuff end
+        //******************
     }
 
     /**

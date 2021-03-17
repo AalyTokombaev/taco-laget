@@ -6,12 +6,13 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.RoboRallyBeta;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Queue;
 
-public class GameServer extends InputAdapter{
+public class GameServer extends RoboRallyBeta{
     private Server server;
     private boolean active;
     int numPlayers;
@@ -27,14 +28,14 @@ public class GameServer extends InputAdapter{
             public void recieved(Connection connection, Object object) {
                 if (object instanceof String) {
                     String[] msg = object.toString().split(":");
-                    if (msg[0].equals("connected")){
+                    if (msg[0].equals("connectClient")){
                         addPlayer();
-                        connection.sendTCP("OK");
+                        System.out.println("client connected");
+                        connection.sendTCP(String.format("connectClientOK:{}", numPlayers));
                     }
-                    if (msg[0] == "mov"){
+                    if (msg[0].equals("keyUpClient")) {
                         int i = Integer.parseInt(msg[1]);
-                        actions.offer(new Action("mov", i));
-
+                        keyUp(i);
                     }
                 }
             }
@@ -46,18 +47,24 @@ public class GameServer extends InputAdapter{
         numPlayers++;
     }
 
+    public int getNumPlayers(){
+        return numPlayers;
+    }
+
     public Iterator<Action> getActons(){
         return actions.iterator();
     }
 
-    void host(){
+    public void host(){
         try{
-        server.bind(1337);
+            server.start();
+            server.bind(1337, 1337);
         } catch (IOException e) {
             e.printStackTrace();
         }
         addPlayer();
     }
+
 
 
 }
