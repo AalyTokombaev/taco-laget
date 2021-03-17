@@ -6,6 +6,7 @@ Our game is based on the traditional boardgame, and you can clearly see the simi
   Our player is at this time the UiB-owl which is moved around with the arrows on the keyboard. As said you win by visiting all three flags, and loose hp 
   if you land on holes. After loosing 10 hp, you loose 1 life token. After loosing all three life tokens, you have lost. You can also play with your friends online.
   
+## Team-presentation
 ### Maria Lidsheim - Team leader & Costumer contact
 * __Skills/experience:__ Have worked in teams before, and have a good
   overview of what needs to be done and when it should be done. Structured and experienced
