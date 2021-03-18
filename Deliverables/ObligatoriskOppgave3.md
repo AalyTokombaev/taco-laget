@@ -24,61 +24,59 @@
 * There has been a few cases where the tasks have been done in the last minute, which could have been avoided with a bit more planning.
 * For the third sprint we should have everything ready at least a day before the deadline, so no one needs to work at night or right before the deadline to finish tasks.
 
-
-
- 
-
 ## Retrospektiv
-* Hva har vi klart til nå?
-  * Vi har lært mer om arbeidsmåtene/rutinene til hverandre og det gjør det lettere å vite hva man kan forvente fra hverandre og hvor lang tid ting kan ta
-  * Mvp-krav
-    * Vi har gjennomført alle MvP-krav utenom multiplayer som igjen var mer arbeid enn forventet.
-    * Vi jobber med å forbedre 
-  * Vi har et fungerende spill som kan spilles single player atm
-  * Vi har implementert en Main menu
-* Hva kan forbedres?
-  * Main menu
-  * Vi ønsker å legge på lyd på spillet
-  * Vi ønske å ha en innebygd chat i spillet som en enkel måte å kommunisere gjennom spillet på.
-  * Disse tingene kommer til å bli jobbet med ila denne sprinten, og vi håper å ha mest mulig ferdig til oblig 3 innlevering
-* Hvordan fungerer kommunikasjon og arbeidet
-  * Arbeidet fungerer bra.
-  * Kommunikasjonen fungerer bra. 
-  * kan fortsatt bli bedre på Project Board, flytte issues osv, men det går veldig fint nå da oppgavene vi jobber med er såpass store at vi jobber sammen på de, og dermed vet nøyaktig hva som bedrives
+* __What have we managed to do until now?__
+  * We have learned more about each others ways of working and routines, which make sit easier to know what to expect, and when to expect it.  
+  * __MVPs__
+    * We have finished all MVPs besides Multiplayer which was more work than first expected.
+    * We have a working game which can be played single player at the moment.
+    * We have implemented a main menu which needs to be improved
+  * __What can be improved?__
+    * The main menu
+    * We wish to add sound effects to the game, and potentially music
+    * We wish to have a built-in chat in the game as a simple way to communicate though the game.  
+    * We will work on these things throughout the sprint 3, and hope to finish some of it until the deadline for mandatory assignment 3.
+  * __How does the communication and cooperation work?__
+    * The cooperation works good
+    * Communication works good. 
+    * We can still get better at moving things around in Projectboard, but things are going well because we work on a lot together, and therefore know exactly what is being done at the moment.
   
 
-## Maks tre forbedringspunkter fra retrospektiv
-* Lage issues for alle små arbeidsoppgaver
-* Lage en mer detaljert plan til oblig 4 slik at ingenting gjøres i siste liten.
+## Maximum three points of improvement from the retrospective
+* Creating issues for every little task.
+* Create a more detailed plan for mandatory assignment 4, so nothing will be done in the last minute
 
 ## Hvordan har vi prioritert oppgavene fremover?
-* Legg ved skjermdump av projectboard
-* Prioritering er å bli ferdig med Multiplayer
-* Dermed finne ut om det er flere ting vi mener bør være en del av MVP-kravene
+1. Finish the multiplayer
+2. Main menu
+3. Grid
+4. Chat
+5. Sound
 
 
 ## Hvordan fungerer gruppedynamikken og kommunikasjonen?
 
-## Krav
+## Demands
 * Oppdater krav, hvor langt vi har kommet, prioriterte krav og hva vi har gjort siden sist?
   * Krav
   1. Multiplayer
   2. Main menu
-  3. 
+  3. Grid
 
 
 
 ## Mvp-krav:
-* Om endringer i MVP krav er gjort, hvorfor?
-* Vi har levert krav 5: Multiplayer, sist av de obligatoriske kravene
-  * Grunnen til dette er at vi så på de andre oppgavene som lettere og fortere å få unna. Vi hadde ikke satt oss nok inn i prioritereing av MVP-krav
-  før oblig 2 til å vite at man bør prioritere kritiske/tidskrevende og vanskelige oppgaver. 
-    * Hadde vi visste dette burde vi startet med mvp-kravet ang multiplayer tidligere.
-  * Vi syns dog det går fint nå, og er fornøyd med det vi har fått til, og at vi kan begynne å se på andre MVp krav enn de obligatoriske og håper på å bli ferdig med multiplayer innen oblig 3
+* __Changes in MVPs__
+* We have focused on MVP 5: Multiplayer last of the mandatory demands.  
+  * The reason for this is that the other tasks looked easier and more quickly to get out of the way. 
+  * We had not taught ourselves enough about how to prioritize MVP-demands before-hand. If we knew what we know now about 
+    how to prioritize MVPs, we probably would have started the Multiplayer-demand earlier.
+  * Even though we did start in the wrong direction, everything is going well now, and we are happy about our progress. We have even get to started on our own MVPs, 
+    and are hoping to be done with Multiplayer soon enough.
   
-* Hvilke Mvp-krav er viktigst og hvorfor
-  * Det viktigste MVP-kravet er å vise et spillebrett og å flytte player-brikken slik at det er mulig å gjøre noe i spillet
-  * Uten et brett eller en spille er det ikke mulig å foreta seg noe i et sånt spill og dette er dermed viktigst
+* __What MVP do we find most important and why?__
+* The most important MVP-demand for us is to show a game-board and to be able to move the game-piece so you can do something in the game
+* Without a board or a game-piece there is not possible to anything in the game resembling to playing.
 
 ## Hva vil vi ha med ekstra:
 * Chat
@@ -87,22 +85,33 @@
 
 ## Bugs i kravene
 
-## Klassediagram
-* Kommer med siste commit før innlevering
-
 ## Testing: Manuelle og automatiske
 * Anders lager
 
 ## Ulikhet i commits
-* Da vi har ulike ansvarområder blir det mye ulikhet i commits der Alex og Tore vil ha en del fler commits enn resten av teamet
-siden de har ansvar for at det er de beste løsningene som blir brukt og pushet til prosjektet sin main branch.
+* Since we have different areas of the project we are responsible for, there is a difference in commits. 
+  * Tore and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
 
 ## Document how to run the game on all operative systems from git to playing for newbs
-* Explain what buttons are used to play
-* Linux, OS, Windows
+Running the game on
+* Windows:
+  1. Go to our project on git and clone the project to your computer
+  2. Go to taco-laget/Robo Rally/src/main/inf112.RoboRally.app/Main
+  3. Right click on Main and press "Run Main.main()"
+  4. You will now see a game-board for our game
+  5. Navigate the game-piece(UiB-owl) with the arrows on your keyboard
+  6. To choose cards and use them, you simply click them with the mouse
+  
+* Mac OS:
+  1. Go to the projects Github page at 
+  
+* Linux:
+  1. 
+## Klassediagram
+* __Kommer med siste commit før innlevering__
 
-## Update readmed in project to include intro on the team and the project
-  * Short intro on the game
+## Projectboard
+![Image](img/ProjectboardWeek11.PNG)
 
 ## User stories:
 
