@@ -2,12 +2,11 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardInitializer;
-import inf112.RoboRally.app.Objects.Board;
+import inf112.RoboRally.app.Controls;
 import inf112.RoboRally.app.Objects.Player;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.nio.channels.ScatteringByteChannel;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,8 +17,8 @@ public class AppTest {
     /**
      * Rigorous Test :-)
      */
-
-    Player player = new Player("P1", new Vector2(0,0), 0);
+    Controls ctrl = new Controls();
+    Player player = new Player("P1", new Vector2(0,0), 0, ctrl);
 
     @Test
     public void shouldAnswerWithTrue() {

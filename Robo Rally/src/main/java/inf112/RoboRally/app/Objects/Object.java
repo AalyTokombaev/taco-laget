@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * This interface represents an Object in Robo Rally
  */
 
-public interface Objects {
+public interface Object {
 
     /**
      * Returns id

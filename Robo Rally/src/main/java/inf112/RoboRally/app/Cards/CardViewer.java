@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.HUD;
+package inf112.RoboRally.app.Cards;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,9 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import inf112.RoboRally.app.Cards.CardInitializer;
-import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Objects.Player;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

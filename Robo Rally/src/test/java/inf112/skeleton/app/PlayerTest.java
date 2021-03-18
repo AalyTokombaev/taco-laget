@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.Controls;
 import inf112.RoboRally.app.Objects.Flag;
 import inf112.RoboRally.app.Objects.Player;
 import org.junit.Before;
@@ -12,12 +13,14 @@ import static org.mockito.Mockito.mock;
 
 public class PlayerTest {
     private Player player;
+    private Controls ctrl;
 
     @Before
     public void setUp() {
         Gdx.gl = mock(GL20.class);
         new HeadlessApplication(new EmptyApplication());
-        this.player = new Player("testPlayer", new Vector2(), 0);
+        this.ctrl = new Controls();
+        this.player = new Player("testPlayer", new Vector2(), 0, ctrl);
 
     }
 
@@ -69,7 +72,7 @@ public class PlayerTest {
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        if (!player.getHp() == 10)
+        if (!(player.getHp() == 10))
             player.setHP(10);
         if (player.getLifeTokens() != 3)
             player.setLifeTokens(3);
@@ -78,7 +81,7 @@ public class PlayerTest {
         player.setHP(10);
 
         player.setDamage(10);
-        player.setHP(10)
+        player.setHP(10);
 
         player.setDamage(10);
         assertFalse(player.isAlive());
