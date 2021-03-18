@@ -1,152 +1,249 @@
-package inf112.RoboRally.app.Objects;
+package inf112.skeleton.app;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import inf112.RoboRally.app.Cards.PlayerDeck;
-import inf112.RoboRally.app.Controlls;
+import inf112.RoboRally.app.Utility.Utility;
 
-/**
- * This class represents a Player in the Robo Rally game
- * This class holds all the information directly related to a Player
- */
+import java.util.UUID;
+
 
 public class Player {
-    final Vector2 position;
-    public TiledMapTileLayer.Cell state;
-    private final PlayerDeck deck;
-    private int numFlags;
-    private int flagsVisited;
-    private int healthPoints;
-    private int lifeTokens;
-    private final String name;
-    final States states;
-    private Controlls ctrl;
 
-    /**
-     * Constructs a new Player to be placed on the Board and play the Robo Rally game
-     *
-     * @param name     is the name of the Player
-     * @param position is the position of where the Player should spawn on the Board
-     * @param numFlags is the total number of Flags on the Board
-     */
-    public Player(String name, Vector2 position, int numFlags, Controlls ctrl) {
-        states = new States();
-        this.deck = new PlayerDeck();
-        this.state = states.alive();
-        this.healthPoints = 10;
-        this.lifeTokens = 3;
-        this.numFlags = numFlags;
-        this.position = position;
-        this.name = name;
-        this.ctrl = ctrl;
-        flagsVisited = 0;
+    private static final String TAG = Player.class.getSimpleName();
+    private static final String _defaultSpritePath = "Engineer.png";
+
+    private Vector2 _velocity;
+    private String _entityID;
+
+    private Direction _currentDirection = Direction.LEFT;
+    private Direction _previousDirection = Direction.UP;
+
+    private Animation _walkLeftAnimation;
+    private Animation _walkRightAnimation;
+    private Animation _walkUpAnimation;
+    private Animation _walkDownAnimation;
+
+    private Array<TextureRegion> _walkLeftFrames;
+    private Array<TextureRegion> _walkRightFrames;
+    private Array<TextureRegion> _walkUpFrames;
+    private Array<TextureRegion> _walkDownFrames;
+
+    protected Vector2 _nextPlayerPosition;
+    protected Vector2 _currentPlayerPosition;
+    protected State _state = State.IDLE;
+    protected float _frameTime = 0f;
+    protected Sprite _frameSprite = null;
+    protected TextureRegion _currentFrame = null;
+
+    public final int FRAME_WIDTH = 16;
+    public final int FRAME_HEIGHT = 16;
+    public static Rectangle boundingBox;
+
+    public PlayerDeck deck;
+
+
+    public enum State {
+        IDLE, WALKING, DEAD, ALIVE;
     }
 
-    /**
-     * Inflicts damage on the Player by decreasing the healthPoints variable by the input amount
-     * Removes a LifeToken if the Player dies
-     * Sets the alive/dead state of the Player
-     *
-     * @param x is the input amount of damage
-     */
-    public void setDamage(int x) {
-        healthPoints = healthPoints - x;
-        if (healthPoints <= 0) {
-            lifeTokens = lifeTokens - 1;
-            healthPoints = 10;
-            System.out.println("You've lost 10 hp and 1 lifeToken");
-            state = states.alive();
-        }
-        if (lifeTokens <= 0) {
-            state = states.dead();
+    public enum Direction {
+        UP, RIGHT, DOWN, LEFT;
+    }
+
+    public Player() {
+        initPlayer();
+    }
+
+    public void initPlayer() {
+
+        this._entityID = UUID.randomUUID().toString();
+        this._nextPlayerPosition = new Vector2();
+        this._currentPlayerPosition = new Vector2();
+        this.boundingBox = new Rectangle();
+        this._velocity = new Vector2(2f, 2f);
+
+        Utility.loadTextureAsset(_defaultSpritePath);
+        loadDefaultSprite();
+        loadAllAnimations();
+    }
+
+    public void update(float delta) {
+        _frameTime = (_frameTime + delta) % 5;
+
+        setBoundingBoxSize(0f, 0.5f);
+    }
+    public void setBoundingBoxSize(float percentageWidthReduced, float percentageHeightReduced) {
+        float width;
+        float height;
+
+        float widthReductionAmount = 1.0f - percentageWidthReduced;
+
+        float heightReductionAmount = 1.0f - percentageHeightReduced;
+
+        if (widthReductionAmount > 0 && widthReductionAmount < 1) {
+            width = FRAME_WIDTH * widthReductionAmount;
         } else {
-            state = states.alive();
+            width = FRAME_WIDTH;
+        }
+
+        if (heightReductionAmount > 0 && heightReductionAmount < 1) {
+            height = FRAME_HEIGHT * heightReductionAmount;
+        } else {
+            height = FRAME_HEIGHT;
+        }
+        if (width == 0 || height == 0) {
+            Gdx.app.debug(TAG, "Width and Height are 0!! " + width + ":" + height);
         }
     }
 
-    /**
-     * Checks if the Player is standing on the next correct Flag according to previous visits,
-     * and the chronological order of Flags on the Board
-     *
-     * @param flag is the flag the Player is standing on
-     * @return true if the Player visited the correct Flag, false otherwise
-     */
-    public boolean visitFlag(Flag flag) {
-        int id = flag.getId();
-        if (id - flagsVisited == 1) {
-            // You visited the correct flag
-            flagsVisited = id;
-            return true;
+    public void init(float startX, float startY) {
+        this._currentPlayerPosition.x = startX;
+        this._currentPlayerPosition.y = startY;
+
+        this._nextPlayerPosition.x = startX;
+        this._nextPlayerPosition.y = startY;
+    }
+
+
+
+    private void loadDefaultSprite() {
+        Texture texture = Utility.getTextureAsset(_defaultSpritePath);
+        TextureRegion[][] textureFrames = TextureRegion.split(texture, FRAME_WIDTH, FRAME_HEIGHT);
+        _frameSprite = new Sprite(textureFrames[0][0].getTexture(), 0, 0, FRAME_WIDTH, FRAME_HEIGHT);
+        _currentFrame = textureFrames[0][0];
+    }
+
+    private void loadAllAnimations() {
+        Texture texture = Utility.getTextureAsset(_defaultSpritePath);
+        TextureRegion[][] textureFrames = TextureRegion.split(texture, FRAME_WIDTH, FRAME_HEIGHT);
+        _walkDownFrames = new Array<TextureRegion>(4);
+        _walkLeftFrames = new Array<TextureRegion>(4);
+        _walkRightFrames = new Array<TextureRegion>(4);
+        _walkUpFrames = new Array<TextureRegion>(4);
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextureRegion region = textureFrames[i][j];
+                if (region == null) {
+                    Gdx.app.debug(TAG, "Got null animation frame " + i + "," + j);
+                }
+                switch (i)
+                {
+                    case 0:
+                        _walkDownFrames.insert(j, region);
+                        break;
+                    case 1:
+                        _walkLeftFrames.insert(j, region);
+                        break;
+                    case 2:
+                        _walkRightFrames.insert(j, region);
+                        break;
+                    case 3:
+                        _walkUpFrames.insert(j, region);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
-        // You have not visited the correct flag
-        return false;
+        _walkDownAnimation = new Animation(0.25f, _walkDownFrames, Animation.PlayMode.LOOP);
+        _walkLeftAnimation = new Animation(0.25f, _walkLeftFrames, Animation.PlayMode.LOOP);
+        _walkRightAnimation = new Animation(0.25f, _walkRightFrames, Animation.PlayMode.LOOP);
+        _walkUpAnimation = new Animation(0.25f, _walkUpFrames, Animation.PlayMode.LOOP);
+
+
+    }
+    public void dispose() {
+        Utility.unloadAssets(_defaultSpritePath);
+    }
+    public void setState(State state){
+        this._state = state;
+    }
+    public Sprite getFrameSprite() {
+        return _frameSprite;
+    }
+    public TextureRegion getFrame() {
+        return _currentFrame;
+    }
+    public Vector2 getCurrentPosition() {
+        return _currentPlayerPosition;
+    }
+    public void setCurrentPosition(float currentPositionX, float currentPositionY){
+        _frameSprite.setX(currentPositionX);
+        _frameSprite.setY(currentPositionY);
+        this._currentPlayerPosition.x = currentPositionX;
+        this._currentPlayerPosition.y = currentPositionY;
+
     }
 
-    /**
-     * Method to add an Integer value x to the number of Flags visited by a Player
-     * Sets the Player State to win if numFlags
-     *
-     * @param x Integer value to be added to numFlags > 5
-     */
-    public void setScore(int x) {
-        numFlags = numFlags + x;
-        if (numFlags > 5) {
-            state = states.win();
+    public void setDirection(Direction direction, float deltaTime) {
+        this._previousDirection = this._currentDirection;
+        this._currentDirection = direction;
+
+        switch (_currentDirection) {
+            case UP:
+                _currentFrame = (TextureRegion) _walkUpAnimation.getKeyFrame(_frameTime);
+                break;
+            case RIGHT:
+                _currentFrame = (TextureRegion) _walkRightAnimation.getKeyFrame(_frameTime);
+                break;
+            case DOWN:
+                _currentFrame = (TextureRegion) _walkDownAnimation.getKeyFrame(_frameTime);
+                break;
+            case LEFT:
+                _currentFrame = (TextureRegion) _walkLeftAnimation.getKeyFrame(_frameTime);
+                break;
+            default:
+                break;
         }
     }
+    public void setNextPositionToCurrent() {
+        setCurrentPosition(_nextPlayerPosition.x, _nextPlayerPosition.y);
+    }
 
+    public void calculateNextPosition(Direction currentDirection, float deltaTime){
+        float testX = _currentPlayerPosition.x;
+        float testY = _currentPlayerPosition.y;
 
-     public void movement(){
-        if(ctrl.isKeyPressed(19)){
-            System.out.println("Test");
-            setPosition(0,1);
-        }else if(ctrl.isKeyPressed(20)){
-            setPosition(0,-1);
-        }else if(ctrl.isKeyPressed(22)){
-            setPosition(1,0);
-        }else if(ctrl.isKeyPressed(21)){
-            setPosition(-1,0);
+        _velocity.scl(deltaTime);
+
+        switch(currentDirection){
+            case UP:
+                testY += _velocity.y;
+                break;
+            case RIGHT:
+                testX += _velocity.x;
+                break;
+            case DOWN:
+                testY -= _velocity.y;
+                break;
+            case LEFT:
+                testX -= _velocity.x;
+                break;
+            default:
+                break;
         }
 
+        _nextPlayerPosition.x = testX;
+        _nextPlayerPosition.y = testY;
 
-    }
-
-
-    // Getters and setters for class field variables
-
-    public TiledMapTileLayer.Cell getState() {
-        return state;
-    }
-
-    public void setHP(int hp) {
-        healthPoints = healthPoints + hp;
-    }
-
-    public int getHp() {
-        return healthPoints;
+        _velocity.scl(1/deltaTime);
     }
 
     public PlayerDeck getDeck() {
         return deck;
     }
-
     public Vector2 getPosition() {
-        return position;
+        return _currentPlayerPosition;
     }
 
-    public void setPosition(int x, int y) {
-        position.add(x, y);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getScore() {
-        return numFlags;
-    }
-
-    public int getLifeTokens() {
-        return lifeTokens;
-    }
 }
+
+

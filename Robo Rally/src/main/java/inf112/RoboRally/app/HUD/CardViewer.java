@@ -12,7 +12,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import inf112.RoboRally.app.Cards.CardInitializer;
 import inf112.RoboRally.app.Cards.ProgramCard;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.skeleton.app.Player;
+
 import java.io.IOException;
 import java.util.ArrayList;
 

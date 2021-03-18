@@ -1,7 +1,5 @@
 package inf112.RoboRally.app.Objects;
 
-import com.badlogic.gdx.math.Vector2;
-
 /**
  * This class encapsulates the game mechanics in regards to interactions between the Board and the Players
  */
@@ -19,6 +17,8 @@ public class GameMechanics {
      * @param player is the player in question
      * @return the Player after being affected by the action
      */
+
+    /*
     public Player Action(Board board, Player player) {
         Vector2 vec = player.getPosition();
         x = (int) vec.x;
@@ -35,6 +35,8 @@ public class GameMechanics {
         }
         return player;
     }
+    */
+
 
 }
 

@@ -5,6 +5,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+//https://www.gamedevelopment.blog/full-libgdx-game-tutorial-menu-control/
+
 public class RoboRally extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
@@ -48,6 +50,7 @@ public class RoboRally extends Game {
             loadingScreen = new LoadingScreen(this);
             setScreen(loadingScreen);
         }
+
     public AppPreferences getPreferences(){
         return this.preferences;
     }
@@ -58,6 +61,7 @@ public class RoboRally extends Game {
     }
 
     public void dispose(){
+        mainScreen.dispose();
 
     }
 }

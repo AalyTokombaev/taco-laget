@@ -1,5 +1,7 @@
 package inf112.RoboRally.app;
 
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
@@ -14,5 +16,6 @@ public class Main {
         cfg.setWindowedMode(800, 800);
         new Lwjgl3Application(new RoboRally(), cfg);
 
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
     }
 }
