@@ -1,4 +1,4 @@
-package inf112.RoboRally.app.Objects;
+package inf112.RoboRally.app.Game;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -12,6 +12,9 @@ public class Board {
 
     // Map name
     public String name;
+
+    // TiledMap
+    private TiledMap map;
 
     // Floor tiles, playerLayer, Flag tiles, Hole tiles, Wrench tiles
     public TiledMapTileLayer boardLayer;
@@ -51,6 +54,7 @@ public class Board {
      */
     public Board(String name) {
         this.name = name;
+        this.map=makeMap();
     }
 
     /**
@@ -107,6 +111,10 @@ public class Board {
 
     public String getName() {
         return this.name;
+    }
+
+    public TiledMap getMap() {
+        return map;
     }
 }
 

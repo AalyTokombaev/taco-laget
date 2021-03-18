@@ -3,7 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.Controlls;
+import inf112.RoboRally.app.Controls;
 import inf112.RoboRally.app.Objects.Flag;
 import inf112.RoboRally.app.Objects.Player;
 import org.junit.Before;
@@ -13,13 +13,13 @@ import static org.mockito.Mockito.mock;
 
 public class PlayerTest {
     private Player player;
-    private Controlls ctrl;
+    private Controls ctrl;
 
     @Before
     public void setUp() {
         Gdx.gl = mock(GL20.class);
         new HeadlessApplication(new EmptyApplication());
-        this.ctrl = new Controlls();
+        this.ctrl = new Controls();
         this.player = new Player("testPlayer", new Vector2(), 0, ctrl);
 
     }

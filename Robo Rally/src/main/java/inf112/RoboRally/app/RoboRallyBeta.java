@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.HUD.CardViewer;
-import inf112.RoboRally.app.Objects.Board;
-import inf112.RoboRally.app.Objects.GameMechanics;
+import inf112.RoboRally.app.Cards.CardViewer;
+import inf112.RoboRally.app.Game.Board;
+import inf112.RoboRally.app.Game.GameMechanics;
 import inf112.RoboRally.app.Objects.Player;
 
 /**
@@ -33,15 +33,15 @@ public class RoboRallyBeta implements Screen {
     public Vector2 playerPosition;
     private int x, y;
     private final CardViewer cardViewer;
-    private Controlls ctrl;
+    private Controls ctrl;
     private InputMultiplexer inputMultiplexer;
 
     public RoboRallyBeta(RoboRally game) {
         this.game = game;
 
         // Start-pos for player
-        x = 2;
-        y = 0;
+        x = 5;
+        y = 1;
         game.batch = new SpriteBatch();
         game.font = new BitmapFont();
         game.font.setColor(Color.RED);
@@ -50,7 +50,7 @@ public class RoboRallyBeta implements Screen {
         board = new Board("Vault.tmx");
         TiledMap map = board.makeMap();
 
-        ctrl = new Controlls();
+        ctrl = new Controls();
         player = new Player("P1", new Vector2(x, y), 0, ctrl);
 
         cardViewer = new CardViewer(game.batch, player);
@@ -106,6 +106,7 @@ public class RoboRallyBeta implements Screen {
         renderer.setView(camera);
         renderer.render();
         ctrl.update();
+        updateBoard();
 
     }
 

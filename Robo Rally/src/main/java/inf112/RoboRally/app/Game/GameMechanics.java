@@ -1,6 +1,7 @@
-package inf112.RoboRally.app.Objects;
+package inf112.RoboRally.app.Game;
 
 import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.app.Objects.Player;
 
 /**
  * This class encapsulates the game mechanics in regards to interactions between the Board and the Players

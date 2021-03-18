@@ -6,11 +6,11 @@ import com.badlogic.gdx.utils.Array;
 //https://www.sitepoint.com/handling-player-input-in-cross-platform-games-with-libgdx/
 
 
-public class Controlls implements InputProcessor {
+public class Controls implements InputProcessor {
     public Array<keyState> keyStates = new Array<keyState>();
 
 
-    public Controlls() {
+    public Controls() {
         for (int i = 0; i < 256; i++) {
             keyStates.add(new keyState(i));
         }
