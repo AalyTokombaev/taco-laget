@@ -26,7 +26,11 @@ public class GameMechanics {
         y = (int) vec.y;
         board.playerLayer.setCell(x, y, player.getState());
         if (board.holeLayer.getCell(x, y) != null) {
+<<<<<<< HEAD:Robo Rally/src/main/java/inf112/RoboRally/app/Game/GameMechanics.java
             player.setDamage(100);
+=======
+            player.setDamage(10);
+>>>>>>> main:Robo Rally/src/main/java/inf112/RoboRally/app/Objects/GameMechanics.java
         }
         if (board.flagLayer.getCell(x, y) != null) {
             player.setScore(1);
