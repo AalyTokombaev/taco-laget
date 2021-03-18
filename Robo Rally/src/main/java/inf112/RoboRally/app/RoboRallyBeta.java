@@ -44,9 +44,25 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
      */
     @Override
     public void create() {
+
         // Start-pos for player
         x = 2;
         y = 0;
+
+        //******************
+        // Multiplayer stuff start
+        server = new GameServer();
+        client = new GameClient();
+
+        server.host();
+        client.connect("localhost", 1337);
+        System.out.println(client.id);
+        player = new Player("P1", new Vector2(x + client.id, y), 0);
+        // Multiplayer stuff end
+        //******************
+
+
+
         batch = new SpriteBatch();
         font = new BitmapFont();
         font.setColor(Color.RED);
@@ -54,7 +70,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         board = new Board("Vault.tmx");
         TiledMap map = board.makeMap();
 
-        player = new Player("P1", new Vector2(x, y), 0);
+        // player = new Player("P1", new Vector2(x, y), 0);
         cardViewer = new CardViewer(batch, player);
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x, y, player.getState());
@@ -78,15 +94,7 @@ public class RoboRallyBeta extends InputAdapter implements ApplicationListener {
         Gdx.input.setInputProcessor(inputMultiplexer);
 
 
-        //******************
-        // Multiplayer stuff start
-        server = new GameServer();
-        client = new GameClient();
 
-        server.host();
-        client.connect("localhost", 1337);
-        // Multiplayer stuff end
-        //******************
     }
 
     /**

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class GameClient {
     private Client client;
-    private int id;
+    public int id;
 
     public GameClient() {
         client = new Client();
