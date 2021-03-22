@@ -1,6 +1,8 @@
 package inf112.RoboRally.app.Cards;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -13,7 +15,6 @@ public class CardInitializer {
     ArrayList<String> cardsStrings;
     ArrayList<ProgramCard> cards;
     BufferedReader reader;
-    ;
 
     /**
      * Creates a FileReader
@@ -24,7 +25,7 @@ public class CardInitializer {
      * @throws IOException if the file can not be read by the FileReader
      */
     public CardInitializer() throws IOException {
-        reader = new BufferedReader(new FileReader("Robo Rally/src/assets/CardInfo.txt"));
+        reader = new BufferedReader(new FileReader("D:\\Java\\inf112-game\\src\\assets\\CardInfo.txt"));
         cardsStrings = new ArrayList<>();
         cards = new ArrayList<>();
         initialize();
@@ -48,7 +49,7 @@ public class CardInitializer {
             int priority = Integer.parseInt(split[0]);
             String name = split[1];
             int moves = Integer.parseInt(split[2]);
-            String turn = new String();
+            String turn = "";
 
             // non move cards
             if (name.contains("Rotate")) {
@@ -78,6 +79,7 @@ public class CardInitializer {
      *
      * @return a ProgramCard
      */
+    //TODO What happens when the deck is empty?
     public ProgramCard deal() {
         return cards.remove(0);
     }

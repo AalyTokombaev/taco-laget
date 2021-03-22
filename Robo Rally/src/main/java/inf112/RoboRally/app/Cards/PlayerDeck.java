@@ -13,7 +13,7 @@ public class PlayerDeck {
     /**
      * @param cards is a list of ProgramCards which should not hold more than 5 ProgramCards at the same time
      */
-    private ArrayList<ProgramCard> cards;
+    private final ArrayList<ProgramCard> cards;
 
     public PlayerDeck() {
         cards = new ArrayList<>();
@@ -21,6 +21,7 @@ public class PlayerDeck {
 
     /**
      * Method for adding a card to the PlayerDeck
+     *
      * @param card is the card to be added to the list
      */
     public void takeCard(ProgramCard card) {

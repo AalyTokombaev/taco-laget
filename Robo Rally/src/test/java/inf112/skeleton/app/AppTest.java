@@ -1,9 +1,10 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardInitializer;
-import inf112.RoboRally.app.Controls;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Player.Player;
+import inf112.RoboRally.app.Utility.Controls2;
+import inf112.RoboRally.app.Utility.GameLogic;
+import inf112.RoboRally.app.Utility.MapManager;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -17,8 +18,11 @@ public class AppTest {
     /**
      * Rigorous Test :-)
      */
-    Controls ctrl = new Controls();
-    Player player = new Player("P1", new Vector2(0,0), 0, ctrl);
+    Player player = new Player();
+    MapManager mapster = new MapManager();
+    GameLogic logic = new GameLogic(player,mapster);
+    Controls2 ctrl = new Controls2(player,logic);
+
 
     @Test
     public void shouldAnswerWithTrue() {

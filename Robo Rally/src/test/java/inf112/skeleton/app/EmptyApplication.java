@@ -1,6 +1,5 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
 
 public class EmptyApplication implements ApplicationListener {

@@ -1,7 +1,8 @@
 package inf112.RoboRally.app.Game;
 
 import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Player.Player;
+
 
 /**
  * This class encapsulates the game mechanics in regards to interactions between the Board and the Players
@@ -24,16 +25,16 @@ public class GameMechanics {
         Vector2 vec = player.getPosition();
         x = (int) vec.x;
         y = (int) vec.y;
-        board.playerLayer.setCell(x, y, player.getState());
+       // board.playerLayer.setCell(x, y, player.getState());
         if (board.holeLayer.getCell(x, y) != null) {
             player.setDamage(10);
         }
         if (board.flagLayer.getCell(x, y) != null) {
-            player.setScore(1);
+      //      player.setScore(1);
         }
-        if (player.getScore() >= 5) {
-            player.states.win();
-        }
+//        if (player.getScore() >= 5) {
+//            player.states.win();
+//        }
         return player;
     }
 
