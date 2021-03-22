@@ -7,9 +7,9 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="clojars" />
-      <option name="name" value="clojars" />
-      <option name="url" value="http://clojars.org/repo/" />
+      <option name="id" value="local-maven-repo" />
+      <option name="name" value="local-maven-repo" />
+      <option name="url" value="file:///D:\Java\taco-laget\Robo Rally/local-maven-repo" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

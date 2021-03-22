@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
  * Flags can be touched by moving to the same position as a Flag tile
  * Flags work as win conditions in the Robo Rally game, as you win when you have touched the number of flags in a chronological sequence
  */
-public class Flag implements Objects {
+public class Flag implements Object {
     /**
      * @param id is an identity variable to separate Flag objects from one another
      * @param pos is the vector position of the Flag object

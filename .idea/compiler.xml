@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="mvn-app" target="9" />
+      <module name="mvn-app" target="10" />
     </bytecodeTargetLevel>
   </component>
 </project>
