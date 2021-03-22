@@ -5,7 +5,9 @@ import com.badlogic.gdx.InputAdapter;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.RoboRally.app.Controls;
 import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.RoboRallyBeta;
 
 import java.io.IOException;
@@ -15,14 +17,17 @@ import java.util.Queue;
 public class GameServer{
     private Server server;
     private boolean active;
-    int numPlayers;
-    RoboRallyBeta parent;
-
+    int numPlayers = 0;
+    RoboRally game;
+    Controls ctrl;
+    public final int id = 0;
     Queue<Action> actions;
 
 
-    public GameServer(){
+    public GameServer(RoboRally game, Controls ctrl){
         server = new Server();
+        this.game = game;
+        this.ctrl = ctrl;
 
 
 
@@ -33,10 +38,13 @@ public class GameServer{
                     if (msg[0].equals("connectClient")){
                         addPlayer();
                         System.out.println("client connected");
+                        numPlayers++;
+                        System.out.println(String.format("Sending client id {}", numPlayers));
                         connection.sendTCP(String.format("connectClientOK:{}", numPlayers));
                     }
                     if (msg[0].equals("keyUpClient")) {
                         int i = Integer.parseInt(msg[1]);
+                        ctrl.keyDown(i);
                     }
                 }
             }

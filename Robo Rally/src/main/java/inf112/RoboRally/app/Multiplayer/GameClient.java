@@ -7,22 +7,27 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.RoboRally.app.RoboRally;
 
 import java.io.IOException;
 
 public class GameClient {
     private Client client;
     public int id;
+    RoboRally game;
 
-    public GameClient() {
+    public GameClient(RoboRally game) {
         client = new Client();
+        this.game = game;
 
         client.addListener(new Listener() {
             void recieved(Connection connection, Object object){
                 String[] msg = object.toString().split(":");
                 if (msg[0].equals("connectClientOK")){
                     id = Integer.parseInt(msg[1]);
+                    System.out.println(String.format("Connected to server and got the id {}", id ));
                 }
+
             }
         });
 
