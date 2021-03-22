@@ -46,26 +46,32 @@
 * Creating issues for every little task.
 * Create a more detailed plan for mandatory assignment 4, so nothing will be done in the last minute
 
-## Hvordan har vi prioritert oppgavene fremover?
+## Prioritizing of the tasks
 1. Finish the multiplayer
 2. Main menu
 3. Grid
 4. Chat
 5. Sound
 
-
-## Hvordan fungerer gruppedynamikken og kommunikasjonen?
-
 ## Demands
-* Oppdater krav, hvor langt vi har kommet, prioriterte krav og hva vi har gjort siden sist?
-  * Krav
-  1. Multiplayer
-  2. Main menu
-  3. Grid
+* We have updated our demands, how far we have come and prioritized the rest of our demands here.
+  * Demands:
+    1. Multiplayer
+    2. Main menu
+    3. Grid
+    4. Lyd og musikk
+  * How far have we come since last?
+    * We have really worked on the multiplayer and this is ready since the last assignment. 
+    * We have also implemented more game methods, so soon you can play the game.
+    * We have created a grid so that the player cannot go outside the board, since there is a wall there.
+      The player can therefore not move outside the board. 
+    * Improved how the controls are handled. 
+    * We have improved the main menu and the screen.
+  * Our focus from next week will be to implement sound effects and music in the game.
 
 
 
-## Mvp-krav:
+## Mvp-demands
 * __Changes in MVPs__
 * We have focused on MVP 5: Multiplayer last of the mandatory demands.  
   * The reason for this is that the other tasks looked easier and more quickly to get out of the way. 
@@ -83,19 +89,20 @@
 * Lyd
 * Main menu
 
-## Bugs i kravene
+## Bugs
+* Render runs whenever the mouse moves on the scress, so it checks everytime the mousepointer is moving.
 
-## Testing: Manuelle og automatiske
-* Anders lager
+## Testing: Manual and automatic
+* We have really focused on created more tests, both manual and automatic.
 
-## Ulikhet i commits
+## Difference in commiting
 * Since we have different areas of the project we are responsible for, there is a difference in commits. 
-  * Tore and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
+* Tore and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
 
-## Document how to run the game on all operative systems from git to playing for newbs
+## How to run the game on Windows, Mac and Linux OS.
 Running the game on
 * Windows:
-  1. Go to our project on git and clone the project to your computer
+  1. Go to our project-page on git: https://github.com/OlderNed/taco-laget, and clone the project to your computer
   2. Go to taco-laget/Robo Rally/src/main/inf112.RoboRally.app/Main
   3. Right click on Main and press "Run Main.main()"
   4. You will now see a game-board for our game
@@ -103,18 +110,39 @@ Running the game on
   6. To choose cards and use them, you simply click them with the mouse
   
 * Mac OS:
-  1. Go to the projects Github page at 
+  1. Go to the projects Github page at https://github.com/OlderNed/taco-laget
+  2. Click on 'Code' and navigate down to 'Download as ZIP'
+  3. Open IntelliJIDEA and open the downloaded project
+  4. Navigate to Robo Rally/src/main/java/inf112.RoboRally.app
+  5. Right click on 'Main' and select 'Run Main.main()'
+  5b. If you get an error, find the 'Main' configuration on the top right corner of intellij(by the run button), click on 'Main' and click 'Edit configuration'.
+     This should open up a new window called 'Run/Debug Configurations'
+  5c. In 'Run/Debug Configurations' you should see a dropdown meny called 'Modify Options', click on 
+     'Add VM options'. This adds another input field in 'Run/Debug Configurations'. Here you need
+     to add '-XstartOnFirstThread'. Click 'Apply' and 'Ok' at the bottom right of the window.
+  6. Find the run button on the top right of the intellij window and press it to run the project.
+  7. You will now see a game-board for our game
+  8. Navigate the game-piece(UiB-owl) with the arrows on your keyboard
+  9. To choose cards and use them, you simply click them with the mouse
   
 * Linux:
-  1. 
-## Klassediagram
+  1. Open Intellij
+  2. go to 'file' and then 'new project from version control'
+  3. Choose github, and then enter the URL, which is https://github.com/OlderNed/taco-laget
+  4. Download the repo
+  5. Navigate to Robo Rally/src/main/java/inf112.RoboRally.app
+  6. Right click on the 'Main', and select 'Run Main.main()'
+  7. You will now see a game-board for our game
+  8. Navigate the game-piece(UiB-owl) with the arrows on your keyboard
+  9. To choose cards and use them, you simply click them with the mouse
+  
+## Class diagram
 * __Kommer med siste commit før innlevering__
 
 ## Projectboard
 ![Image](img/ProjectboardWeek11.PNG)
 
 ## User stories:
-
 * Playing from several computers:
   * As a player I want to engage in a online game of RoboRally, so I can play with my friends.
   * Acceptance Criteria:
@@ -145,15 +173,6 @@ Running the game on
   * Tasks:
     * Using for-loops to check if the robot is trying to move outside the board
   
-* Implementing chat:
-  * As a player I want to be able to chat so I can talk to my friends while playing multiplayer with them
-  * Acceptance criteria:
-    * I see a chat
-    * I can write in the chat
-    * I can receive messages in the chat
-  * Tasks:
-    * Implement a chat
-  
 * Implementing a main menu
   * As a player I want to be able to choose whether I want to play multiplayer or single and other settings before playing, so I can play how I prefer
   * Acceptance criteria:
@@ -162,15 +181,6 @@ Running the game on
   * Tasks: 
     * Implement a main menu
     * Include settings that a player would want to decide for themselves
-  
-* Implementing sound in the game
-  * As a player I want to be able to hear sound in the game so I can have a better gaming experience
-  * Acceptance criteria:
-    * I can choose to turn on sound
-    * I can regulate the volume
-    * The sound fits the actions happening in the game
-  * Tasks: 
-    * Implement sound
-    * Implement a volume button to change the volume and to turn it on/off.
+
   
   
