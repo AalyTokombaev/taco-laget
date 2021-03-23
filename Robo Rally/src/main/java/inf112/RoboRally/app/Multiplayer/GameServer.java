@@ -11,6 +11,7 @@ import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.RoboRallyBeta;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Queue;
 
@@ -20,14 +21,17 @@ public class GameServer{
     int numPlayers = 0;
     RoboRally game;
     Controls ctrl;
+    public Player player;
     public final int id = 0;
     Queue<Action> actions;
+    ArrayList<Player> players;
 
 
     public GameServer(RoboRally game, Controls ctrl){
         server = new Server();
         this.game = game;
         this.ctrl = ctrl;
+        players = new ArrayList<>();
 
 
 
@@ -72,8 +76,9 @@ public class GameServer{
             e.printStackTrace();
         }
         addPlayer();
+        System.out.println("hosting");
     }
 
-
+    public void setPlayer(Player player) { this.player = player; }
 
 }

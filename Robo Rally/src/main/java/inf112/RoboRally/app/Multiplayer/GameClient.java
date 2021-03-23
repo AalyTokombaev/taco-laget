@@ -7,6 +7,8 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.RoboRally.app.Controls;
+import inf112.RoboRally.app.Objects.Player;
 import inf112.RoboRally.app.RoboRally;
 
 import java.io.IOException;
@@ -15,10 +17,13 @@ public class GameClient {
     private Client client;
     public int id;
     RoboRally game;
+    private Controls ctrl;
+    public Player player;
 
-    public GameClient(RoboRally game) {
+    public GameClient(RoboRally game, Controls ctrl) {
         client = new Client();
         this.game = game;
+        this.ctrl = ctrl;
 
         client.addListener(new Listener() {
             void recieved(Connection connection, Object object){
@@ -26,6 +31,13 @@ public class GameClient {
                 if (msg[0].equals("connectClientOK")){
                     id = Integer.parseInt(msg[1]);
                     System.out.println(String.format("Connected to server and got the id {}", id ));
+                    connection.sendTCP("connectionOK");
+                }
+                if (msg[0].equals("KeyDown")){
+                    int i = Integer.parseInt(msg[1]);
+                    ctrl.keyDown(i);
+                    ctrl.keyUp(i);
+                    connection.sendTCP("KeyDownOK");
                 }
 
             }
@@ -35,7 +47,7 @@ public class GameClient {
     }
 
     public boolean keyUp(int i) {
-        client.sendTCP(String.format("keyUpClient::{}",i));
+        client.sendTCP(String.format("keyUpClient:{}",i));
         return true;
     }
 
@@ -46,10 +58,12 @@ public class GameClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client.sendTCP("connectClient");
+        client.sendTCP(String.format("connectClient:P{}:"));
+        System.out.println("coneecting");
         return id;
     }
 
+    public void setPlayer(Player player){ this.player = player; }
 
 
 }

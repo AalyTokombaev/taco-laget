@@ -26,6 +26,7 @@ public class Player {
     public States states;
     private Controls ctrl;
     public Grid grid;
+    public int id;
 
     /**
      * Constructs a new Player to be placed on the Board and play the Robo Rally game
@@ -260,4 +261,10 @@ public class Player {
     public void setLifeTokens(int lives){
         this.lifeTokens = lives;
     }
+
+    public int getx() {return (int) position.x; }
+
+    public int gety() {return (int) position.y; }
+
+    public void setId(int id) { this.id = id; }
 }

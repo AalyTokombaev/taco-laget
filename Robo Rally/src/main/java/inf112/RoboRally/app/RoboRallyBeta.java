@@ -1,8 +1,6 @@
 package inf112.RoboRally.app;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,7 +12,11 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
 import inf112.RoboRally.app.Game.Board;
 import inf112.RoboRally.app.Game.GameMechanics;
+import inf112.RoboRally.app.Multiplayer.GameClient;
+import inf112.RoboRally.app.Multiplayer.GameServer;
 import inf112.RoboRally.app.Objects.Player;
+
+import java.util.ArrayList;
 
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
@@ -36,6 +38,17 @@ public class RoboRallyBeta implements Screen {
     private Controls ctrl;
     private InputMultiplexer inputMultiplexer;
 
+    ArrayList<Player> players;
+    Player player2;
+
+    boolean isHost;
+    boolean isClient;
+
+    GameServer server;
+    GameClient client;
+
+    private int id;
+
     public RoboRallyBeta(RoboRally game) {
         this.game = game;
 
@@ -52,11 +65,25 @@ public class RoboRallyBeta implements Screen {
 
         ctrl = new Controls();
         player = new Player("P1", new Vector2(x, y), 0, ctrl);
+        player2 = new Player("P2", new Vector2(x+1, y), 0, ctrl);
+
+
+        players = new ArrayList<>();
+
+        isClient = false;
+        isHost = false;
+
+        players.add(player);
+        players.add(player2);
+
+        server = new GameServer(game, ctrl);
+        client = new GameClient(game, ctrl);
 
         cardViewer = new CardViewer(game.batch, player);
 
         playerPosition = player.getPosition();
-        board.playerLayer.setCell(x, y, player.getState());
+        // board.playerLayer.setCell(x, y, player.getState());
+        // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
         // Camera setup
@@ -98,8 +125,28 @@ public class RoboRallyBeta implements Screen {
 
     @Override
     public void render(float v) {
+        if (ctrl.isKeyPressed(Input.Keys.T) && !isHost){
+            System.out.println("t pressed");
+            isHost = true;
+            server.host();
+            server.setPlayer(players.get(server.id));
+            board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
+        }
+        if (ctrl.isKeyDown(Input.Keys.J) && !isClient && !isHost) {
+            System.out.println("j pressed");
+            isClient = true;
+            client.connect("localhost", 1337);
+            client.setPlayer(players.get(server.id));
+            board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
+        }
+        if (isClient) {
+            client
+        }
+
         camera.update();
-        player.movement();
+        //player.movement();
+        for (Player p: players) {p.movement();}
+
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         cardViewer.draw();
