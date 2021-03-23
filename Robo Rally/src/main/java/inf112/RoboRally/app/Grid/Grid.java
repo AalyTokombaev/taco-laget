@@ -40,7 +40,4 @@ public class Grid {
         }
     }
 
-    public boolean canGo(GridDirection dir) {
-        return true;
-    }
 }
