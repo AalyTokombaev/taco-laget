@@ -1,30 +1,38 @@
 # Deloppgave 1:
 
 ## Does the roles in the team work?
-* The roles work good, and all ambiguity that arised in the beginnning of the project is cleared up. Everyone is confident with their role in the project.
+* The roles work good, and all ambiguity that was raised in the beginning of the project is cleared up. Everyone is confident with their role in the project.
 * Teamlead takes responsibility for the meetings and meeting minutes and for clearing up whatever is unclear at the time. Makes sure all the user stories applies and is put down on "paper"
-* QA is taking resonsibility for everything needed ot be tested and makes sure tests that do are not optimal or not in use are removed before the final commit.
-* Senior and Junior developers comes up with a lot of good code and solutions for the most optimal solutions. They cooperate a lot with rulekeeper, shich also contributes with a lot of good solutions to problems.
+* QA is taking responsibility for everything needed ot be tested and makes sure tests that do are not optimal or not in use are removed before the final commit.
+* Senior and Junior developers comes up with a lot of good code and solutions for the most optimal solutions. They cooperate a lot with rulekeeper, which also contributes with a lot of good solutions to problems.
 * Rulekeeper has everything under control regarding rules and makes sure the game is developed correctly according to the rules of the traditional board game, Roborally.
 
 ## Are there experiences worth mentioning reagarding the team or the teams method?
-* The team works good and we collaborate very well. We meet and talk several times a week and you can see that we have progress in the project.
+* The team works good, and we collaborate very well. We meet and talk several times a week, and you can see that we have progress in the project.
 * Physical meetings work a lot better, faster is more effective. We still keep most meetings digital because the team has more time to meet then.
 * It works good for the team to focus on one problem at a time considering that most of the meetings and lectures are digital, so we do not need to wonder what is going on since we do not yet trust the project board 100%.
 * Playing multiplayer from several computers has taken a lot more time and is a lot more challenging than expected.
 * We have now learned from about MVP and what it means and takes to satisfy and MVP. We have learned that time-demanding tasks should be started pretty early in the process. We chose to delay the most demanding task till the end, since we wanted 
-  as most as possibly done early. For next time we know to start earlier on critical/demanding tasks. Despite pushing it, it has worked out fine.
+  as much as possibly done early. For next time we know to start earlier on critical/demanding tasks. Despite pushing it, it has worked out fine.
 
 ## Does the team agree on the choices taken, and if not what could be improved?
-* We have had a good dialog thoughout the project, and the choices have been discussed with everyone that wished to take part.
+* We have had a good dialog throughout the project, and the choices have been discussed with everyone that wished to take part.
 * We have met several times a week to discuss potential problems and progress.  
-* Whenever there has been a big issue, it has been dicussed in the meetings with everyone to find a solution as quickly as possible.  
+* Whenever there has been a big issue, it has been discussed in the meetings with everyone to find a solution as quickly as possible.  
 * We all agree on the choices we have done throughout.
 * If there is something we would change it is starting earlier on the multiplayer part of the MVPs since it was a bigger task than first expected.  
 * There has been a few cases where the tasks have been done in the last minute, which could have been avoided with a bit more planning.
 * For the third sprint we should have everything ready at least a day before the deadline, so no one needs to work at night or right before the deadline to finish tasks.
 
-## Retrospektiv
+## Communication
+* Communication works good as we ask each other questions all the time, and talk several times a week. Everyone is comfortable asking whatever they are wondering, and I think it helped to have one physical meeting, where we could see who we were actually talking to. 
+It has been easier to talk more after the physical meeting. 
+* We often show each other code, or draw on the board if we meet physical to explain what we mean or to show something that might be new for someone in the group, but that we would like to use in the project. 
+  
+## Retrospective
+* We planned from the beginning to use Kanban as our main method. We have also used pair-programming a lot, as well as remote programming, where one team-member shares their screen, tp get help on how to do the code.
+  * We still use Kanban and project-board as a way to control what is being done and needs to be done next. Our plan was to focus on one thing at a time, but now that we have come further into the project
+  we tend to work on more than one task at a time. The reason for this is that there is no need for 3 people to find out one thing, although it could be solved a little quicker. It is more efficient for some people to start on other parts of the project.
 * __What have we managed to do until now?__
   * We have learned more about each others ways of working and routines, which make sit easier to know what to expect, and when to expect it.  
   * __MVPs__
@@ -39,7 +47,7 @@
   * __How does the communication and cooperation work?__
     * The cooperation works good
     * Communication works good. 
-    * We can still get better at moving things around in Projectboard, but things are going well because we work on a lot together, and therefore know exactly what is being done at the moment.
+    * We can still get better at moving things around in the project-board, but things are going well because we work on a lot together, and therefore know exactly what is being done at the moment.
   
 
 ## Maximum three points of improvement from the retrospective
@@ -59,7 +67,7 @@
     1. Multiplayer
     2. Main menu
     3. Grid
-    4. Lyd og musikk
+    4. Sound and music
   * How far have we come since last?
     * We have really worked on the multiplayer and this is ready since the last assignment. 
     * We have also implemented more game methods, so soon you can play the game.
