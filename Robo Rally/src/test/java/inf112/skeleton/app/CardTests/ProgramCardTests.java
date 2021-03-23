@@ -17,13 +17,13 @@ public class ProgramCardTests {
 
     @Before
     public void setUp(){
-        moveOneCard = new ProgramCard(1, new String(), 650, "Move-1-490.jpg");
-        moveTwoCard = new ProgramCard(2, new String(), 780, "Move-2-670.jpg");
-        moveThreeCard = new ProgramCard(3, new String(), 840, "Move-3-790.jpg");
-        uTurnCard = new ProgramCard(0, "U-Turn", 60, "U-Turn-10.jpg");
-        rotateRightCard = new ProgramCard(0, "RotateRight", 420, "RotateRight-70.jpg");
-        rotateLeftCard = new ProgramCard(0, "RotateLeft", 410, "RotateLeft-80.jpg");
-        backUpCard = new ProgramCard(0, "Back-Up", 480, "Back-Up-430.jpg");
+        moveOneCard = new ProgramCard(1, new String(), 650, "Move-1_490.jpg");
+        moveTwoCard = new ProgramCard(2, new String(), 780, "Move-2_670.jpg");
+        moveThreeCard = new ProgramCard(3, new String(), 840, "Move-3_790.jpg");
+        uTurnCard = new ProgramCard(0, "U-Turn", 60, "U-Turn_10.jpg");
+        rotateRightCard = new ProgramCard(0, "RotateRight", 420, "RotateRight_70.jpg");
+        rotateLeftCard = new ProgramCard(0, "RotateLeft", 410, "RotateLeft_80.jpg");
+        backUpCard = new ProgramCard(0, "Back-Up", 480, "Back-Up_430.jpg");
      }
 
      @Test
@@ -52,6 +52,6 @@ public class ProgramCardTests {
 
      @Test
      public void getFilenameTest(){
-         assertEquals("Move-1-490.jpg", moveOneCard.getFilename());
+         assertEquals("Move-1_490.jpg", moveOneCard.getFilename());
      }
 }
