@@ -59,7 +59,7 @@ public class CardInitializer {
             if (name.equals("U-Turn")) {
                 turn = "U-Turn";
             }
-            String filename = name + "-" + priority + ".jpg";
+            String filename = name + "_" + priority + ".jpg";
             cards.add(new ProgramCard(moves, turn, priority, filename));
 
         }
