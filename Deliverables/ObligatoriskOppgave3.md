@@ -80,7 +80,7 @@ It has been easier to talk more after the physical meeting.
 
 
 ## Mvp-demands
-* __Changes in MVPs__
+__Changes in MVPs__
 * We have focused on MVP 5: Multiplayer last of the mandatory demands.  
   * The reason for this is that the other tasks looked easier and more quickly to get out of the way. 
   * We had not taught ourselves enough about how to prioritize MVP-demands before-hand. If we knew what we know now about 
@@ -88,22 +88,22 @@ It has been easier to talk more after the physical meeting.
   * Even though we did start in the wrong direction, everything is going well now, and we are happy about our progress. We have even get to started on our own MVPs, 
     and are hoping to be done with Multiplayer soon enough.
   
-* __What MVP do we find most important and why?__
+__What MVP do we find most important and why?__
 * The most important MVP-demand for us is to show a game-board and to be able to move the game-piece so you can do something in the game
 * Without a board or a game-piece there is not possible to anything in the game resembling to playing.
 
-## Hva vil vi ha med ekstra:
+## Extra we want in the game if time
 * Chat
 * Lyd
 * Main menu
 
 ## Bugs
-* Render runs whenever the mouse moves on the scress, so it checks everytime the mousepointer is moving.
+* Render runs whenever the mouse moves on the screen, so it checks everytime the mouse-pointer is moving.
 
 ## Testing: Manual and automatic
 * We have really focused on created more tests, both manual and automatic.
 
-## Difference in commiting
+## Difference in committing
 * Since we have different areas of the project we are responsible for, there is a difference in commits. 
 * Tore and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
 
@@ -148,7 +148,7 @@ Running the game on
 * __Kommer med siste commit før innlevering__
 
 ## Projectboard
-![Image](img/ProjectboardWeek11.PNG)
+![Image](img/projectboardweek12.PNG)
 
 ## User stories:
 * Playing from several computers:
