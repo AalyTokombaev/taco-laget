@@ -32,7 +32,7 @@ public class RoboRallyBeta implements Screen {
     private final OrthographicCamera camera;
     public Vector2 playerPosition;
     private int x, y;
-    private final CardViewer cardViewer;
+    private CardViewer cardViewer;
     private Controls ctrl;
     private InputMultiplexer inputMultiplexer;
 
@@ -54,6 +54,7 @@ public class RoboRallyBeta implements Screen {
         player = new Player("P1", new Vector2(x, y), 0, ctrl);
 
         cardViewer = new CardViewer(game.batch, player);
+        if(cardViewer.player.getHp() != player.getHp())
 
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x, y, player.getState());
@@ -142,6 +143,8 @@ public class RoboRallyBeta implements Screen {
         x = (int) playerPosition.x;
         y = (int) playerPosition.y;
         board.playerLayer.setCell(x,y, player.getState());
+        cardViewer.updateDamageTokens();
+        cardViewer.updateLifeTokens();
     }
 
 }

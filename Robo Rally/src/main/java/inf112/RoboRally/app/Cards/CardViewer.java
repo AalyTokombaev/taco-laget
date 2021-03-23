@@ -31,10 +31,14 @@ public class CardViewer {
      * @param viewport handles aspect ratio and uses worldWidth and worldHeight to direct camera
      * @param cam handles the projection of the textures on screen
      */
-    private final Player player;
+    public Player player;
     private final Stage stage;
     private final Viewport viewport;
     private final OrthographicCamera cam;
+    private ArrayList<Table> tableList;
+    private ArrayList<Table> containerList;
+    private ArrayList<Image> imageList;
+    private ArrayList<ProgramCard> programCards;
 
     /**
      * Constructs a new object of CardViewer for building a graphical user interface and loading base textures
@@ -50,6 +54,10 @@ public class CardViewer {
         viewport = new FitViewport(15, 15, cam); // Define aspect ratio window
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         this.player = player;
+        this.tableList = new ArrayList();
+        this.containerList = new ArrayList();
+        this.imageList = new ArrayList();
+        this.programCards = new ArrayList();
         buildMenu();
     }
 
@@ -62,10 +70,6 @@ public class CardViewer {
      * Throws an exception if the textures fail to load
      */
     public void buildMenu() {
-        ArrayList<Table> tableList = new ArrayList();
-        ArrayList<Table> containerList = new ArrayList();
-        ArrayList<Image> imageList = new ArrayList();
-        ArrayList<ProgramCard> programCards = new ArrayList();
         //TODO look into the iterator-method and look for more optimization, maybe try to reduce the number of lists
 
 
@@ -136,7 +140,7 @@ public class CardViewer {
                     builder(tableList, containerList, imageList, bw, bh, image, j);
                     bw += 1;
                 } else {
-                    image = new Image(texture1);
+                    image = new Image();
                     image.setSize(1f, 1f);
                     builder(tableList, containerList, imageList, bw, bh, image, j);
                     bw += 1;
@@ -171,9 +175,47 @@ public class CardViewer {
         stage.addActor(table);
     }
 
-    /**
-     * Draws objects for rendering
-     */
+    public void updateDamageTokens() {
+        Texture texture1 = new Texture("DamageToken.jpg");
+        int hp = player.getHp();
+        if(hp != 0){
+            for (int j = 15; j < 24-(hp-1); j++) {
+                Image image = new Image(texture1);
+                Table table = tableList.get(j);
+                Table container = containerList.get(j);
+                container.addActor(image);
+                table.add(container);
+                stage.addActor(table);
+                image.setSize(1f, 1f);
+            }
+        }if(hp==10){
+            for (int j = 15; j < 24; j++) {
+                Image image = new Image(texture1);
+                Table table = tableList.get(j);
+                Table container = containerList.get(j);
+                image.remove();
+                container.remove();
+                table.remove();
+            }
+        }
+    }
+
+    public void updateLifeTokens() {
+        Texture texture3 = new Texture("LifeToken.jpg");
+        int lt = player.getLifeTokens();
+        for(int j = 13-lt; j > 9; j--){
+            Image image = new Image(texture3);
+            Table table = tableList.get(j);
+            Table container = containerList.get(j);
+            image.remove();
+            container.remove();
+            table.remove();
+        }
+    }
+
+        /**
+         * Draws objects for rendering
+         */
     public void draw() {
         stage.act();
         stage.draw();

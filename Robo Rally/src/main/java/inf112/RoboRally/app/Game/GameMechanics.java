@@ -26,7 +26,7 @@ public class GameMechanics {
         y = (int) vec.y;
         board.playerLayer.setCell(x, y, player.getState());
         if (board.holeLayer.getCell(x, y) != null) {
-            player.setDamage(100);
+            player.setDamage(1);
         }
         if (board.flagLayer.getCell(x, y) != null) {
             player.setScore(1);

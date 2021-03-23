@@ -57,6 +57,7 @@ public class Player {
      */
     public void setDamage(int x) {
         healthPoints = healthPoints - x;
+        System.out.println(getHp());
         if (healthPoints <= 0) {
             lifeTokens = lifeTokens - 1;
             healthPoints = 10;
@@ -64,6 +65,7 @@ public class Player {
             state = states.alive();
         }
         if (lifeTokens <= 0) {
+            lifeTokens = 0;
             state = states.dead();
         } else {
             state = states.alive();
