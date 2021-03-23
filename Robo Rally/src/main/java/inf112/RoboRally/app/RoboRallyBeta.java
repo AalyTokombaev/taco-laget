@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
@@ -82,7 +83,7 @@ public class RoboRallyBeta implements Screen {
         cardViewer = new CardViewer(game.batch, player);
 
         playerPosition = player.getPosition();
-        // board.playerLayer.setCell(x, y, player.getState());
+        board.playerLayer.setCell(x, y, player.getState());
         // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
@@ -136,16 +137,24 @@ public class RoboRallyBeta implements Screen {
             System.out.println("j pressed");
             isClient = true;
             client.connect("localhost", 1337);
-            client.setPlayer(players.get(server.id));
-            board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
+            client.setPlayer(players.get(1));
+            board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
         }
         if (isClient) {
-            client
+            int hostX = client.hostX;
+            int hostY = client.hostY;
+            TiledMapTileLayer.Cell host_state = client.hostState;
+            board.playerLayer.setCell(hostY, hostX, host_state);
+
+        }
+
+        if (isHost) {
+
         }
 
         camera.update();
         //player.movement();
-        for (Player p: players) {p.movement();}
+
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
