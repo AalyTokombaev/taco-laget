@@ -99,9 +99,6 @@ public class LiveScreen implements Screen {
         System.out.println(Gdx.graphics.isContinuousRendering());
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(ctrl.keyUp(Input.Keys.T)){
-            System.out.println("LOL");
-        }
         ctrl.update(v);
         if (v > 0.2) {
             logic.update();

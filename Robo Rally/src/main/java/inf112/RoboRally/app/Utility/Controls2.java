@@ -208,15 +208,7 @@ public class Controls2 implements InputProcessor {
         //deltatime passed to function for potential future use
         //TODO get quit-function to work...
 
-        Vector2 nextPos = player.getPosition();
-        if(logic.outOfBounds(nextPos)){
-
-            System.out.println("out of bounds");
-            downReleased();
-            upReleased();
-            leftReleased();
-            rightReleased();
-        }
+        Vector2 nextPos = player.getPosition().cpy();
 
         if (keynum.get(Keys.LEFT)) {
             if (!logic.DirChecker(nextPos.add(-1, 0)).contains("EAST")
