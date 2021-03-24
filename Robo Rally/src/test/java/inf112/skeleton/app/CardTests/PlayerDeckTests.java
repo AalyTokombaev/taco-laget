@@ -20,7 +20,7 @@ public class PlayerDeckTests {
         moveThreeCard = new ProgramCard(3, new String(), 840, "Move-3.jpg");
      }
 
-     // Check that card is added to the deck
+     @Test
      public void takeCardTest(){
          deck.takeCard(moveOneCard);
          assertEquals(moveOneCard, deck.showCards().get(0));
