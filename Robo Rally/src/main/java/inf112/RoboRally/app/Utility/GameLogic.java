@@ -12,18 +12,23 @@ public class GameLogic implements ApplicationListener {
     MapManager mapster;
     TiledMapTileLayer holes;
     TiledMapTileLayer walls;
+    TiledMapTileLayer flags;
 
     public GameLogic(Player player, MapManager mapster) {
         this.mapster = mapster;
         this.player = player;
         this.holes = (TiledMapTileLayer) mapster.getHoleLayer();
         this.walls = (TiledMapTileLayer) mapster.getWallLayer();
+        this.flags = (TiledMapTileLayer) mapster.getFlagLayer();
     }
 
     public void update() {
         System.out.println("logic tick");
         if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
             player.setDamage(1);
+        }
+        if(flags.getCell((int) player.getPosition().x, (int)player.getPosition().y) != null){
+            player.setScore(1);
         }
 
     }
@@ -58,7 +63,7 @@ public class GameLogic implements ApplicationListener {
 
     }
 
-    //Check of outBounds
+    //Check if outBounds
     public boolean outOfBounds(Vector2 pos) {
         if (pos.x < 0 || pos.y < 0) {
             return true;

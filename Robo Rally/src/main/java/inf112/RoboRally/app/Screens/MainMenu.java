@@ -33,7 +33,7 @@ public class MainMenu implements Screen {
         Gdx.input.setInputProcessor(stage);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("D:\\Java\\inf112-game\\src\\assets\\skin\\tracer-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("Robo Rally/src/assets/skin/tracer-ui.json"));
 
         TextButton newGame = new TextButton("New Game", skin);
         TextButton exit = new TextButton("Exit", skin);

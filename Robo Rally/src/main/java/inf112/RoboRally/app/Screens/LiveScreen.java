@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -60,8 +61,6 @@ public class LiveScreen implements Screen {
 
         map = mapManager.getCurrentMap();
 
-        //ctrl = new Controlls();
-
         player = new Player();
         logic = new GameLogic(player, mapManager);
         //cardViewer = new CardViewer(parent.batch, player);
@@ -71,8 +70,6 @@ public class LiveScreen implements Screen {
         cardViewer.initDeck();
         //Vector2 test = new Vector2();
         //test.lerp(nextPlayerPos,0.5);
-
-        //holeLayer = (TiledMapTileLayer) mapManager.getHoleLayer();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 18.8F);
@@ -102,7 +99,9 @@ public class LiveScreen implements Screen {
         System.out.println(Gdx.graphics.isContinuousRendering());
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        if(ctrl.keyUp(Input.Keys.T)){
+            System.out.println("LOL");
+        }
         ctrl.update(v);
         if (v > 0.2) {
             logic.update();

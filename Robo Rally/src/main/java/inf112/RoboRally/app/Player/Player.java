@@ -18,6 +18,7 @@ public class Player {
 
     private int hp = MAX_HP;
     private int token = MAX_TOKEN;
+
     private final String id;
     private final PlayerDeck deck;
     //private States status;
@@ -26,6 +27,7 @@ public class Player {
     protected TextureRegion _currentFrame = null;
     public final int FRAME_WIDTH = 300;
     public final int FRAME_HEIGHT = 300;
+    public int score = 0;
 
 
     public Player() {
@@ -49,7 +51,6 @@ public class Player {
     }
 
     public void setCurrentPosition(float x, float y) {
-
         position.add(x, y);
         _frameSprite.setX(position.x);
         _frameSprite.setY(position.y);
@@ -96,6 +97,11 @@ public class Player {
 
     public int gethp() {
         return hp;
+    }
+
+    public void setScore(int i) {
+        score = score + 1;
+        System.out.println(score);
     }
 }
 

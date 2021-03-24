@@ -25,7 +25,7 @@ public class CardInitializer {
      * @throws IOException if the file can not be read by the FileReader
      */
     public CardInitializer() throws IOException {
-        reader = new BufferedReader(new FileReader("D:\\Java\\inf112-game\\src\\assets\\CardInfo.txt"));
+        reader = new BufferedReader(new FileReader("Robo Rally/src/assets/CardInfo.txt"));
         cardsStrings = new ArrayList<>();
         cards = new ArrayList<>();
         initialize();
