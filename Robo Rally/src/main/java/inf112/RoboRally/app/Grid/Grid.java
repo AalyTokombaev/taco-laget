@@ -29,11 +29,14 @@ public class Grid {
 
                 if (board.upperWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.upperWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.NORTH));
-                }if (board.lowerWallLayer.getCell(x,y) != null){
+                }
+                if (board.lowerWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.lowerWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.SOUTH));
-                }if (board.leftWallLayer.getCell(x,y) != null){
+                }
+                if (board.leftWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.leftWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.WEST));
-                }if (board.rightWallLayer.getCell(x,y) != null){
+                }
+                if (board.rightWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.rightWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.EAST));
                 }
             }
