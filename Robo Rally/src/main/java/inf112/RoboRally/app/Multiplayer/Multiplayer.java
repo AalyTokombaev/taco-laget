@@ -25,8 +25,6 @@ public class Multiplayer {
 
         // listeners
 
-        // server listener receives shit but it can't return right.
-        // fuck
         server.addListener(new Listener() {
             public void received(Connection connection, Object object) {
                 if (object instanceof String) {
@@ -35,7 +33,6 @@ public class Multiplayer {
             }
         });
 
-        // I guess I'll have to figure it out
         client.addListener(new Listener() {
             public void recieved(Connection connection, Object object) {
                 if (object instanceof String) {
