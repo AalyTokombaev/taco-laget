@@ -34,7 +34,7 @@ public class GameClient {
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    System.out.println("client recieved " + object.toString());
+                    // System.out.println("client recieved " + object.toString());
                     if (object.toString().equals("OK")){
                         System.out.println("OK");
                     }

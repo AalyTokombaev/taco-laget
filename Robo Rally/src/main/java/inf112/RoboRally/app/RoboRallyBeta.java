@@ -46,7 +46,10 @@ public class RoboRallyBeta implements Screen {
     boolean isClient;
 
     GameServer server;
+    int clientX, clientY;
+
     GameClient client;
+    int hostX, hostY;
 
     private int id;
 
@@ -130,8 +133,8 @@ public class RoboRallyBeta implements Screen {
             isHost = true;
             server.host();
             server.setPlayer(player);
-            // server.setPlayer(players.get(server.id));
-            // board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
+            board.playerLayer.setCell(0, 0, null);
+            clientX = clientY = 0;
         }
         if (ctrl.isKeyDown(Input.Keys.J) && !isClient && !isHost) {
             System.out.println("j pressed");
@@ -141,32 +144,33 @@ public class RoboRallyBeta implements Screen {
             client.connect("localhost", 1337);
             player.put(6, 1);
             client.setPlayer(player);
+            board.playerLayer.setCell(0, 0, null);
+            hostX = hostY = 0;
             // player.put(6, 1);
             // client.setPlayer(players.get(1));
             // board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
 
         }
         if (isClient) {
-            board.playerLayer.setCell(client.hostX, client.hostY, null);
+            board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
-            int hostX = client.hostX;
-            int hostY = client.hostY;
+            hostX = client.hostX;
+            hostY = client.hostY;
             TiledMapTileLayer.Cell hostState = client.hostState;
-            board.playerLayer.setCell(hostY, hostX, player.getState());
+            board.playerLayer.setCell(hostX, hostY, player.getState());
 
 
         }
 
         if (isHost) {
-            if (server.numPlayers > 0) {
-                board.playerLayer.setCell(server.clientX, server.clientY, null);
+            System.out.println(String.format("clientX, clientY"));
+                board.playerLayer.setCell(clientX, clientY, null);
                 server.askForData();
-                int clientX = server.clientX;
-                int clientY = server.clientY;
+                clientX = server.clientX;
+                clientY = server.clientY;
                 System.out.println(String.format("clientX, clientY : %d, %d", clientX, clientY));
                 TiledMapTileLayer.Cell clientState = server.clientState;
                 board.playerLayer.setCell(clientX, clientY, player.getState());
-            }
 
         }
 
