@@ -66,16 +66,14 @@ public class RoboRallyBeta implements Screen {
 
         ctrl = new Controls();
         player = new Player("P1", new Vector2(x, y), 0, ctrl);
-        player2 = new Player("P2", new Vector2(x+1, y), 0, ctrl);
 
 
         players = new ArrayList<>();
+        players.add(player);
 
         isClient = false;
         isHost = false;
 
-        players.add(player);
-        players.add(player2);
 
         server = new GameServer(game, ctrl);
         client = new GameClient(game, ctrl);
@@ -128,30 +126,54 @@ public class RoboRallyBeta implements Screen {
     public void render(float v) {
         if (ctrl.isKeyPressed(Input.Keys.T) && !isHost){
             System.out.println("t pressed");
+            System.out.println("hosting");
             isHost = true;
             server.host();
-            server.setPlayer(players.get(server.id));
-            board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
+            server.askForData();
+            players.remove(0);
+            players.add(new Player("Host", new Vector2(5, 1), 0, ctrl));
+            players.add(new Player("Client", new Vector2(server.clientX, server.clientY), 0, new Controls()));
+            player.put(5, 1);
+            // server.setPlayer(players.get(server.id));
+            // board.playerLayer.setCell(server.player.getx(), server.player.gety(), server.player.getState());
         }
         if (ctrl.isKeyDown(Input.Keys.J) && !isClient && !isHost) {
             System.out.println("j pressed");
+            System.out.println("connecting");
             isClient = true;
+            players.remove(0);
+            players.add(new Player("Client", new Vector2(6, 1),0, ctrl));
             client.connect("localhost", 1337);
-            client.setPlayer(players.get(1));
-            board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+            client.askForData();
+            players.add(new Player("Host", new Vector2(client.hostX, client.hostY), 0, new Controls()));
+            // player.put(6, 1);
+            // client.setPlayer(players.get(1));
+            // board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+
         }
         if (isClient) {
+            client.askForData();
             int hostX = client.hostX;
             int hostY = client.hostY;
-            TiledMapTileLayer.Cell host_state = client.hostState;
-            board.playerLayer.setCell(hostY, hostX, host_state);
+            TiledMapTileLayer.Cell hostState = client.hostState;
+            board.playerLayer.setCell(hostY, hostX, hostState);
+
 
         }
 
         if (isHost) {
+            server.askForData();
+            int clientX = server.clientX;
+            int clientY = server.clientY;
+            TiledMapTileLayer.Cell clientState = server.clientState;
+            board.playerLayer.setCell(clientX, clientY, clientState);
 
         }
 
+        // player.movement();
+            for (Player p : players) {
+                p.movement();
+            }
         camera.update();
         //player.movement();
 

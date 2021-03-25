@@ -50,7 +50,7 @@ public class States {
     }
 
     public TiledMapTileLayer.Cell getState(String state) {
-        switch (state){
+        switch (state) {
             case "dead":
                 return dead;
             case "winning":
@@ -58,8 +58,5 @@ public class States {
             default:
                 return alive;
         }
-
     }
-
-
 }

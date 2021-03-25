@@ -219,6 +219,11 @@ public class Player {
         }
     }
 
+    // puts the player on x,y
+    public void put(int x, int y){
+        this.position.x = x;
+        this.position.y = y;
+    }
 
     // Getters and setters for class field variables
 
@@ -267,4 +272,6 @@ public class Player {
     public int gety() {return (int) position.y; }
 
     public void setId(int id) { this.id = id; }
+
+
 }

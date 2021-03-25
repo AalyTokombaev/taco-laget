@@ -33,6 +33,10 @@ public class GameClient {
 
         client.addListener(new Listener() {
             void recieved(Connection connection, Object object){
+                if (object instanceof TiledMapTileLayer.Cell){
+                    hostState = (TiledMapTileLayer.Cell) object;
+                    return;
+                }
                 String[] msg = object.toString().split(":");
                 if (msg[0].equals("connectClientOK")){
                     id = Integer.parseInt(msg[1]);
@@ -56,16 +60,22 @@ public class GameClient {
                 if (msg[0].equals("hostState")) {
                     hostState = new States().getState(msg[1]);
                 }
+                if (msg[0].equals("getX")) {
+                    connection.sendTCP(String.format("clientX:{}", player.getx()));
+                }
+
+                if (msg[0].equals("getY")) {
+                    connection.sendTCP(String.format("clientY:{}", player.getx()));
+                }
+
+                if (msg[0].equals("getState")) {
+                    connection.sendTCP(String.format("clientState:{}", player.getState().toString()));
+                }
 
             }
         });
 
 
-    }
-
-    public boolean keyUp(int i) {
-        client.sendTCP(String.format("keyUpClient:{}",i));
-        return true;
     }
 
     public int connect(String address, int port) {
@@ -78,6 +88,16 @@ public class GameClient {
         client.sendTCP(String.format("connectClient:P{}:"));
         System.out.println("coneecting");
         return id;
+    }
+
+    public void askForData(){
+        System.out.println("client asking for data");
+        client.sendTCP("getY");
+        client.sendTCP("getX");
+        client.sendTCP("getState");
+        System.out.println("client got data:");
+        System.out.println(String.format("hostX %d, hostY %d", hostX, hostY));
+        System.out.println(String.format("hostSTate %s", hostState));
     }
 
     public void setPlayer(Player player){ this.player = player; }
