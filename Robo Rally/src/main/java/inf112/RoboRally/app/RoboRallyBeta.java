@@ -1,20 +1,23 @@
 package inf112.RoboRally.app;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
 import inf112.RoboRally.app.Game.Board;
 import inf112.RoboRally.app.Game.GameMechanics;
+import inf112.RoboRally.app.Multiplayer.GameClient;
+import inf112.RoboRally.app.Multiplayer.GameServer;
 import inf112.RoboRally.app.Objects.Player;
+
+import java.util.ArrayList;
 
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
@@ -36,6 +39,20 @@ public class RoboRallyBeta implements Screen {
     private Controls ctrl;
     private InputMultiplexer inputMultiplexer;
 
+    ArrayList<Player> players;
+    Player player2;
+
+    boolean isHost;
+    boolean isClient;
+
+    GameServer server;
+    int clientX, clientY;
+
+    GameClient client;
+    int hostX, hostY;
+
+    private int id;
+
     public RoboRallyBeta(RoboRally game) {
         this.game = game;
 
@@ -53,11 +70,23 @@ public class RoboRallyBeta implements Screen {
         ctrl = new Controls();
         player = new Player("P1", new Vector2(x, y), 0, ctrl);
 
+
+        players = new ArrayList<>();
+        players.add(player);
+
+        isClient = false;
+        isHost = false;
+
+
+        server = new GameServer(game, ctrl);
+        client = new GameClient(game, ctrl);
+
         cardViewer = new CardViewer(game.batch, player);
         if(cardViewer.player.getHp() != player.getHp())
 
         playerPosition = player.getPosition();
         board.playerLayer.setCell(x, y, player.getState());
+        // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
         // Camera setup
@@ -99,8 +128,58 @@ public class RoboRallyBeta implements Screen {
 
     @Override
     public void render(float v) {
-        camera.update();
+        if (ctrl.isKeyPressed(Input.Keys.T) && !isHost){
+            System.out.println("t pressed");
+            System.out.println("hosting");
+            isHost = true;
+            server.host();
+            server.setPlayer(player);
+            board.playerLayer.setCell(0, 0, null);
+            clientX = clientY = 0;
+        }
+        if (ctrl.isKeyDown(Input.Keys.J) && !isClient && !isHost) {
+            System.out.println("j pressed");
+            System.out.println("connecting");
+            isClient = true;
+            players.remove(0);
+            client.connect("localhost", 1337);
+            player.put(6, 1);
+            client.setPlayer(player);
+            board.playerLayer.setCell(0, 0, null);
+            hostX = hostY = 0;
+            // player.put(6, 1);
+            // client.setPlayer(players.get(1));
+            // board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+
+        }
+        if (isClient) {
+            board.playerLayer.setCell(hostX, hostY, null);
+            client.askForData();
+            hostX = client.hostX;
+            hostY = client.hostY;
+            TiledMapTileLayer.Cell hostState = client.hostState;
+            board.playerLayer.setCell(hostX, hostY, player.getState());
+
+
+        }
+
+        if (isHost) {
+            System.out.println(String.format("clientX, clientY"));
+                board.playerLayer.setCell(clientX, clientY, null);
+                server.askForData();
+                clientX = server.clientX;
+                clientY = server.clientY;
+                System.out.println(String.format("clientX, clientY : %d, %d", clientX, clientY));
+                TiledMapTileLayer.Cell clientState = server.clientState;
+                board.playerLayer.setCell(clientX, clientY, player.getState());
+
+        }
+
         player.movement();
+        camera.update();
+        //player.movement();
+
+
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         cardViewer.draw();
