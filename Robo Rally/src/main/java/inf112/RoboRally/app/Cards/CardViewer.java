@@ -178,8 +178,8 @@ public class CardViewer {
     public void updateDamageTokens() {
         Texture texture1 = new Texture("DamageToken.jpg");
         int hp = player.getHp();
-        if(hp != 0){
-            for (int j = 15; j < 24-(hp-1); j++) {
+        if (hp != 0) {
+            for (int j = 15; j < 24 - (hp - 1); j++) {
                 Image image = new Image(texture1);
                 Table table = tableList.get(j);
                 Table container = containerList.get(j);
@@ -188,7 +188,8 @@ public class CardViewer {
                 stage.addActor(table);
                 image.setSize(1f, 1f);
             }
-        }if(hp==10){
+        }
+        if (hp == 10) {
             for (int j = 15; j < 24; j++) {
                 Image image = new Image(texture1);
                 Table table = tableList.get(j);
@@ -196,6 +197,7 @@ public class CardViewer {
                 image.remove();
                 container.remove();
                 table.remove();
+                texture1.dispose();
             }
         }
     }
@@ -203,19 +205,20 @@ public class CardViewer {
     public void updateLifeTokens() {
         Texture texture3 = new Texture("LifeToken.jpg");
         int lt = player.getLifeTokens();
-        for(int j = 13-lt; j > 9; j--){
+        for (int j = 13 - lt; j > 9; j--) {
             Image image = new Image(texture3);
             Table table = tableList.get(j);
             Table container = containerList.get(j);
             image.remove();
             container.remove();
             table.remove();
+            texture3.dispose();
         }
     }
 
-        /**
-         * Draws objects for rendering
-         */
+    /**
+     * Draws objects for rendering
+     */
     public void draw() {
         stage.act();
         stage.draw();
