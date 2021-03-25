@@ -46,4 +46,8 @@ public class Grid {
     public boolean canGo(GridDirection dir) {
         return true;
     }
+
+    public Board getBoard(){
+        return board;
+    }
 }
