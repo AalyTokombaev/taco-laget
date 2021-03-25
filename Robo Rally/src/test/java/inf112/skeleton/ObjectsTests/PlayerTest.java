@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import inf112.skeleton.app.EmptyApplication;
 
 public class PlayerTest {
     private Player player;
@@ -21,14 +22,12 @@ public class PlayerTest {
         new HeadlessApplication(new EmptyApplication());
         this.ctrl = new Controls();
         this.player = new Player("testPlayer", new Vector2(), 0, ctrl);
-
     }
 
     @Test
     public void isPlayerHP10AtBeginningTest(){
         assertEquals(10, player.getHp());
     }
-
 
     @Test
     public void isXAmountDamageWithdrawnTest(){
@@ -47,7 +46,6 @@ public class PlayerTest {
     public void isHPRenewedTo10When0Test(){
         player.setDamage(10);
         assertEquals(10, player.getHp());
-
     }
 
    @Test
@@ -87,5 +85,4 @@ public class PlayerTest {
         player.setDamage(10);
         assertFalse(player.isAlive());
     }
-
 }
