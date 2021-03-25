@@ -88,6 +88,7 @@ __Changes in MVPs__
   * Even though we did start in the wrong direction, everything is going well now, and we are happy about our progress. We have even get to started on our own MVPs, 
     and are hoping to be done with Multiplayer soon enough.
   
+
 __What MVP do we find most important and why?__
 * The most important MVP-demand for us is to show a game-board and to be able to move the game-piece so you can do something in the game
 * Without a board or a game-piece there is not possible to anything in the game resembling to playing.
@@ -143,7 +144,10 @@ Running the game on
   7. You will now see a game-board for our game
   8. Navigate the game-piece(UiB-owl) with the arrows on your keyboard
   9. To choose cards and use them, you simply click them with the mouse
-  
+
+* Multiplayer:
+
+  To start multiplayer as a host press `t` on your keyboard. This will spawn a dummy player which is removed when player 2 connects. To join a started game, press `j` on your keyboard.
 ## Class diagram
 * __Kommer med siste commit før innlevering__
 
