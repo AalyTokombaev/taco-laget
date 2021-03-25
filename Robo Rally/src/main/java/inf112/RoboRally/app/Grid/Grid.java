@@ -17,6 +17,7 @@ public class Grid {
         board = new Board("Vault.tmx");
         width = (Integer) board.getMap().getProperties().get("width");
         height = (Integer) board.getMap().getProperties().get("height");
+        // direction = board.wallLayer.getProperties().get("direction");
         grid = new ArrayList[width][height];
         fillGrid();
     }
@@ -27,7 +28,7 @@ public class Grid {
                 grid[x][y] = new ArrayList<Object>();
                 Vector2 pos = new Vector2(x,y);
 
-                if (board.upperWallLayer.getCell(x,y) != null){
+                if (board.upperWallLayer.getCell(x,y) != null /* && board.wallLayer */){
                     grid[x][y].add(new Wall(board.upperWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.NORTH));
                 }if (board.lowerWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.lowerWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.SOUTH));
