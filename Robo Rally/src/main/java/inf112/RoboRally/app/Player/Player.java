@@ -32,6 +32,8 @@ public class Player {
     public final int FRAME_HEIGHT = 300;
     public int score = 0;
     public List<Integer> flagsVisited;
+
+
     public Player() {
 
         //TODO change id to int

@@ -25,11 +25,9 @@ public class PlayerTest {
         new HeadlessApplication(new EmptyApplication());
         this.player = new Player();
         MapManager mapster = new MapManager();
-        GameLogic logic = new GameLogic(player,mapster);
+        GameLogic logic = new GameLogic(player, mapster);
         this.player = new Player();
-        this.ctrl = new Controls2(player,logic);
-
-
+        this.ctrl = new Controls2(player, logic);
     }
 
     @Test
@@ -48,7 +46,7 @@ public class PlayerTest {
     @Test
     public void isDamageTakenMoreThan10ThenLooseOneLifeTokenTest(){
         player.setDamage(11);
-      //  assertEquals(2, player.getLifeTokens());
+        assertEquals(2, player.getLifeTokens());
     }
 
     @Test
@@ -95,5 +93,4 @@ public class PlayerTest {
         player.setDamage(10);
       //  assertFalse(player.isAlive());
     }
-
 }
