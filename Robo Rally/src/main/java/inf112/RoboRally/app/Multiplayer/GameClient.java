@@ -32,75 +32,58 @@ public class GameClient {
         hostState = new TiledMapTileLayer.Cell();
 
         client.addListener(new Listener() {
-            void recieved(Connection connection, Object object){
-                if (object instanceof TiledMapTileLayer.Cell){
-                    hostState = (TiledMapTileLayer.Cell) object;
-                    return;
+            public void received (Connection connection, Object object) {
+                if (object instanceof String) {
+                    System.out.println("client recieved " + object.toString());
+                    if (object.toString().equals("OK")){
+                        System.out.println("OK");
+                    }
+                    String[] msg = object.toString().split(":");
+                    if (msg[0].equals("getX")){
+                        connection.sendTCP(String.format("clientX:%d", player.getx()));
+                    }
+                    if (msg[0].equals("getY")){
+                        connection.sendTCP(String.format("clientY:%d", player.gety()));
+                    }
+                    if (msg[0].equals("hostX")) {
+                        hostX = Integer.parseInt(msg[1]);
+                    }
+                    if (msg[0].equals("hostY")) {
+                        hostY = Integer.parseInt(msg[1]);
+                    }
                 }
-                String[] msg = object.toString().split(":");
-                if (msg[0].equals("connectClientOK")){
-                    id = Integer.parseInt(msg[1]);
-                    System.out.println(String.format("Connected to server and got the id {}", id ));
-                    connection.sendTCP("connectionOK");
-                }
-                if (msg[0].equals("KeyDown")){
-                    int i = Integer.parseInt(msg[1]);
-                    ctrl.keyDown(i);
-                    ctrl.keyUp(i);
-                    connection.sendTCP("KeyDownOK");
-                }
-
-                if (msg[0].equals("hostX")) {
-                    hostX = Integer.parseInt(msg[1]);
-                }
-
-                if (msg[0].equals("hostY")){
-                    hostY = Integer.parseInt(msg[1]);
-                }
-                if (msg[0].equals("hostState")) {
-                    hostState = new States().getState(msg[1]);
-                }
-                if (msg[0].equals("getX")) {
-                    connection.sendTCP(String.format("clientX:{}", player.getx()));
-                }
-
-                if (msg[0].equals("getY")) {
-                    connection.sendTCP(String.format("clientY:{}", player.getx()));
-                }
-
-                if (msg[0].equals("getState")) {
-                    connection.sendTCP(String.format("clientState:{}", player.getState().toString()));
-                }
-
             }
         });
-
-
     }
 
     public int connect(String address, int port) {
         try{
             client.start();
-            client.connect(4000, address, port, port);
+            client.connect(4000, "localhost", 1337, 1337);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        client.sendTCP(String.format("connectClient:P{}:"));
-        System.out.println("coneecting");
+        client.sendTCP("connectClient");
+        System.out.println("connecting");
         return id;
     }
 
     public void askForData(){
-        System.out.println("client asking for data");
+        // System.out.println("client asking for data");
         client.sendTCP("getY");
         client.sendTCP("getX");
-        client.sendTCP("getState");
-        System.out.println("client got data:");
-        System.out.println(String.format("hostX %d, hostY %d", hostX, hostY));
-        System.out.println(String.format("hostSTate %s", hostState));
+        //System.out.println("client got data:");
+        //System.out.println(String.format("hostX %d, hostY %d", hostX, hostY));
+        //System.out.println(String.format("hostSTate %s", hostState));
+        //System.out.println("client sop asking for data");
     }
 
-    public void setPlayer(Player player){ this.player = player; }
+    public void setPlayer(Player player){
+        this.player = player;
+        System.out.println("client player has now");
+        System.out.println(player.getx());
+        System.out.println(player.gety());
+    }
 
 
 }
