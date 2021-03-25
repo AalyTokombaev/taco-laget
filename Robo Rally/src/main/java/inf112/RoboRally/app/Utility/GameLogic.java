@@ -5,6 +5,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Player.Player;
 
+import java.util.Collections;
 
 public class GameLogic implements ApplicationListener {
 
@@ -27,10 +28,21 @@ public class GameLogic implements ApplicationListener {
         if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
             player.setDamage(1);
         }
-        if(flags.getCell((int) player.getPosition().x, (int)player.getPosition().y) != null){
-            player.setScore(1);
-        }
+        if(flags.getCell((int) player.getPosition().x, (int)player.getPosition().y) != null) {
 
+            int id = flagIdChecker(player.getPosition());
+            if(player.flagsVisited.contains(id)){
+                System.out.println("Already visited");
+            }
+            else if(player.flagsVisited.isEmpty() && id == 1){
+                player.flagsVisited.add(id);
+            }else if(!player.flagsVisited.isEmpty()){
+                if(id > Collections.max(player.flagsVisited)&& player.flagsVisited.contains(id-1)){
+                    player.flagsVisited.add(id);
+                }
+            }
+        }
+        player.getScore();
     }
 
     @Override
@@ -82,6 +94,17 @@ public class GameLogic implements ApplicationListener {
         } else {
             System.out.println(gg);
             return gg;
+        }
+    }
+
+    public int flagIdChecker(Vector2 pos){
+
+        if(flags.getCell((int) pos.x, (int) pos.y) != null){
+            TiledMapTileLayer.Cell cell = flags.getCell((int) pos.x, (int)pos.y);
+            int id = (int) cell.getTile().getProperties().get("ID");
+            return id;
+        }else{
+            return 0;
         }
     }
 

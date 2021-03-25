@@ -34,14 +34,14 @@ public class PlayerTest {
 
     @Test
     public void isPlayerHP10AtBeginningTest(){
-        assertEquals(10, player.gethp());
+        assertEquals(10, player.getHp());
     }
 
 
     @Test
     public void isXAmountDamageWithdrawnTest(){
         player.setDamage(5);
-        assertEquals(5, player.gethp());
+        assertEquals(5, player.getHp());
 
     }
 
@@ -54,7 +54,7 @@ public class PlayerTest {
     @Test
     public void isHPRenewedTo10When0Test(){
         player.setDamage(10);
-        assertEquals(10, player.gethp());
+        assertEquals(10, player.getHp());
 
     }
 
@@ -66,9 +66,9 @@ public class PlayerTest {
 
     @Test
     public void canPlayerTakeDamageTest(){
-        assertEquals(10, player.gethp());
+        assertEquals(10, player.getHp());
         player.setDamage(5);
-        assertEquals(5, player.gethp());
+        assertEquals(5, player.getHp());
     }
 
     @Test
@@ -80,8 +80,8 @@ public class PlayerTest {
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        if (!(player.gethp() == 10))
-        if (player.gethp() != 10)
+        if (!(player.getHp() == 10))
+        if (player.getHp() != 10)
             //player.setHP(10);
        // if (player.getLifeTokens() != 3)
        //     player.setLifeTokens(3);

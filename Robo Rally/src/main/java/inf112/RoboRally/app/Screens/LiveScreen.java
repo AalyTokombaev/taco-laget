@@ -1,7 +1,6 @@
 package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
@@ -15,7 +14,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import inf112.RoboRally.app.HUD.TestUI;
+
+import inf112.RoboRally.app.HUD.CardViewer;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.Controls2;
@@ -35,11 +35,9 @@ public class LiveScreen implements Screen {
     private final Sprite avatar;
     //private Controlls ctrl;
     private final Controls2 ctrl;
-    //private final CardViewer cardViewer;
-    //private TiledMapTileLayer holeLayer;
     private final GameLogic logic;
-    //private final CardViewer cardViewer;
-    private final TestUI cardViewer;
+    private final CardViewer cardViewer;
+    //private final TestUI cardViewer;
     private TextureRegion avatar1;
     private InputMultiplexer inputMultiplexer;
 
@@ -48,7 +46,10 @@ public class LiveScreen implements Screen {
 
     public LiveScreen(RoboRally roboRally) {
 
-        parent = roboRally;
+        this.parent = roboRally;
+        mapManager = new MapManager();
+        mapManager.loadMap("VAULT2");
+
 
         stage = new Stage(new ScreenViewport());
 
@@ -56,18 +57,17 @@ public class LiveScreen implements Screen {
         parent.font = new BitmapFont();
         parent.font.setColor(Color.RED);
 
-        mapManager = new MapManager();
-        mapManager.loadMap("VAULT2");
+
 
         map = mapManager.getCurrentMap();
 
         player = new Player();
         logic = new GameLogic(player, mapManager);
-        //cardViewer = new CardViewer(parent.batch, player);
+        cardViewer = new CardViewer(parent.batch, player);
         ctrl = new Controls2(player, logic);
 
-        cardViewer = new TestUI(parent.batch, player);
-        cardViewer.initDeck();
+        //cardViewer = new TestUI(parent.batch, player);
+        //cardViewer.initDeck();
         //Vector2 test = new Vector2();
         //test.lerp(nextPlayerPos,0.5);
 
@@ -99,12 +99,18 @@ public class LiveScreen implements Screen {
         System.out.println(Gdx.graphics.isContinuousRendering());
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         ctrl.update(v);
+
         if (v > 0.2) {
             logic.update();
+            cardViewer.updateLifeTokens();
+            cardViewer.updateDamageTokens();
             System.out.println("render tick");
         }
-        avatar1 = player.getFrame();
+
+
+        avatar1 = player.getFrameSprite();
         stage.draw();
         cardViewer.draw();
 
@@ -115,7 +121,7 @@ public class LiveScreen implements Screen {
         renderer.getBatch().draw(avatar1, avatar.getX(), avatar.getY(), 1, 1);
         renderer.getBatch().end();
 
-        System.out.println(player.gethp());
+        System.out.println(player.getHp());
 
 
     }
