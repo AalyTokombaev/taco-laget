@@ -19,14 +19,10 @@ import java.util.Queue;
 
 public class GameServer{
     private Server server;
-    private boolean active;
     public int numPlayers = 0;
     RoboRally game;
     Controls ctrl;
     public Player player;
-    public final int id = 0;
-    Queue<Action> actions;
-    ArrayList<Player> players;
 
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
@@ -36,7 +32,6 @@ public class GameServer{
         server = new Server();
         this.game = game;
         this.ctrl = ctrl;
-        players = new ArrayList<>();
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {

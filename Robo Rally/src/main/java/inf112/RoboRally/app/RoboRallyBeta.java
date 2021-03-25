@@ -169,7 +169,6 @@ public class RoboRallyBeta implements Screen {
                 server.askForData();
                 clientX = server.clientX;
                 clientY = server.clientY;
-                System.out.println(String.format("clientX, clientY : %d, %d", clientX, clientY));
                 TiledMapTileLayer.Cell clientState = server.clientState;
                 board.playerLayer.setCell(clientX, clientY, player.getState());
 
