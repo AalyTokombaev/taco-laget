@@ -3,8 +3,8 @@
 ### Introduction to RoboRally
 Roborally is a game where you compete in visiting the most flags, and win when you have visited three flags.
 Our game is based on the traditional boardgame, and you can clearly see the similarities since we have used the same board and the same cards.
-  Our player is at this time the UiB-owl which is moved around with the arrows on the keyboard. As said you win by visiting all three flags, and loose hp 
-  if you land on holes. After loosing 10 hp, you loose 1 life token. After loosing all three life tokens, you have lost. You can also play with your friends online.
+  Our player is at this time the UiB-owl which is moved around with the arrows on the keyboard. As said you win by visiting all three flags, and lose hp 
+  if you land on holes. After losing 10 hp, you lose 1 life token. After losing all three life tokens, you have lost. You can also play with your friends online.
   
 ## Team-presentation
 ### Maria Lidsheim - Team leader & Costumer contact
