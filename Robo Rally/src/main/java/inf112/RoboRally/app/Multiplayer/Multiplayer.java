@@ -1,14 +1,11 @@
 package inf112.RoboRally.app.Multiplayer;
 
 
-import com.badlogic.gdx.Input;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.RoboRally.app.Objects.Player;
-
-import java.io.IOException;
 
 public class Multiplayer {
     boolean hosting;
@@ -28,17 +25,17 @@ public class Multiplayer {
 
         // listeners
 
-        // server listener recieves shit but it can't return right.
+        // server listener receives shit but it can't return right.
         // fuck
         server.addListener(new Listener() {
-            public void recieved(Connection connection, Object object) {
+            public void received(Connection connection, Object object) {
                 if (object instanceof String) {
                     String[] msg = object.toString().split(":");
                 }
             }
         });
 
-        // I guess I'll havet to figure it out
+        // I guess I'll have to figure it out
         client.addListener(new Listener() {
             public void recieved(Connection connection, Object object) {
                 if (object instanceof String) {
@@ -48,7 +45,7 @@ public class Multiplayer {
         });
     }
 
-    public void send(){
+    public void send() {
 
     }
 }
