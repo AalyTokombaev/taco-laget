@@ -1,6 +1,8 @@
 package inf112.RoboRally.app.Screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,11 +14,11 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
 import inf112.RoboRally.app.Grid.Board;
-import inf112.RoboRally.app.Utility.*;
-import inf112.RoboRally.app.Multiplayer.GameClient;
 import inf112.RoboRally.app.Multiplayer.GameServer;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.GameLogic;
+import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.util.ArrayList;
 
@@ -92,6 +94,7 @@ public class HostScreen implements Screen {
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
+        multiPlayer();
 
     }
 
@@ -117,27 +120,29 @@ public class HostScreen implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    public void multiPlayer(){
+    public void multiPlayer() {
 
-            System.out.println("t pressed");
-            System.out.println("hosting");
-            isHost = true;
-            server.host();
-            server.setPlayer(player);
-            board.playerLayer.setCell(0, 0, null);
-            clientX = clientY = 0;
-        if (isHost) {
-            System.out.println(String.format("clientX, clientY"));
-            board.playerLayer.setCell(clientX, clientY, null);
-            server.askForData();
-            clientX = server.clientX;
-            clientY = server.clientY;
-            TiledMapTileLayer.Cell clientState = server.clientState;
-            board.playerLayer.setCell(clientX, clientY, player.getState());
+        System.out.println("t pressed");
+        System.out.println("hosting");
+        isHost = true;
+        server.host();
+        server.setPlayer(player);
+        board.playerLayer.setCell(0, 0, null);
+        clientX = clientY = 0;
+
+    }
+    public void call(){
+
+        System.out.println(String.format("clientX, clientY"));
+        board.playerLayer.setCell(clientX, clientY, null);
+        server.askForData();
+        clientX = server.clientX;
+        clientY = server.clientY;
+        TiledMapTileLayer.Cell clientState = server.clientState;
+        board.playerLayer.setCell(clientX, clientY, player.getState());
 
         }
 
-    }
 
 
     @Override
@@ -150,8 +155,8 @@ public class HostScreen implements Screen {
         ctrl.update();
 
         if(v > 0.2){
-            multiPlayer();
             logic.update();
+            call();
             cardViewer.updateLifeTokens();
             cardViewer.updateDamageTokens();
             System.out.println("render tick");

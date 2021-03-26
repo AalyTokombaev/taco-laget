@@ -94,6 +94,7 @@ public class ClientScreen implements Screen {
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
+        multiPlayer();
 
     }
 
@@ -117,22 +118,24 @@ public class ClientScreen implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    public void multiPlayer(){
+    public void multiPlayer() {
 
-            System.out.println("connecting");
-            isClient = true;
-            // players.remove(0);
-            client.connect("localhost", 1337);
-            player.put(6, 1);
-            client.setPlayer(player);
-            board.playerLayer.setCell(0, 0, null);
-            hostX = hostY = 0;
-            player.put(6, 1);
-            // client.setPlayer(players.get(1));
-            client.setPlayer(player);
-            board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+        System.out.println("connecting");
+        isClient = true;
+        // players.remove(0);
+        client.connect("localhost", 1337);
+        player.put(6, 1);
+        client.setPlayer(player);
+        board.playerLayer.setCell(0, 0, null);
+        hostX = hostY = 0;
+        player.put(6, 1);
+        // client.setPlayer(players.get(1));
+        client.setPlayer(player);
+        board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+    }
 
-        if (isClient) {
+    public void call(){
+
             board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
             hostX = client.hostX;
@@ -140,9 +143,8 @@ public class ClientScreen implements Screen {
             TiledMapTileLayer.Cell hostState = client.hostState;
             board.playerLayer.setCell(hostX, hostY, player.getState());
 
-
         }
-    }
+
 
 
     @Override
@@ -155,8 +157,8 @@ public class ClientScreen implements Screen {
         ctrl.update();
 
         if(v > 0.2){
-            multiPlayer();
             logic.update();
+            call();
             cardViewer.updateLifeTokens();
             cardViewer.updateDamageTokens();
             System.out.println("render tick");
