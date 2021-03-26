@@ -17,17 +17,13 @@ import java.io.IOException;
 
 public class GameClient {
     private Client client;
-    public int id;
-    RoboRally game;
-    private Controls ctrl;
+    public int id; // not used atm, will be used to differentiate clients later on.
     public Player player;
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    public GameClient(RoboRally game, Controls ctrl) {
+    public GameClient() {
         client = new Client();
-        this.game = game;
-        this.ctrl = ctrl;
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
 

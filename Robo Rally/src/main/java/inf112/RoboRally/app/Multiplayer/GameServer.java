@@ -21,17 +21,14 @@ public class GameServer{
     private Server server;
     public int numPlayers = 0;
     RoboRally game;
-    Controls ctrl;
     public Player player;
 
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
 
-    public GameServer(RoboRally game, Controls ctrl){
+    public GameServer(){
         server = new Server();
-        this.game = game;
-        this.ctrl = ctrl;
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {

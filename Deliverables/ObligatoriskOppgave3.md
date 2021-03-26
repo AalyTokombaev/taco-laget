@@ -90,7 +90,7 @@ __Changes in MVPs__
   
 
 __What MVP do we find most important and why?__
-* The most important MVP-demand for us is to show a game-board and to be able to move the game-piece so you can do something in the game
+* The most important MVP-demand for us is to show a game-board and to be able to move the game-piece, so you can do something in the game
 * Without a board or a game-piece there is not possible to anything in the game resembling to playing.
 
 ## Extra we want in the game if time
@@ -106,7 +106,7 @@ __What MVP do we find most important and why?__
 
 ## Difference in committing
 * Since we have different areas of the project we are responsible for, there is a difference in commits. 
-* Tore and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
+* Tore, Arild and Alex have a lot more commits than the rest as they are responsible for committing the best solutions for everything.
 
 ## How to run the game on Windows, Mac and Linux OS.
 Running the game on
@@ -124,9 +124,9 @@ Running the game on
   3. Open IntelliJIDEA and open the downloaded project
   4. Navigate to Robo Rally/src/main/java/inf112.RoboRally.app
   5. Right click on 'Main' and select 'Run Main.main()'
-  5b. If you get an error, find the 'Main' configuration on the top right corner of intellij(by the run button), click on 'Main' and click 'Edit configuration'.
+  5b. If you get an error, find the 'Main' configuration in the top right corner of intellij(by the run button), click on 'Main' and click 'Edit configuration'.
      This should open up a new window called 'Run/Debug Configurations'
-  5c. In 'Run/Debug Configurations' you should see a dropdown meny called 'Modify Options', click on 
+  5c. In 'Run/Debug Configurations' you should see a dropdown menu called 'Modify Options', click on 
      'Add VM options'. This adds another input field in 'Run/Debug Configurations'. Here you need
      to add '-XstartOnFirstThread'. Click 'Apply' and 'Ok' at the bottom right of the window.
   6. Find the run button on the top right of the intellij window and press it to run the project.
@@ -156,7 +156,7 @@ Running the game on
 
 ## User stories:
 * Playing from several computers:
-  * As a player I want to engage in a online game of RoboRally, so I can play with my friends.
+  * As a player I want to engage in an online game of RoboRally, so I can play with my friends.
   * Acceptance Criteria:
     * I see the board
     * I see the other robots on the board

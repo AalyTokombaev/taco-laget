@@ -7,6 +7,10 @@ import inf112.RoboRally.app.Objects.Wall;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a Grid with given x,y dimensions.
+ * The grid at given x,y coordinates contains an ArrayList with Objects
+ */
 public class Grid {
 
     public ArrayList[][] grid;

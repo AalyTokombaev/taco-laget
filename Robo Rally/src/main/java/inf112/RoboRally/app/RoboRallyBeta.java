@@ -78,8 +78,8 @@ public class RoboRallyBeta implements Screen {
         isHost = false;
 
 
-        server = new GameServer(game, ctrl);
-        client = new GameClient(game, ctrl);
+        server = new GameServer();
+        client = new GameClient();
 
         cardViewer = new CardViewer(game.batch, player);
         if(cardViewer.player.getHp() != player.getHp())
