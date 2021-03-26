@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Player.Player;
 
 public class Multiplayer {
     boolean hosting;

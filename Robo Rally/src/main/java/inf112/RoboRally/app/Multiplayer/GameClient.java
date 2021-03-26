@@ -1,17 +1,12 @@
 package inf112.RoboRally.app.Multiplayer;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import inf112.RoboRally.app.Controls;
-import inf112.RoboRally.app.Objects.Player;
-import inf112.RoboRally.app.Objects.States;
+import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
 
@@ -19,12 +14,12 @@ public class GameClient {
     private Client client;
     public int id;
     RoboRally game;
-    private Controls ctrl;
+    private PlayerControls ctrl;
     public Player player;
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    public GameClient(RoboRally game, Controls ctrl) {
+    public GameClient(RoboRally game, PlayerControls ctrl) {
         client = new Client();
         this.game = game;
         this.ctrl = ctrl;

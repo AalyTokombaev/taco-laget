@@ -3,7 +3,7 @@ package inf112.skeleton.app.GameTests;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import inf112.RoboRally.app.Game.Board;
+import inf112.RoboRally.app.Grid.Board;
 
 public class BoardTests {
     Board board;

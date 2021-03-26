@@ -1,24 +1,29 @@
 package inf112.RoboRally.app;
 
-import Views.*;
+import com.badlogic.gdx.Gdx;
+import inf112.RoboRally.app.Multiplayer.Multiplayer;
+import inf112.RoboRally.app.Screens.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class RoboRally extends Game {
+
     public SpriteBatch batch;
     public BitmapFont font;
     private LoadingScreen loadingScreen;
-    private PreferenceScreen preferencesScreen;
     private MenuScreen menuScreen;
     private RoboRallyBeta mainScreen;
-    private EndScreen endScreen;
-    private AppPreferences preferences;
+    public MultiPlayerMenu multiplayer;
+    public HostScreen hostScreen;
+    public ClientScreen clientScreen;
+
 
     public final static int MENU =0;
-    public final static int PREFERENCES=1;
+    public final static int MULTIPLAYER=1;
     public final static int APPLICATION=2;
-    public final static int ENDGAME =3;
+    public final static int HOST =3;
+    public final static  int CLIENT=4;
 
 
     public void changeScreen(int screen) {
@@ -27,30 +32,33 @@ public class RoboRally extends Game {
                 if(menuScreen == null) menuScreen = new MenuScreen(this);
                 this.setScreen(menuScreen);
                 break;
-            case PREFERENCES:
-                if(preferencesScreen == null) preferencesScreen = new PreferenceScreen(this);
-                this.setScreen(preferencesScreen);
-                break;
             case APPLICATION:
                 if(mainScreen == null) mainScreen = new RoboRallyBeta(this);
                 this.setScreen(mainScreen);
                 break;
-            case ENDGAME:
-                if(endScreen == null) endScreen = new EndScreen(this);
-                this.setScreen(endScreen);
+            case MULTIPLAYER:
+                if(multiplayer==null) multiplayer = new MultiPlayerMenu(this);
+                this.setScreen(multiplayer);
+                break;
+            case HOST:
+                if(hostScreen==null) hostScreen = new HostScreen(this);
+                this.setScreen(hostScreen);
+                break;
+            case CLIENT:
+                if(clientScreen==null) clientScreen = new ClientScreen(this);
+                this.setScreen(clientScreen);
                 break;
         }
     }
 
     @Override
     public void create() {
-            preferences = new AppPreferences();
-            loadingScreen = new LoadingScreen(this);
-            setScreen(loadingScreen);
+        loadingScreen = new LoadingScreen(this);
+        setScreen(loadingScreen);
+        getScreen().render(Gdx.graphics.getDeltaTime());
+        Gdx.graphics.setContinuousRendering(false);
+        Gdx.graphics.requestRendering();
         }
-    public AppPreferences getPreferences(){
-        return this.preferences;
-    }
 
     @Override
     public void render(){

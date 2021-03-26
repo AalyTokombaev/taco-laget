@@ -9,9 +9,9 @@ public class Wall implements Object {
      * @param id is an identity variable to separate Wall objects from one another
      * @param pos is the vector position of the Wall object
      */
-    final int id;
-    final Vector2 pos;
-    final GridDirection dir;
+    public final int id;
+    public final Vector2 pos;
+    public final GridDirection dir;
 
     /**
      * Constructs a Wall with given identity and position

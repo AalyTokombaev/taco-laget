@@ -1,18 +1,11 @@
 package inf112.RoboRally.app.Grid;
 
-import com.badlogic.gdx.math.Vector2;
-import inf112.RoboRally.app.Game.Board;
-import inf112.RoboRally.app.Objects.Object;
-import inf112.RoboRally.app.Objects.Wall;
-
-import java.util.ArrayList;
-
 /**
  * This class represents a Grid with given x,y dimensions.
  * The grid at given x,y coordinates contains an ArrayList with Objects
  */
 public class Grid {
-
+/*
     public ArrayList[][] grid;
     public int width, height;
     private Board board;
@@ -32,7 +25,7 @@ public class Grid {
                 grid[x][y] = new ArrayList<Object>();
                 Vector2 pos = new Vector2(x,y);
 
-                if (board.upperWallLayer.getCell(x,y) != null /* && board.wallLayer */){
+                if (board.upperWallLayer.getCell(x,y) != null /* && board.wallLayer ){
                     grid[x][y].add(new Wall(board.upperWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.NORTH));
                 }if (board.lowerWallLayer.getCell(x,y) != null){
                     grid[x][y].add(new Wall(board.lowerWallLayer.getCell(x,y).getTile().getId(), pos, GridDirection.SOUTH));
@@ -44,5 +37,5 @@ public class Grid {
             }
         }
     }
-
+*/
 }

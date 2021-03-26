@@ -1,4 +1,4 @@
-package Views;
+package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -12,12 +12,12 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.RoboRally.app.RoboRally;
 import org.lwjgl.opengl.GL20;
 
-public class MenuScreen implements Screen {
+public class MultiPlayerMenu implements Screen {
 
     private RoboRally parent;
     private Stage stage;
 
-    public MenuScreen(RoboRally roboRally) {
+    public MultiPlayerMenu(RoboRally roboRally){
         parent = roboRally;
         stage = new Stage(new ScreenViewport());
     }
@@ -26,47 +26,46 @@ public class MenuScreen implements Screen {
     public void show() {
         Table table = new Table();
         table.setFillParent(true);
-        table.setDebug(true);
+        table.setDebug(false);
         Gdx.input.setInputProcessor(stage);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("glassy-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("Robo Rally/src/assets/skin/tracer-ui.json"));
 
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton preferences = new TextButton("Preferences", skin);
-        TextButton exit = new TextButton("Exit", skin);
+        TextButton host = new TextButton("Host",skin);
+        TextButton client = new TextButton("Client", skin);
+        TextButton back = new TextButton("Back", skin);
 
-        table.add(newGame).fillX().uniformX();
+        table.add(host).fillX().uniformX();
         table.row().pad(10,0,10,0);
-        table.add(preferences).fillX().uniformX();
+        table.add(client).fillX().uniformX();
         table.row();
-        table.add(exit).fillX().uniformX();
+        table.add(back).fillX().uniformX();
 
-        exit.addListener(new ChangeListener() {
+        back.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                Gdx.app.exit();
-
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(RoboRally.MENU);
             }
         });
 
-        newGame.addListener(new ChangeListener() {
+        host.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(RoboRally.APPLICATION);
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(RoboRally.HOST);
             }
         });
 
-        preferences.addListener(new ChangeListener() {
+        client.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(RoboRally.PREFERENCES);
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.changeScreen(RoboRally.CLIENT);
             }
         });
-    }
+        }
 
     @Override
-    public void render(float v) {
+    public void render(float delta) {
         Gdx.gl.glClearColor(0f,0f,0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(),1/30f));
@@ -75,8 +74,7 @@ public class MenuScreen implements Screen {
     }
 
     @Override
-    public void resize(int i, int i1) {
-        stage.getViewport().update(i,i1,true);
+    public void resize(int width, int height) {
 
     }
 
@@ -97,6 +95,6 @@ public class MenuScreen implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
 }

@@ -1,30 +1,33 @@
-package Views;
-
+package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Screen;
 import inf112.RoboRally.app.RoboRally;
 
-public class EndScreen implements Screen {
+public class LoadingScreen implements Screen {
 
     private RoboRally parent;
 
 
-    public EndScreen(RoboRally roboRally) {
+    public LoadingScreen(RoboRally roboRally){
         parent = roboRally;
     }
 
+
     @Override
     public void show() {
+
 
     }
 
     @Override
     public void render(float v) {
+        parent.changeScreen(RoboRally.MENU);
 
     }
 
     @Override
     public void resize(int i, int i1) {
+
 
     }
 

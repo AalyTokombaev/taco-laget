@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Player.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,10 +54,10 @@ public class CardViewer {
         viewport = new FitViewport(15, 15, cam); // Define aspect ratio window
         stage = new Stage(viewport, spriteBatch); // create stage with the viewport and the batch given in constructor
         this.player = player;
-        this.tableList = new ArrayList();
-        this.containerList = new ArrayList();
-        this.imageList = new ArrayList();
-        this.programCards = new ArrayList();
+        this.tableList = new ArrayList<>();
+        this.containerList = new ArrayList<>();
+        this.imageList = new ArrayList<>();
+        this.programCards = new ArrayList<>();
         buildMenu();
     }
 
