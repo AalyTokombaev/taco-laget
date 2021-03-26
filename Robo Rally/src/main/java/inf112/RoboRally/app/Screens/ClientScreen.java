@@ -121,14 +121,15 @@ public class ClientScreen implements Screen {
 
             System.out.println("connecting");
             isClient = true;
-            players.remove(0);
+            // players.remove(0);
             client.connect("localhost", 1337);
             player.put(6, 1);
             client.setPlayer(player);
             board.playerLayer.setCell(0, 0, null);
             hostX = hostY = 0;
             player.put(6, 1);
-            client.setPlayer(players.get(1));
+            // client.setPlayer(players.get(1));
+            client.setPlayer(player);
             board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
 
         if (isClient) {
