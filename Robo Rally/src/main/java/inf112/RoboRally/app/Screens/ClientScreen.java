@@ -1,6 +1,8 @@
-package inf112.RoboRally.app;
+package inf112.RoboRally.app.Screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,11 +13,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
-import inf112.RoboRally.app.Game.Board;
-import inf112.RoboRally.app.Game.GameMechanics;
+import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Multiplayer.GameClient;
-import inf112.RoboRally.app.Multiplayer.GameServer;
-import inf112.RoboRally.app.Objects.Player;
+import inf112.RoboRally.app.Player.Player;
+import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.GameLogic;
+import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.util.ArrayList;
 
@@ -24,20 +27,23 @@ import java.util.ArrayList;
  * More specifically, takes care of the initializing, rendering, resizing, disposing and taking inputs for the application
  */
 
-public class RoboRallyBeta implements Screen {
-    public boolean isGameRunning = true;
+public class ClientScreen implements Screen {
+
 
     private RoboRally game;
     public Board board;
-    public GameMechanics gamez;
+
     public Player player;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
     public Vector2 playerPosition;
-    private int x, y;
     private CardViewer cardViewer;
-    private Controls ctrl;
     private InputMultiplexer inputMultiplexer;
+
+    private TiledMap map;
+
+    private final PlayerControls ctrl;
+    private final GameLogic logic;
 
     ArrayList<Player> players;
     Player player2;
@@ -45,31 +51,25 @@ public class RoboRallyBeta implements Screen {
     boolean isHost;
     boolean isClient;
 
-    GameServer server;
-    int clientX, clientY;
-
     GameClient client;
     int hostX, hostY;
 
-    private int id;
 
-    public RoboRallyBeta(RoboRally game) {
+    public ClientScreen(RoboRally game) {
         this.game = game;
+        board = new Board("Vault2.tmx");
+        map = board.makeMap();
 
-        // Start-pos for player
-        x = 5;
-        y = 1;
         game.batch = new SpriteBatch();
         game.font = new BitmapFont();
         game.font.setColor(Color.RED);
 
-        gamez = new GameMechanics();
-        board = new Board("Vault.tmx");
-        TiledMap map = board.makeMap();
+        player = new Player();
 
-        ctrl = new Controls();
-        player = new Player("P1", new Vector2(x, y), 0, ctrl);
-
+        logic = new GameLogic(player,board);
+        ctrl = new PlayerControls(player,logic);
+        cardViewer = new CardViewer(game.batch, player);
+        //if(cardViewer.player.getHp() != player.getHp())
 
         players = new ArrayList<>();
         players.add(player);
@@ -77,15 +77,10 @@ public class RoboRallyBeta implements Screen {
         isClient = false;
         isHost = false;
 
-
-        server = new GameServer(game, ctrl);
         client = new GameClient(game, ctrl);
-
-        cardViewer = new CardViewer(game.batch, player);
-        if(cardViewer.player.getHp() != player.getHp())
-
         playerPosition = player.getPosition();
-        board.playerLayer.setCell(x, y, player.getState());
+
+        //board.playerLayer.setCell(x, y, player.getState());
         // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
@@ -102,8 +97,6 @@ public class RoboRallyBeta implements Screen {
 
     }
 
-
-
     /**
      * Gets rid of textures to free up memory space
      */
@@ -112,9 +105,8 @@ public class RoboRallyBeta implements Screen {
         game.batch.dispose();
         game.font.dispose();
         cardViewer.dispose();
+        renderer.dispose();
     }
-
-
 
     @Override
     public void show() {
@@ -125,20 +117,8 @@ public class RoboRallyBeta implements Screen {
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
+    public void multiPlayer(){
 
-    @Override
-    public void render(float v) {
-        if (ctrl.isKeyPressed(Input.Keys.T) && !isHost){
-            System.out.println("t pressed");
-            System.out.println("hosting");
-            isHost = true;
-            server.host();
-            server.setPlayer(player);
-            board.playerLayer.setCell(0, 0, null);
-            clientX = clientY = 0;
-        }
-        if (ctrl.isKeyDown(Input.Keys.J) && !isClient && !isHost) {
-            System.out.println("j pressed");
             System.out.println("connecting");
             isClient = true;
             players.remove(0);
@@ -147,11 +127,10 @@ public class RoboRallyBeta implements Screen {
             client.setPlayer(player);
             board.playerLayer.setCell(0, 0, null);
             hostX = hostY = 0;
-            // player.put(6, 1);
-            // client.setPlayer(players.get(1));
-            // board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+            player.put(6, 1);
+            client.setPlayer(players.get(1));
+            board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
 
-        }
         if (isClient) {
             board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
@@ -162,30 +141,32 @@ public class RoboRallyBeta implements Screen {
 
 
         }
-
-        if (isHost) {
-            System.out.println(String.format("clientX, clientY"));
-                board.playerLayer.setCell(clientX, clientY, null);
-                server.askForData();
-                clientX = server.clientX;
-                clientY = server.clientY;
-                TiledMapTileLayer.Cell clientState = server.clientState;
-                board.playerLayer.setCell(clientX, clientY, player.getState());
-
-        }
-
-        player.movement();
-        camera.update();
-        //player.movement();
+    }
 
 
+    @Override
+    public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
+        logic.clearPlayer();
+
+        ctrl.update();
+
+        if(v > 0.2){
+            multiPlayer();
+            logic.update();
+            cardViewer.updateLifeTokens();
+            cardViewer.updateDamageTokens();
+            System.out.println("render tick");
+        }
+
+        logic.setPlayer();
+
+        camera.update();
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
-        ctrl.update();
-        updateBoard();
 
     }
 
@@ -213,16 +194,6 @@ public class RoboRallyBeta implements Screen {
     @Override
     public void hide() {
 
-    }
-    public void updateBoard(){
-        playerPosition = player.getPosition();
-        board.playerLayer.setCell(x,y,null);
-        player = gamez.Action(board,player);
-        x = (int) playerPosition.x;
-        y = (int) playerPosition.y;
-        board.playerLayer.setCell(x,y, player.getState());
-        cardViewer.updateDamageTokens();
-        cardViewer.updateLifeTokens();
     }
 
 }
