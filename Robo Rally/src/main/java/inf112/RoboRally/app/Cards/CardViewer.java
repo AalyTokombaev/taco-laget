@@ -79,7 +79,7 @@ public class CardViewer {
             CardInitializer cards = new CardInitializer();
             cards.shuffle();
             // Load base textures for PowerDown, DamageToken & LifeToken
-            Texture texture1 = new Texture("DamageToken.jpg");
+            //Texture texture1 = new Texture("DamageToken.jpg");
             Texture texture2 = new Texture("PowerDown.jpg");
             Texture texture3 = new Texture("LifeToken.jpg");
             // Variables to keep track of distance in terms of height and width for positioning of objects

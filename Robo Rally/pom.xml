@@ -76,12 +76,12 @@
   <build>
     <resources>
       <resource>
-        <directory>${basedir}/src/assets/*</directory>
+        <directory>${basedir}/src/assets/</directory>
       </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>${basedir}/src/src/assets/*</directory>
+        <directory>${basedir}/src/src/assets/</directory>
       </testResource>
     </testResources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
@@ -131,6 +131,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
           <source>10</source>
           <target>10</target>
