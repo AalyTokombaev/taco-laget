@@ -34,8 +34,6 @@ public class Player {
 
     public States states;
 
-    private PlayerControls ctrl;
-
     //public Grid grid;
 
     //public int id;
@@ -47,15 +45,10 @@ public class Player {
     public Player() {
 
         this.states = new States();
-
         this.deck = new PlayerDeck();
-
         this.state = states.alive();
-
         this.position = new Vector2();
-
         this.id = id;
-
         flagsVisited = new ArrayList<>();
 
         //this.grid = new Grid();
