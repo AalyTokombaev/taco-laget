@@ -109,18 +109,69 @@ Running the game on
   9. To choose cards and use them, you simply click them with the mouse
 
 * Multiplayer:
-
-  To start multiplayer as a host press `t` on your keyboard. This will spawn a dummy player which is removed when player 2 connects. To join a started game, press `j` on your keyboard.
+  To start multiplayer as a host press `t` on your keyboard. 
+  This will spawn a dummy player which is removed when player 2 connects. 
+  To join a started game, press `j` on your keyboard.
 
 ## Class diagram
 Kommer siste dag
 
 ## Project board
 Kommer siste dag
-## User-stories: 
-* Runde
-* Lage kart med conveyorbelt
-* Registrer state klassen med cryo
-* legge til spiller 3,4,5,6
-* Last resort:
-    * Chat & Lyd
+
+## User-stories:
+* **Creating a map with a conveyorbelt**
+  * As a player I want my robot to move accordingly to the conveyor belt so the game turn is done correctly.
+  * Acceptance Criteria:
+    * I see the board
+    * I see the map 
+    * I see the conveyorbelt on the map
+    * When I move on the conveyorbelt, the robot moves accordingly
+  *Tasks:
+    * Implement methods that makes the robot go the way the arrow on the conveyorbelt shows
+  
+* **Adding player 3, 4, 5, and 6**
+  * As a player I want there to be several players on the board, so I do not play alone
+  * Acceptance Criteria:
+    * I see the board
+    * I see up to six players on the board
+  * Tasks:
+    * Create more player-objects
+    * Put several players on the board
+  
+* **Playing a round in the game**
+  * As a player I want to be able to play a round so I can see who wins and to know that the game works as it should.
+  * Acceptance criteria:
+    * I see a board
+    * I see my robot on the board
+    * I can choose the right amount cards from the deck  
+    * I can move my robot accordingly to my first card
+    * If I end up on a whole, I lose HP and life tokens
+    * If I land on a flag, I can tell that I'm closer to a victory
+    * If I have landed on all three flags, the game will tell me I have won.
+  * Tasks:
+    * Finish the conveyor belt
+    * Make a method that will tell the player in what order the player have landed on flags
+    * Make a method that tells the player it has been on holes too much and therefore lost.
+    * Make a method that tells the player it has won if it has been on all flags in the correct order.
+  
+* **Implementing chat**
+  * As a player I want to be able to chat so I can talk to my friends while playing multiplayer with them
+  * Acceptance criteria:
+    * I see a chat
+    * I can write in the chat
+    * I can receive messages in the chat
+  * Tasks:
+    * Implement a chat
+  
+* **Implementing sound in the game**
+  * As a player I want to be able to hear sound in the game so I can have a better gaming experience
+  * Acceptance criteria:
+    * I can choose to turn on sound
+    * I can regulate the volume
+    * The sound fits the actions happening in the game
+  * Tasks:
+    * Implement sound
+    * Implement a volume button to change the volume and to turn it on/off.
+
+  
