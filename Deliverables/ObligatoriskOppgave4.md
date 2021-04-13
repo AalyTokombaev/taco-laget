@@ -1,4 +1,4 @@
-# Mandatory Assignment 4g
+# Mandatory Assignment 4
 
 ## Roles and team-work
 * The roles still work as planned, and they have stayed pretty much the same all through the project. 
