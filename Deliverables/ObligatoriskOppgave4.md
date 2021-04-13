@@ -12,7 +12,7 @@
 * We have still struggled with the multiplayer part as we thought it worked, but then it didn't work from all computers.
 * We have managed to get through all the mvp's by just working thorough and together, and we are comfortable questioning things that are being done, so we can get the best solution.
 
-## The choices we make
+## The choices we have made
 * We all have a common understanding of the choices that are made. 
 * We ask questions, come up with solutions and work together as a group.
 * Out weekly meeting have been a good way of discussing new things we could potentially use and create in the project. 
@@ -37,7 +37,7 @@
 * If we were to start from the beginning, we would lay out a more detailed plan for the whole project with more deadlines for ourselfes.
 * The communication is obviously a lot better now, as we know eachother a bit more, and it is therefore easier to tell eachother what me mean, and want out of the project.
   
-## Three points of improvement
+## Points of improvement
 1. Live update the project board
 2. Let everyone test the project before final delivery
 
@@ -47,7 +47,7 @@
 3. Implement chat(If time)
 4. Implement sound(if time)
 
-## Demands:
+## Demands
 * Out of the MVP's it is only Multiplayer that do not work as expected.
 * Our goal is to make it work fine.
 * For the fourth sprint:
@@ -71,7 +71,7 @@ Huske å sjekke at testene ikke returnerer nullpointerexception
 find solutions to existing problems and find out what to implement, while Anders is responsible for testing what is already created and 
   Maria is responsible for updating the readme file with what we have agreed on and come up with. This does create a difference in commits.
   
-## How to run the game on Windows, Mac and Linux:
+## How to run the game on Windows, Mac and Linux
 Running the game on
 * Windows:
   1. Go to our project-page on git: https://github.com/OlderNed/taco-laget, and clone the project to your computer
@@ -109,9 +109,9 @@ Running the game on
   9. To choose cards and use them, you simply click them with the mouse
 
 * Multiplayer:
-  To start multiplayer as a host press `t` on your keyboard. 
-  This will spawn a dummy player which is removed when player 2 connects. 
-  To join a started game, press `j` on your keyboard.
+  * To start multiplayer as a host press `t` on your keyboard. 
+  * This will spawn a dummy player which is removed when player 2 connects. 
+  * To join a started game, press `j` on your keyboard.
 
 ## Class diagram
 Kommer siste dag
