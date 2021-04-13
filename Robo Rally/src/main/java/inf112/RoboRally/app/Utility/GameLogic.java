@@ -34,7 +34,7 @@ public class GameLogic implements ApplicationListener {
 
     public void update() {
 
-        System.out.println("logic tick");
+        //System.out.println("logic tick");
 
         if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
             player.setDamage(1);

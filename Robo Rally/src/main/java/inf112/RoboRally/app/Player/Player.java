@@ -123,6 +123,29 @@ public class Player {
         return state;
     }
 
+    public String getStringState() {
+        String returner = "alive";
+        if (state.equals(states.alive())){
+            returner = "alive";
+        }
+        if (state.equals(states.dead())){
+            returner =  "dead";
+        }
+        if (state.equals(states.win())){
+            returner =  "win";
+        }
+        return returner;
+    }
+    public TiledMapTileLayer.Cell stringToState(String state) {
+        switch (state){
+            case "dead":
+                return states.dead();
+            case "win":
+                return states.win();
+            default:
+                return states.alive();
+        }
+    }
     public void setHP(int hp) {
         healthPoints = healthPoints + hp;
     }

@@ -51,6 +51,7 @@ public class HostScreen implements Screen {
     boolean isClient;
     GameServer server;
     int clientX, clientY;
+    TiledMapTileLayer.Cell clientState;
 
 
     public HostScreen(RoboRally game) {
@@ -132,15 +133,13 @@ public class HostScreen implements Screen {
 
     }
     public void call(){
-
-        System.out.println(String.format("clientX, clientY"));
         board.playerLayer.setCell(clientX, clientY, null);
         server.askForData();
         clientX = server.clientX;
         clientY = server.clientY;
-        TiledMapTileLayer.Cell clientState = server.clientState;
-        board.playerLayer.setCell(clientX, clientY, player.getState());
-
+        clientState = server.clientState;
+        //board.playerLayer.setCell(clientX, clientY, player.getState());
+        board.playerLayer.setCell(clientX, clientY, clientState);
         }
 
 
@@ -159,7 +158,7 @@ public class HostScreen implements Screen {
             call();
             cardViewer.updateLifeTokens();
             cardViewer.updateDamageTokens();
-            System.out.println("render tick");
+            // System.out.println("render tick");
         }
 
         logic.setPlayer();

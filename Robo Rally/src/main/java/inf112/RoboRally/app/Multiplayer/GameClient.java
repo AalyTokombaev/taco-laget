@@ -1,9 +1,11 @@
 package inf112.RoboRally.app.Multiplayer;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.RoboRally.app.Objects.States;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
@@ -26,6 +28,7 @@ public class GameClient {
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
 
+
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
@@ -40,11 +43,17 @@ public class GameClient {
                     if (msg[0].equals("getY")){
                         connection.sendTCP(String.format("clientY:%d", player.gety()));
                     }
+                    if (msg[0].equals("getState")){
+                        connection.sendTCP(String.format("state:%s", player.getStringState()));
+                    }
                     if (msg[0].equals("hostX")) {
                         hostX = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("hostY")) {
                         hostY = Integer.parseInt(msg[1]);
+                    }
+                    if (msg[0].equals("state")){
+                        hostState = player.stringToState(msg[1]);
                     }
                 }
             }
@@ -67,10 +76,7 @@ public class GameClient {
         // System.out.println("client asking for data");
         client.sendTCP("getY");
         client.sendTCP("getX");
-        //System.out.println("client got data:");
-        //System.out.println(String.format("hostX %d, hostY %d", hostX, hostY));
-        //System.out.println(String.format("hostSTate %s", hostState));
-        //System.out.println("client sop asking for data");
+        client.sendTCP("getState");
     }
 
     public void setPlayer(Player player){

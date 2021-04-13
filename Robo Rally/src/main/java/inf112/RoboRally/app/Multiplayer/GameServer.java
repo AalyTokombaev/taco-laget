@@ -1,9 +1,11 @@
 package inf112.RoboRally.app.Multiplayer;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.RoboRally.app.Objects.States;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
@@ -36,11 +38,17 @@ public class GameServer{
                     if (msg[0].equals("getY")){
                         connection.sendTCP(String.format("hostY:%d", player.gety()));
                     }
+                    if (msg[0].equals("getState")){
+                        connection.sendTCP(String.format("state:%s", player.getStringState()));
+                    }
                     if (msg[0].equals("clientX")) {
                         clientX = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("clientY")) {
                         clientY = Integer.parseInt(msg[1]);
+                    }
+                    if (msg[0].equals("state")){
+                        clientState = player.stringToState(msg[1]);
                     }
                 }
             }
@@ -60,10 +68,7 @@ public class GameServer{
         //System.out.println("server asking for data");
         server.sendToAllTCP("getY");
         server.sendToAllTCP("getX");
-        //System.out.println("serfer got data");
-        //System.out.println(String.format("ClientX %d, ClientY %d", clientX, clientY));
-        //System.out.println(String.format("clientSTate %s", clientState));
-        //System.out.println("server stop asking for data");
+        server.sendToAllTCP("getState");
 
     }
     public void host(){
