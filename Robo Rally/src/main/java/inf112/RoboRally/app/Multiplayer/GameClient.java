@@ -21,22 +21,21 @@ public class GameClient {
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    public GameClient(RoboRally game, PlayerControls ctrl) {
+    public GameClient(RoboRally game) {
         client = new Client();
         this.game = game;
-        this.ctrl = ctrl;
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
+        id = 0;
 
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
-                    // System.out.println("client recieved " + object.toString());
-                    if (object.toString().equals("OK")){
-                        System.out.println("OK");
-                    }
                     String[] msg = object.toString().split(":");
+                    if (msg[0].equals("connectOK")){
+                        id = Integer.parseInt(msg[1]);
+                    }
                     if (msg[0].equals("getX")){
                         connection.sendTCP(String.format("clientX:%d", player.getx()));
                     }

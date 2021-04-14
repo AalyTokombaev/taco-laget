@@ -77,7 +77,7 @@ public class ClientScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        client = new GameClient(game, ctrl);
+        client = new GameClient(game);
         playerPosition = player.getPosition();
 
         //board.playerLayer.setCell(x, y, player.getState());

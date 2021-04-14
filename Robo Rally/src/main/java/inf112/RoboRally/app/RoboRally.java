@@ -1,7 +1,6 @@
 package inf112.RoboRally.app;
 
 import com.badlogic.gdx.Gdx;
-import inf112.RoboRally.app.Multiplayer.Multiplayer;
 import inf112.RoboRally.app.Screens.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

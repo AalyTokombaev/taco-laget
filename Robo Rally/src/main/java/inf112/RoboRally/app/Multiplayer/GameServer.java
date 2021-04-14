@@ -11,27 +11,35 @@ import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class GameServer{
     private Server server;
     public int numPlayers = 0;
     RoboRally game;
-    PlayerControls ctrl;
     public Player player;
 
+    // the idea
+    //{"playerId": {"x": str(int), "y":str(int), "state": str() }}
+
+    public HashMap<String, HashMap<String, String>> playerData;
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
 
-    public GameServer(RoboRally game, PlayerControls ctrl){
+    public GameServer(RoboRally game){
         server = new Server();
         this.game = game;
-        this.ctrl = ctrl;
+        playerData = new HashMap<>();
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
                     String msg[] = object.toString().split(":");
+                    if (msg[0].equals("connectClient")){
+                        numPlayers++;
+                        connection.sendTCP(String.format("connectOK:%d", numPlayers));
+                    }
                     if (msg[0].equals("getX")){
                         connection.sendTCP(String.format("hostX:%d", player.getx()));
                     }
