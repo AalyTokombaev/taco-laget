@@ -96,8 +96,6 @@ public class RoboRallyBeta implements Screen {
         renderer.dispose();
     }
 
-
-
     @Override
     public void show() {
         // Take inputs from multiple sources
@@ -106,8 +104,6 @@ public class RoboRallyBeta implements Screen {
         inputMultiplexer.addProcessor(ctrl);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
-
-
 
     @Override
     public void render(float v) {

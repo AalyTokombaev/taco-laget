@@ -32,7 +32,6 @@ public class ClientScreen implements Screen {
 
     private RoboRally game;
     public Board board;
-
     public Player player;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
@@ -145,15 +144,12 @@ public class ClientScreen implements Screen {
 
         }
 
-
-
     @Override
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         logic.clearPlayer();
-
         ctrl.update();
 
         if(v > 0.2){
@@ -165,7 +161,6 @@ public class ClientScreen implements Screen {
         }
 
         logic.setPlayer();
-
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);

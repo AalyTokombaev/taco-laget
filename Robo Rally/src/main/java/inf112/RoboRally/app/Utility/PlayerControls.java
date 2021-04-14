@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import inf112.RoboRally.app.Player.Player;
 
 import java.util.HashMap;
@@ -17,6 +16,10 @@ public class PlayerControls implements InputProcessor {
 
     private static final Map<Keys, Boolean> keynum = new HashMap<Keys, Boolean>();
 
+    enum Keys {
+        LEFT, RIGHT, UP, DOWN, QUIT
+    }
+
     static {
         keynum.put(Keys.LEFT, false);
         keynum.put(Keys.RIGHT, false);
@@ -25,6 +28,7 @@ public class PlayerControls implements InputProcessor {
         keynum.put(Keys.QUIT, false);
 
     }
+
 
     private final Player player;
     private final GameLogic logic;
@@ -165,45 +169,37 @@ public class PlayerControls implements InputProcessor {
 
     public void processInput() {
 
-        //deltatime passed to function for potential future use
-        //TODO get quit-function to work...
-
         Vector2 nextPos = player.getPosition().cpy();
 
+        // Checks if the cell the player is moving to is blocked by walls, either by a wall
+        // on the "future" cell or the current cell
+
         if (keynum.get(Keys.LEFT)) {
-            if (!logic.DirChecker(nextPos.add(-1, 0)).contains("EAST")
-                    && !logic.DirChecker(player.getPosition()).contains("WEST")) {
+            if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
+                    && !logic.dirChecker(player.getPosition()).contains("WEST")) {
                 player.setPosition(-1, 0);
             }
         }
         if (keynum.get(Keys.RIGHT)) {
-            if (!logic.DirChecker(nextPos.add(1, 0)).contains("WEST")
-                    && !logic.DirChecker(player.getPosition()).contains("EAST")) {
+            if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
+                    && !logic.dirChecker(player.getPosition()).contains("EAST")) {
                 player.setPosition(1, 0);
             }
         }
         if (keynum.get(Keys.UP)) {
-            if (!logic.DirChecker(nextPos.add(0, 1)).contains("SOUTH")
-                    && !logic.DirChecker(player.getPosition()).contains("NORTH")) {
+            if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
+                    && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
                 player.setPosition(0, 1);
             }
         }
         if (keynum.get(Keys.DOWN)) {
-            if (!logic.DirChecker(nextPos.add(0, -1)).contains("NORTH")
-                    && !logic.DirChecker(player.getPosition()).contains("SOUTH")) {
+            if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
+                    && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
                 player.setPosition(0, -1);
             }
         } else if (keynum.get(Keys.QUIT)) {
             Gdx.app.exit();
         }
 
-    }
-
-    enum Keys {
-        LEFT, RIGHT, UP, DOWN, QUIT
-    }
-
-    enum Mouse {
-        SELECT, DOACTION
     }
 }
