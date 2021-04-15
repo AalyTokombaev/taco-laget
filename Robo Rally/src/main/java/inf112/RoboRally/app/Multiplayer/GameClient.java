@@ -11,6 +11,7 @@ import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class GameClient {
     private Client client;
@@ -18,15 +19,15 @@ public class GameClient {
     RoboRally game;
     private PlayerControls ctrl;
     public Player player;
-    public int hostX, hostY;
-    public TiledMapTileLayer.Cell hostState;
+    //public int hostX, hostY;
+    //public TiledMapTileLayer.Cell hostState;
+    public HashMap<Integer, PlayerData> playerData;
 
     public GameClient(RoboRally game) {
         client = new Client();
         this.game = game;
-        hostX = hostY = 0;
-        hostState = new TiledMapTileLayer.Cell();
         id = 0;
+
 
 
         client.addListener(new Listener() {
@@ -35,15 +36,18 @@ public class GameClient {
                     String[] msg = object.toString().split(":");
                     if (msg[0].equals("connectOK")){
                         id = Integer.parseInt(msg[1]);
+                        // this might not be used
+                        PlayerData data = new PlayerData(player.getx(), player.gety(), id, player.getState());
+                        playerData.put(id, data);
                     }
                     if (msg[0].equals("getX")){
-                        connection.sendTCP(String.format("clientX:%d", player.getx()));
+                        connection.sendTCP(String.format("clientX:%d:%d", player.getx(), id));
                     }
                     if (msg[0].equals("getY")){
-                        connection.sendTCP(String.format("clientY:%d", player.gety()));
+                        connection.sendTCP(String.format("clientY:%d:%d", player.gety(), id));
                     }
                     if (msg[0].equals("getState")){
-                        connection.sendTCP(String.format("state:%s", player.getStringState()));
+                        connection.sendTCP(String.format("state:%s:%d", player.getStringState(), id));
                     }
                     if (msg[0].equals("hostX")) {
                         hostX = Integer.parseInt(msg[1]);

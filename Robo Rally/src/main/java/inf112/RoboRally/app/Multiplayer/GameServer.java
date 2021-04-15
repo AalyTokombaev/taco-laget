@@ -22,7 +22,7 @@ public class GameServer{
     // the idea
     //{"playerId": {"x": str(int), "y":str(int), "state": str() }}
 
-    public HashMap<String, HashMap<String, String>> playerData;
+    public HashMap<String, PlayerData> playerData;
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
@@ -31,6 +31,9 @@ public class GameServer{
         server = new Server();
         this.game = game;
         playerData = new HashMap<>();
+        // for later
+        Kryo kryo = server.getKryo();
+        kryo.register(Request.class);
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
@@ -50,19 +53,35 @@ public class GameServer{
                         connection.sendTCP(String.format("state:%s", player.getStringState()));
                     }
                     if (msg[0].equals("clientX")) {
-                        clientX = Integer.parseInt(msg[1]);
+                        int id = Integer.parseInt(msg[2]);
+                        playerData.get(id).x = Integer.parseInt(msg[1]);
+                        //clientX = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("clientY")) {
-                        clientY = Integer.parseInt(msg[1]);
+                        int id = Integer.parseInt(msg[2]);
+                        playerData.get(id).y = Integer.parseInt(msg[1]);
+                        //clientY = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("state")){
-                        clientState = player.stringToState(msg[1]);
+                        int id = Integer.parseInt(msg[2]);
+                        playerData.get(id).state = player.stringToState(msg[1]);
+                        //clientX = Integer.parseInt(msg[1]);
+                        //clientState = player.stringToState(msg[1]);
                     }
                 }
             }
         });
-
     }
+
+    public TiledMapTileLayer.Cell stringToState(String state){
+        return player.stringToState(state);
+    }
+
+    public int toInt(String s) {
+        return Integer.parseInt(s);
+    }
+
+
 
     private void addPlayer(){
         numPlayers++;
