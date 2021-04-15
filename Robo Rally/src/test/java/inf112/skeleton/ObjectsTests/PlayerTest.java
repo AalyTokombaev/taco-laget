@@ -1,4 +1,5 @@
-package inf112.skeleton.app;
+package inf112.skeleton.ObjectsTests;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
