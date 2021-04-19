@@ -18,11 +18,12 @@ public class GameServer{
     public int numPlayers = 0;
     RoboRally game;
     public Player player;
+    public int id = 0;
 
     // the idea
     //{"playerId": {"x": str(int), "y":str(int), "state": str() }}
 
-    public HashMap<String, PlayerData> playerData;
+    public HashMap<Integer, PlayerData> playerData;
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
@@ -42,15 +43,16 @@ public class GameServer{
                     if (msg[0].equals("connectClient")){
                         numPlayers++;
                         connection.sendTCP(String.format("connectOK:%d", numPlayers));
+
                     }
                     if (msg[0].equals("getX")){
-                        connection.sendTCP(String.format("hostX:%d", player.getx()));
+                        connection.sendTCP(String.format("hostX:%d:%d", player.getx(), id));
                     }
                     if (msg[0].equals("getY")){
-                        connection.sendTCP(String.format("hostY:%d", player.gety()));
+                        connection.sendTCP(String.format("hostY:%d:%d", player.gety(), id));
                     }
                     if (msg[0].equals("getState")){
-                        connection.sendTCP(String.format("state:%s", player.getStringState()));
+                        connection.sendTCP(String.format("state:%s:%d", player.getStringState(), id));
                     }
                     if (msg[0].equals("clientX")) {
                         int id = Integer.parseInt(msg[2]);
@@ -111,6 +113,12 @@ public class GameServer{
 
     public void setPlayer(Player player) {
         this.player = player;
+        PlayerData data = new PlayerData();
+        data.id = id;
+        data.x = player.getx();
+        data.y = player.gety();
+        data.state = player.getState();
+        playerData.put(id, data);
         System.out.println("host player has now");
         System.out.println(player.getx());
         System.out.println(player.gety());

@@ -17,10 +17,11 @@ public class GameClient {
     private Client client;
     public int id;
     RoboRally game;
-    private PlayerControls ctrl;
     public Player player;
     //public int hostX, hostY;
     //public TiledMapTileLayer.Cell hostState;
+
+    // ok
     public HashMap<Integer, PlayerData> playerData;
 
     public GameClient(RoboRally game) {
@@ -37,7 +38,11 @@ public class GameClient {
                     if (msg[0].equals("connectOK")){
                         id = Integer.parseInt(msg[1]);
                         // this might not be used
-                        PlayerData data = new PlayerData(player.getx(), player.gety(), id, player.getState());
+                        PlayerData data = new PlayerData();
+                        data.id = id;
+                        data.x = player.getx();
+                        data.y = player.gety();
+                        data.state = player.getState();
                         playerData.put(id, data);
                     }
                     if (msg[0].equals("getX")){
@@ -50,13 +55,14 @@ public class GameClient {
                         connection.sendTCP(String.format("state:%s:%d", player.getStringState(), id));
                     }
                     if (msg[0].equals("hostX")) {
-                        hostX = Integer.parseInt(msg[1]);
+                        // "hostX:X:id
+                        playerData.get(msg[2]).x = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("hostY")) {
-                        hostY = Integer.parseInt(msg[1]);
+                        playerData.get(msg[2]).y = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("state")){
-                        hostState = player.stringToState(msg[1]);
+                        playerData.get(msg[2]).state = player.stringToState(msg[1]);
                     }
                 }
             }
@@ -84,6 +90,9 @@ public class GameClient {
 
     public void setPlayer(Player player){
         this.player = player;
+        playerData.get(this.id).x = player.getx();
+        playerData.get(this.id).y = player.gety();
+        playerData.get(this.id).state = player.getState();
         System.out.println("client player has now");
         System.out.println(player.getx());
         System.out.println(player.gety());

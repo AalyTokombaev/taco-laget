@@ -8,7 +8,7 @@ public class PlayerData {
     public int id;
     public TiledMapTileLayer.Cell state;
 
-    public PlayerData(int x, int y, int id, TiledMapTileLayer.Cell state){
+    public PlayerData(){
         this.x = x;
         this.y = y;
         this.state = state;
