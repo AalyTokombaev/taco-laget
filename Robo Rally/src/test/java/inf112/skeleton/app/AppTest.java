@@ -4,7 +4,14 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardInitializer;
 import inf112.RoboRally.app.Controls;
 import inf112.RoboRally.app.Objects.Player;
+
+import org.junit.Before;
 import org.junit.Test;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
+import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
 
@@ -18,8 +25,15 @@ public class AppTest {
      * Rigorous Test :-)
      */
     Controls ctrl = new Controls();
-    Player player = new Player("P1", new Vector2(0,0), 0, ctrl);
+    Player player;
 
+    @Before
+    public void setUp(){
+        Gdx.gl = mock(GL20.class);
+        new HeadlessApplication(new EmptyApplication());
+        player = new Player("P1", new Vector2(0,0), 0, ctrl);
+    }
+    
     @Test
     public void shouldAnswerWithTrue() {
         assertTrue(true);

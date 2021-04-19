@@ -19,6 +19,6 @@ public class GridTests {
     public void fillGridTest(){
         assertNotNull(grid.grid[2][8]);
         assertNotNull(grid.grid[9][11]);
-        assertNull(grid.grid[8][10]);
+        assertEquals(0, grid.grid[8][10].size());
     }
 }

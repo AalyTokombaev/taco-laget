@@ -226,7 +226,7 @@ public class Player {
     }
 
     public void setHP(int hp) {
-        healthPoints = healthPoints + hp;
+        healthPoints = hp;
     }
 
     public int getHp() {

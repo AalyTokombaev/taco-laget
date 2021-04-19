@@ -64,13 +64,14 @@ public class PlayerTest {
 
     @Test
     public void repairPlayerTest(){
-        player.setHP(10);
         player.setDamage(5);
+        player.setHP(10);
         assertEquals(10, player.getHp());
     }
 
     @Test
     public void canPlayerDieFromDamageTest(){
+
         if (!(player.getHp() == 10))
         if (player.getHp() != 10)
             player.setHP(10);
@@ -78,12 +79,11 @@ public class PlayerTest {
             player.setLifeTokens(3);
 
         player.setDamage(10);
-        player.setHP(10);
 
         player.setDamage(10);
-        player.setHP(10);
 
         player.setDamage(10);
+        
         assertFalse(player.isAlive());
     }
 }
