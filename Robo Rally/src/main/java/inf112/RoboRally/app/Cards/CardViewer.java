@@ -95,6 +95,13 @@ public class CardViewer {
             for (int x = 0; x < 9; x++) {
                 programCards.add(cards.deal());
             }
+
+            /*
+             for (ProgramCard pc: player.getDeck().cards) {
+                 programCards.add(pc);
+             }
+             */
+
             // Create all tables
             for (int i = 0; i < 24; i++) {
                 Table table = new Table();

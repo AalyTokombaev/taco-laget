@@ -12,7 +12,7 @@ public class PlayerDeck {
     /**
      * @param cards is a list of ProgramCards which should not hold more than 5 ProgramCards at the same time
      */
-    private ArrayList<ProgramCard> cards;
+    public ArrayList<ProgramCard> cards;
 
     public PlayerDeck() {
         cards = new ArrayList<>();

@@ -4,11 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryo.Kryo;
+import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameClient {
     private Client client;
@@ -26,8 +29,15 @@ public class GameClient {
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
 
+        Kryo kryo = client.getKryo();
+        kryo.register(ProgramCard.class);
+
+
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
+                if (object instanceof ProgramCard){
+                    player.getDeck().takeCard((ProgramCard) object);
+                }
                 if (object instanceof String) {
                     // System.out.println("client recieved " + object.toString());
                     if (object.toString().equals("OK")){
@@ -46,6 +56,11 @@ public class GameClient {
                     if (msg[0].equals("hostY")) {
                         hostY = Integer.parseInt(msg[1]);
                     }
+                    if (msg[0].equals("turnStart")){
+                        for (int i = 0; i < 9; i++){
+                            client.sendTCP("requestCard");
+                        }
+                    }
                 }
             }
         });
@@ -61,6 +76,10 @@ public class GameClient {
         client.sendTCP("connectClient");
         System.out.println("connecting");
         return id;
+    }
+
+    public void askForCard(){
+        client.sendTCP("requestCard");
     }
 
     public void askForData(){
