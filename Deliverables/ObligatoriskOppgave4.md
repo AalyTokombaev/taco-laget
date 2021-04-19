@@ -139,7 +139,7 @@ Kommer siste dag
     * Create more player-objects
     * Put several players on the board
   
-* **Playing a round in the game**
+* **Playing a round in the game/Creating a phase**
   * As a player I want to be able to play a round so I can see who wins and to know that the game works as it should.
   * Acceptance criteria:
     * I see a board
