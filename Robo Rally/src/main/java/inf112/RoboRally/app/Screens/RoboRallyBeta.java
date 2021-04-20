@@ -16,8 +16,7 @@ import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.GameLogic;
-import inf112.RoboRally.app.Utility.PlayerControls;
-import inf112.RoboRally.app.Utility.controlInterp;
+import inf112.RoboRally.app.Utility.ControlInterp;
 
 import java.util.ArrayList;
 
@@ -41,14 +40,13 @@ public class RoboRallyBeta implements Screen {
 
     private TiledMap map;
 
-   //private final PlayerControls ctrl;
     private final GameLogic logic;
 
     ArrayList<Player> players;
     Player player2;
 
-    controlInterp test;
-    Boolean go = true;
+    ControlInterp test;
+    Boolean go = false;
 
 
     public RoboRallyBeta(RoboRally game) {
@@ -63,20 +61,15 @@ public class RoboRallyBeta implements Screen {
         player = new Player();
 
         logic = new GameLogic(player,board);
-        //ctrl = new PlayerControls(player,logic);
         cardViewer = new CardViewer(game.batch, player);
-        //if(cardViewer.player.getHp() != player.getHp())
 
-        test = new controlInterp(player,logic);
+        test = new ControlInterp(player,logic);
 
 
         players = new ArrayList<>();
         players.add(player);
 
         playerPosition = player.getPosition();
-
-        //board.playerLayer.setCell(x, y, player.getState());
-        // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
         // Camera setup
@@ -108,7 +101,6 @@ public class RoboRallyBeta implements Screen {
         // Take inputs from multiple sources
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(cardViewer.getStage());
-        //inputMultiplexer.addProcessor(ctrl);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -119,17 +111,22 @@ public class RoboRallyBeta implements Screen {
 
         logic.clearPlayer();
 
+        if(player.getDeck().getCards().size() >= 5){
+            System.out.println(player.getDeck().getCards().size());
+            go = true;
+        }
 
+        if(v > 0.3){
 
-        //ctrl.update();
-
-        if(v > 0.2){
-            //multiPlayer();
             test.translateMovement(go);
             logic.update();
             cardViewer.updateLifeTokens();
             cardViewer.updateDamageTokens();
             System.out.println("render tick");
+        }
+
+        if(player.getDeck().getCards().empty()){
+            go = false;
         }
 
         logic.setPlayer();
@@ -138,8 +135,6 @@ public class RoboRallyBeta implements Screen {
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
-
-
 
     }
 

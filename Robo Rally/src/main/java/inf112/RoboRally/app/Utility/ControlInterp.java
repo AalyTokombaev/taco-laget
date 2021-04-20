@@ -4,75 +4,97 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
-
-
 import java.util.EmptyStackException;
-import java.util.List;
 import java.util.Stack;
 
-public class controlInterp {
+public class ControlInterp {
 
     private Player player;
     private GameLogic logic;
     private PlayerDeck deck;
 
-    public controlInterp(Player player, GameLogic logic) {
+    public ControlInterp(Player player, GameLogic logic) {
         this.player = player;
         this.logic = logic;
         this.deck = player.getDeck();
     }
 
     public void translateMovement(Boolean go){
-        List<ProgramCard> cards = player.getDeck().getCards();
-        Stack cardz = new Stack();
+
+        Stack <ProgramCard> cardz = player.getDeck().getCards();
+
         try {
-            for (ProgramCard card : cards) {
-                cardz.add(card);
-                System.out.println(card);
-            }
+            if (go && (!cardz.empty())) {
 
-            if (go || (!cardz.empty())) {
-                ProgramCard card = (ProgramCard) cardz.pop();
+                ProgramCard card = cardz.pop();
+
                 if (!card.getTurn().equals("")) {
-                    player.setDir(card.getTurn());
-                    System.out.println(player.getDir());
-
+                    System.out.println(card.getTurn());
+                    rotater(player.state.getRotation(),card.getTurn());
                 }
-                virtMover();
-
+                virtMover(card.getNumberOfMoves());
             }
         }catch (EmptyStackException e){
             e.printStackTrace();
         }
-
     }
 
+    public void rotater(int rot,String dir) {
 
-    public void virtMover() {
+        if(dir.equals("LEFT")){
+            if(rot -1 < 0){
+                rot = 1;
+            }
+            player.state.setRotation(rot - 1);
+        }
+        if(dir.equals("RIGHT")){
+            if(rot +1 > 3){
+                rot = 2;
+            }
+            player.state.setRotation(rot +1);
+        }
+        switch (player.state.getRotation()) {
 
+            case 0: player.setDir("UP");
+                    break;
+            case 1: player.setDir("RIGHT");
+                    break;
+            case 2: player.setDir("DOWN");
+                    break;
+            case 3: player.setDir("LEFT");
+                    break;
+            default:
+                    break;
+        }
+    }
+
+    public void virtMover(int x) {
+
+        int moves = x;
         Vector2 nextPos = player.getPosition().cpy();
 
-        try {
+        System.out.println(moves + " moves left");
 
-            if(player.getDir().equals("LEFT")){
+        try {
+            if (player.getDir().equals("LEFT")) {
                 if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
                         && !logic.dirChecker(player.getPosition()).contains("WEST")) {
                     player.setPosition(-1, 0);
                 }
             }
-            if(player.getDir().equals("RIGHT")){
+            if (player.getDir().equals("RIGHT")) {
                 if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
                         && !logic.dirChecker(player.getPosition()).contains("EAST")) {
                     player.setPosition(1, 0);
                 }
             }
-            if(player.getDir().equals("UP")){
+            if (player.getDir().equals("UP")) {
                 if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
                         && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
                     player.setPosition(0, 1);
                 }
             }
-            if(player.getDir().equals("DOWN")){
+            if (player.getDir().equals("DOWN")) {
                 if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
                         && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
                     player.setPosition(0, -1);
@@ -81,6 +103,5 @@ public class controlInterp {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
     }
 }

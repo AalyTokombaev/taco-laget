@@ -36,6 +36,7 @@ public class Player {
 
     public String dir = "UP";
 
+
     //public Grid grid;
 
     //public int id;
@@ -77,7 +78,6 @@ public class Player {
      */
     public void setDamage(int x) {
         healthPoints = healthPoints - x;
-        System.out.println(getHp());
         if (healthPoints <= 0) {
             lifeTokens = lifeTokens - 1;
             healthPoints = MAX_HP;
@@ -101,7 +101,6 @@ public class Player {
             state = states.win();
             System.out.println("win");
         }
-        System.out.println(score);
     }
     public void setName(String name){
         this.id = name;
