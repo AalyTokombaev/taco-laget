@@ -27,27 +27,28 @@ public class ControlInterp {
             if (go && (!cardz.empty())) {
 
                 ProgramCard card = cardz.pop();
-
                 if (!card.getTurn().equals("")) {
-                    System.out.println(card.getTurn());
-                    rotater(player.state.getRotation(),card.getTurn());
+                    rotator(player.state.getRotation(),card.getTurn());
+                    virtMover(card.getNumberOfMoves());
                 }
-                virtMover(card.getNumberOfMoves());
+
             }
         }catch (EmptyStackException e){
             e.printStackTrace();
         }
     }
 
-    public void rotater(int rot,String dir) {
+    public void rotator(int rot, String dir) {
 
         if(dir.equals("LEFT")){
+            System.out.println("LEFT");
             if(rot -1 < 0){
                 rot = 1;
             }
             player.state.setRotation(rot - 1);
         }
         if(dir.equals("RIGHT")){
+            System.out.println("RIGHT");
             if(rot +1 > 3){
                 rot = 2;
             }
@@ -76,30 +77,29 @@ public class ControlInterp {
         System.out.println(moves + " moves left");
 
         try {
-            if (player.getDir().equals("LEFT")) {
+            if(logic.outOfBounds(nextPos)){
+                System.out.println("out of bounds");
+            }
+            if (player.getDir().equals("LEFT"))
                 if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
                         && !logic.dirChecker(player.getPosition()).contains("WEST")) {
-                    player.setPosition(-1, 0);
+                    player.getPosition().add(-1, 0);
                 }
-            }
-            if (player.getDir().equals("RIGHT")) {
+            if (player.getDir().equals("RIGHT"))
                 if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
                         && !logic.dirChecker(player.getPosition()).contains("EAST")) {
-                    player.setPosition(1, 0);
+                    player.getPosition().add(1, 0);
                 }
-            }
-            if (player.getDir().equals("UP")) {
+            if (player.getDir().equals("UP"))
                 if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
                         && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
-                    player.setPosition(0, 1);
+                    player.getPosition().add(0, 1);
                 }
-            }
-            if (player.getDir().equals("DOWN")) {
+            if (player.getDir().equals("DOWN"))
                 if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
                         && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
-                    player.setPosition(0, -1);
+                    player.getPosition().add(0, -1);
                 }
-            }
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
