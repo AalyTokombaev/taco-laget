@@ -130,7 +130,7 @@ public class ClientScreen implements Screen {
         player.put(6, 1);
         // client.setPlayer(players.get(1));
         client.setPlayer(player);
-        board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+        board.playerLayer.setCell(client.player.getX(), client.player.getY(), client.player.getState());
     }
 
     public void call(){

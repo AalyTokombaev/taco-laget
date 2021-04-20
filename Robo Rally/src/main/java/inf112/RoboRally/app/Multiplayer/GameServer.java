@@ -31,10 +31,10 @@ public class GameServer{
                 if (object instanceof String) {
                     String msg[] = object.toString().split(":");
                     if (msg[0].equals("getX")){
-                        connection.sendTCP(String.format("hostX:%d", player.getx()));
+                        connection.sendTCP(String.format("hostX:%d", player.getX()));
                     }
                     if (msg[0].equals("getY")){
-                        connection.sendTCP(String.format("hostY:%d", player.gety()));
+                        connection.sendTCP(String.format("hostY:%d", player.getY()));
                     }
                     if (msg[0].equals("clientX")) {
                         clientX = Integer.parseInt(msg[1]);
@@ -80,8 +80,8 @@ public class GameServer{
     public void setPlayer(Player player) {
         this.player = player;
         System.out.println("host player has now");
-        System.out.println(player.getx());
-        System.out.println(player.gety());
+        System.out.println(player.getX());
+        System.out.println(player.getY());
     }
 
     public void sendPlayerData(){

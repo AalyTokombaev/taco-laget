@@ -65,8 +65,6 @@ public class Player {
 
     public String getDir(){
         return dir;
-
-
     }
 
     /**
@@ -163,9 +161,9 @@ public class Player {
         this.lifeTokens = lives;
     }
 
-    public int getx() {return (int) position.x; }
+    public int getX() {return (int) position.x; }
 
-    public int gety() {return (int) position.y; }
+    public int getY() {return (int) position.y; }
 
 
 

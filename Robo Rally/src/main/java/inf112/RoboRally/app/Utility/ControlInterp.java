@@ -27,13 +27,13 @@ public class ControlInterp {
             if (go && (!cardz.empty())) {
 
                 ProgramCard card = cardz.pop();
+
                 if (!card.getTurn().equals("")) {
                     rotator(player.state.getRotation(),card.getTurn());
                 }
                 else{
                     virtMover(card.getNumberOfMoves());
                 }
-
             }
         }catch (EmptyStackException e){
             e.printStackTrace();
@@ -77,9 +77,7 @@ public class ControlInterp {
         System.out.println(moves + " moves left");
 
         try {
-            if(logic.outOfBounds(nextPos)){
-                System.out.println("out of bounds");
-            }
+
             if (player.getDir().equals("LEFT"))
                 if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
                         && !logic.dirChecker(player.getPosition()).contains("WEST")) {

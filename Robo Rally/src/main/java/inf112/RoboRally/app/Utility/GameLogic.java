@@ -1,7 +1,6 @@
 package inf112.RoboRally.app.Utility;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Grid.Board;
@@ -36,6 +35,10 @@ public class GameLogic implements ApplicationListener {
 
         System.out.println("logic tick");
 
+        if(outOfBounds(player.getPosition())){
+            player.put(0,0);
+        }
+
         if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
             player.setDamage(1);
         }
@@ -61,11 +64,11 @@ public class GameLogic implements ApplicationListener {
     }
 
     public void setPlayer(){
-        playerLayer.setCell(player.getx(), player.gety(),player.getState());
+        playerLayer.setCell(player.getX(), player.getY(),player.getState());
     }
 
     public void clearPlayer(){
-        playerLayer.setCell(player.getx(),player.gety(),null);
+        playerLayer.setCell(player.getX(),player.getY(),null);
     }
 
     public void forceMove() {
