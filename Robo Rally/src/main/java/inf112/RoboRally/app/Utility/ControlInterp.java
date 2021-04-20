@@ -29,6 +29,8 @@ public class ControlInterp {
                 ProgramCard card = cardz.pop();
                 if (!card.getTurn().equals("")) {
                     rotator(player.state.getRotation(),card.getTurn());
+                }
+                else{
                     virtMover(card.getNumberOfMoves());
                 }
 
@@ -41,18 +43,16 @@ public class ControlInterp {
     public void rotator(int rot, String dir) {
 
         if(dir.equals("LEFT")){
-            System.out.println("LEFT");
-            if(rot -1 < 0){
-                rot = 1;
+            if(rot - 1 < 0){
+                rot = 4;
             }
             player.state.setRotation(rot - 1);
         }
         if(dir.equals("RIGHT")){
-            System.out.println("RIGHT");
-            if(rot +1 > 3){
-                rot = 2;
+            if(rot + 1 > 3){
+                rot = -1;
             }
-            player.state.setRotation(rot +1);
+            player.state.setRotation(rot + 1);
         }
         switch (player.state.getRotation()) {
 
