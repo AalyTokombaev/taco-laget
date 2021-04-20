@@ -1,6 +1,7 @@
 package inf112.RoboRally.app.Cards;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a programmable deck of ProgramCards to be used as a program by a Player in a round of Robo Rally
@@ -27,5 +28,9 @@ public class PlayerDeck {
         String string = card.getFilename();
         string = string.substring(0, string.length() - 4);
         System.out.println("You have added " + string + " to the card deck");
+    }
+
+    public List<ProgramCard> getCards(){
+        return cards;
     }
 }

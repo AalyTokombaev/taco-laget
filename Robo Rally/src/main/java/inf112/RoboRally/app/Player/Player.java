@@ -34,6 +34,8 @@ public class Player {
 
     public States states;
 
+    public String dir = "UP";
+
     //public Grid grid;
 
     //public int id;
@@ -51,7 +53,18 @@ public class Player {
         this.id = id;
         flagsVisited = new ArrayList<>();
 
+
         //this.grid = new Grid();
+
+    }
+
+    public void setDir(String dir){
+        this.dir = dir;
+    }
+
+    public String getDir(){
+        return dir;
+
 
     }
 

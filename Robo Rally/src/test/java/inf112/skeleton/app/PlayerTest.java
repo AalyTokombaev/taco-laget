@@ -1,14 +1,17 @@
 package inf112.skeleton.app;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
-import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.Grid.Board;
+import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.Utility.GameLogic;
 import inf112.RoboRally.app.Utility.PlayerControls;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 
 public class PlayerTest {
@@ -53,13 +56,7 @@ public class PlayerTest {
         assertEquals(10, player.getHp());
 
     }
-/*
-   @Test
-    public void isOrderOfFlagsCorrectTest(){
-       Flag flag = new Flag(1, new Vector2());
-       assertTrue(player.visitFlag(flag));
-   }
-*/
+    
     @Test
     public void canPlayerTakeDamageTest(){
         assertEquals(10, player.getHp());
@@ -76,7 +73,10 @@ public class PlayerTest {
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        player.setLifeTokens(0);
+        //player.setLifeTokens(0);
+
+
+
         assertFalse(player.isAlive());
     }
 
