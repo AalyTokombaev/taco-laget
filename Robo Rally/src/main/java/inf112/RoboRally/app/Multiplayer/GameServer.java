@@ -41,7 +41,37 @@ public class GameServer{
 
         Kryo kryo = server.getKryo();
         kryo.register(PlayerData.class);
+        kryo.register(Request.class);
 
+
+        server.addListener(new Listener(){
+            public void received(Connection connection, Object object){
+                if (object instanceof Request) {
+                    Request recv = (Request) object;
+
+                }
+
+                if (object instanceof String) {
+                    String[] msg  = ((String) object).split(":");
+                    if (msg[0].equals("connectClient")){
+                        numPlayers++;
+                        connection.sendTCP(String.format("connectOK:%d", numPlayers));
+                    }
+                    if (msg[0].equals("requestData")){
+                        Request send = new Request();
+                        PlayerData sendData = new PlayerData();
+                        sendData.x = player.getx();
+                        sendData.y = player.gety();
+                        sendData.state = player.getState();
+                        send.data = sendData;
+                        send.id = id;
+                        connection.sendTCP(send);
+                    }
+                }
+            }
+        });
+
+        /*
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
@@ -79,6 +109,8 @@ public class GameServer{
                 }
             }
         });
+
+        */
     }
 
     public TiledMapTileLayer.Cell stringToState(String state){

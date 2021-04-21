@@ -37,8 +37,40 @@ public class GameClient {
 
         Kryo kryo = client.getKryo();
         kryo.register(PlayerData.class);
+        kryo.register(Request.class);
 
 
+        client.addListener(new Listener(){
+            public void received(Connection connection, Object object) {
+                if (object instanceof Request) {
+                    int i = ((Request) object).id;
+                    int rx = ((Request) object).data.x;
+                    int ry = ((Request) object).data.y;
+                    TiledMapTileLayer.Cell rstate = ((Request) object).data.state;
+                    playerData.get(i).x = rx;
+                    playerData.get(i).y = ry;
+                    playerData.get(i).state = rstate;
+                }
+                if (object instanceof String){
+                    String[] msg = ((String) object).split(":");
+                    if (msg[0].equals("connectOK")){
+                        id  = Integer.parseInt(msg[1]);
+                    }
+                    if (msg[0].equals("requestData")){
+                        Request send = new Request();
+                        PlayerData sendData = new PlayerData();
+                        sendData.x = player.getx();
+                        sendData.y = player.gety();
+                        sendData.state = player.getState();
+                        send.data = sendData;
+                        send.id = id;
+                        connection.sendTCP(send);
+                    }
+                }
+            }
+        });
+
+        /*
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof String) {
@@ -72,6 +104,8 @@ public class GameClient {
                 }
             }
         });
+
+         */
     }
 
     public int connect(String address, int port) {
