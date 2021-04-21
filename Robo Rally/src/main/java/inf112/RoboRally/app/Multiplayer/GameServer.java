@@ -71,60 +71,21 @@ public class GameServer{
                     }
                     if (msg[0].equals("requestData")) {
                             for (int i = 0; i < 10; i++){
-                            Request send = new Request();
-                            PlayerData sendData = new PlayerData();
-                            sendData.x = player.getx();
-                            sendData.y = player.gety();
-                            sendData.state = player.getStringState();
-                            send.data = sendData;
-                            send.id = id;
-                            connection.sendTCP(send);
+                                System.out.println("sending player id" + i);
+                                Request send = new Request();
+                                PlayerData sendData = new PlayerData();
+                                sendData.x = player.getx();
+                                sendData.y = player.gety();
+                                sendData.state = player.getStringState();
+                                send.data = sendData;
+                                send.id = id;
+                                connection.sendTCP(send);
                         }
                     }
                 }
             }
         });
 
-        /*
-        server.addListener(new Listener() {
-            public void received (Connection connection, Object object) {
-                if (object instanceof String) {
-                    String msg[] = object.toString().split(":");
-                    if (msg[0].equals("connectClient")){
-                        numPlayers++;
-                        connection.sendTCP(String.format("connectOK:%d", numPlayers)); // this be the id client wants
-
-                    }
-                    if (msg[0].equals("getX")){
-                        connection.sendTCP(String.format("hostX:%d:%d", player.getx(), id));
-                    }
-                    if (msg[0].equals("getY")){
-                        connection.sendTCP(String.format("hostY:%d:%d", player.gety(), id));
-                    }
-                    if (msg[0].equals("getState")){
-                        connection.sendTCP(String.format("state:%s:%d", player.getStringState(), id));
-                    }
-                    if (msg[0].equals("clientX")) {
-                        int id = Integer.parseInt(msg[2]);
-                        playerData.get(id).x = Integer.parseInt(msg[1]);
-                        //clientX = Integer.parseInt(msg[1]);
-                    }
-                    if (msg[0].equals("clientY")) {
-                        int id = Integer.parseInt(msg[2]);
-                        playerData.get(id).y = Integer.parseInt(msg[1]);
-                        //clientY = Integer.parseInt(msg[1]);
-                    }
-                    if (msg[0].equals("state")){
-                        int id = Integer.parseInt(msg[2]);
-                        playerData.get(id).state = player.stringToState(msg[1]);
-                        //clientX = Integer.parseInt(msg[1]);
-                        //clientState = player.stringToState(msg[1]);
-                    }
-                }
-            }
-        });
-
-        */
     }
 
     public TiledMapTileLayer.Cell stringToState(String state){

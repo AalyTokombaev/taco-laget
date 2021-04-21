@@ -132,13 +132,23 @@ public class ClientScreen implements Screen {
         // client.setPlayer(players.get(1));
         board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
     }
+    void clean() {
+        for (int i = 0; i < 12; i++ ){
+            for (int j = 0; j < 15; j++){
+                board.playerLayer.setCell(i, j, null);
+            }
+        }
+    }
 
     public void call(){
+        /*
         for (int i = 0; i < 10; i++){
             int x = client.playerData.get(i).x;
             int y = client.playerData.get(i).y;
             board.playerLayer.setCell(x, y, null);
         }
+        */
+        clean();
         client.askForData();
         for (int i = 0; i < 10; i++){
             int x = client.playerData.get(i).x;

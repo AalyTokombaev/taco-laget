@@ -131,13 +131,23 @@ public class HostScreen implements Screen {
         clientX = clientY = 0;
 
     }
+    void clean() {
+        for (int i = 0; i < 12; i++ ){
+            for (int j = 0; j < 15; j++){
+                board.playerLayer.setCell(i, j, null);
+            }
+        }
+    }
     public void call(){
+        /*
         for (int i = 0; i < 10; i++){
             int x = server.playerData.get(i).x;
             int y = server.playerData.get(i).y;
             System.out.println(String.format("Removing player from: x:%d , y:%d", x, y));
             board.playerLayer.setCell(x, y, null);
         }
+        */
+         clean();
         server.askForData();
         for (int i = 0; i < 10; i++){
             int x = server.playerData.get(i).x;

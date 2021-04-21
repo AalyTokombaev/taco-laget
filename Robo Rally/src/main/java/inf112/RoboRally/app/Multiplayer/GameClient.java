@@ -32,14 +32,11 @@ public class GameClient {
         id = 0;
 
         playerData = new HashMap<>();
-        PlayerData data = new PlayerData();
         for (int i = 0; i < 10; i++) {playerData.put(i, new PlayerData());}
 
         Kryo kryo = client.getKryo();
         kryo.register(PlayerData.class);
         kryo.register(Request.class);
-        kryo.register(com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell.class);
-        kryo.register(com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile.class);
 
 
 
@@ -56,11 +53,17 @@ public class GameClient {
                     playerData.get(i).x = rx;
                     playerData.get(i).y = ry;
                     playerData.get(i).state = rstate;
+
                 }
                 if (object instanceof String){
                     String[] msg = ((String) object).split(":");
                     if (msg[0].equals("connectOK")){
                         id  = Integer.parseInt(msg[1]);
+                        PlayerData data = new PlayerData();
+                        data.x = player.getx();
+                        data.y = player.gety();
+                        data.state = player.getStringState();
+                        playerData.put(id, data);
                     }
                     if (msg[0].equals("requestData")){
                         Request send = new Request();
