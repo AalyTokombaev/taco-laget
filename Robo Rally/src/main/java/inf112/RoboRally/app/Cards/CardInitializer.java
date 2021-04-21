@@ -30,6 +30,7 @@ public class CardInitializer {
         cards = new ArrayList<>();
         initialize();
         cardsBackup = new ArrayList<>();
+        shuffle();
         for (ProgramCard card: cards){ cardsBackup.add(card); }
     }
 
