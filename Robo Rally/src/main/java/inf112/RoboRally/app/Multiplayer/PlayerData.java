@@ -6,7 +6,7 @@ public class PlayerData {
     public int x;
     public int y;
     public int id;
-    public TiledMapTileLayer.Cell state;
+    public String state;
 
     public PlayerData(){
         this.x = x;

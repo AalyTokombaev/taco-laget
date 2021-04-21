@@ -137,6 +137,9 @@ public class Player {
         return returner;
     }
     public TiledMapTileLayer.Cell stringToState(String state) {
+        if (state == null) {
+            return states.alive();
+        }
         switch (state){
             case "dead":
                 return states.dead();

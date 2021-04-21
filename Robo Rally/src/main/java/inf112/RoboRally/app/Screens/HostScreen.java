@@ -132,13 +132,28 @@ public class HostScreen implements Screen {
 
     }
     public void call(){
+        for (int i = 0; i < 10; i++){
+            int x = server.playerData.get(i).x;
+            int y = server.playerData.get(i).y;
+            System.out.println(String.format("Removing player from: x:%d , y:%d", x, y));
+            board.playerLayer.setCell(x, y, null);
+        }
+        server.askForData();
+        for (int i = 0; i < 10; i++){
+            int x = server.playerData.get(i).x;
+            int y = server.playerData.get(i).y;
+            // kryo registration is nightmare with the Cell class
+            TiledMapTileLayer.Cell state = player.stringToState(server.playerData.get(i).state);
+            board.playerLayer.setCell(x, y, state);
+        }
+       /*
         board.playerLayer.setCell(clientX, clientY, null);
         server.askForData();
-        clientX = server.clientX;
         clientY = server.clientY;
         clientState = server.clientState;
         //board.playerLayer.setCell(clientX, clientY, player.getState());
         board.playerLayer.setCell(clientX, clientY, clientState);
+        */
         }
 
 

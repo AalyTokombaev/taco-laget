@@ -33,20 +33,26 @@ public class GameClient {
 
         playerData = new HashMap<>();
         PlayerData data = new PlayerData();
-        for (int i = 0; i < 8; i++) {playerData.put(i, new PlayerData());}
+        for (int i = 0; i < 10; i++) {playerData.put(i, new PlayerData());}
 
         Kryo kryo = client.getKryo();
         kryo.register(PlayerData.class);
         kryo.register(Request.class);
+        kryo.register(com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell.class);
+        kryo.register(com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile.class);
+
 
 
         client.addListener(new Listener(){
             public void received(Connection connection, Object object) {
                 if (object instanceof Request) {
-                    int i = ((Request) object).id;
-                    int rx = ((Request) object).data.x;
-                    int ry = ((Request) object).data.y;
-                    TiledMapTileLayer.Cell rstate = ((Request) object).data.state;
+                    System.out.println("client received request");
+                    Request recv = (Request) object;
+                    System.out.println(recv);
+                    int i = recv.id;
+                    int rx = recv.data.x;
+                    int ry = recv.data.y;
+                    String rstate = recv.data.state;
                     playerData.get(i).x = rx;
                     playerData.get(i).y = ry;
                     playerData.get(i).state = rstate;
@@ -61,7 +67,7 @@ public class GameClient {
                         PlayerData sendData = new PlayerData();
                         sendData.x = player.getx();
                         sendData.y = player.gety();
-                        sendData.state = player.getState();
+                        sendData.state = player.getStringState();
                         send.data = sendData;
                         send.id = id;
                         connection.sendTCP(send);
@@ -69,43 +75,6 @@ public class GameClient {
                 }
             }
         });
-
-        /*
-        client.addListener(new Listener() {
-            public void received (Connection connection, Object object) {
-                if (object instanceof String) {
-                    String[] msg = object.toString().split(":");
-                    if (msg[0].equals("connectOK")){
-                        id = Integer.parseInt(msg[1]);
-
-                    }
-                    if (msg[0].equals("getX")){
-                        connection.sendTCP(String.format("clientX:%d:%d", player.getx(), id));
-                    }
-                    if (msg[0].equals("getY")){
-                        connection.sendTCP(String.format("clientY:%d:%d", player.gety(), id));
-                    }
-                    if (msg[0].equals("getState")){
-                        connection.sendTCP(String.format("state:%s:%d", player.getStringState(), id));
-                    }
-                    if (msg[0].equals("hostX")) {
-                        // "hostX:X:id
-                        int i = Integer.parseInt(msg[2]);
-                        playerData.get(i).x = Integer.parseInt(msg[1]);
-                    }
-                    if (msg[0].equals("hostY")) {
-                        int i = Integer.parseInt(msg[2]);
-                        playerData.get(i).y = Integer.parseInt(msg[1]);
-                    }
-                    if (msg[0].equals("state")){
-                        int i = Integer.parseInt(msg[2]);
-                        playerData.get(i).state = player.stringToState(msg[1]);
-                    }
-                }
-            }
-        });
-
-         */
     }
 
     public int connect(String address, int port) {
@@ -122,16 +91,14 @@ public class GameClient {
 
     public void askForData(){
         // System.out.println("client asking for data");
-        client.sendTCP("getY");
-        client.sendTCP("getX");
-        client.sendTCP("getState");
+        client.sendTCP("requestData");
     }
 
     public void setPlayer(Player player){
         PlayerData data = new PlayerData();
         data.x = player.getx();
         data.y = player.gety();
-        data.state = player.getState();
+        data.state = player.getStringState();
         playerData.put(id, data);
     }
 

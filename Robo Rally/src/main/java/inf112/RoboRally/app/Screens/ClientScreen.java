@@ -134,7 +134,20 @@ public class ClientScreen implements Screen {
     }
 
     public void call(){
-
+        for (int i = 0; i < 10; i++){
+            int x = client.playerData.get(i).x;
+            int y = client.playerData.get(i).y;
+            board.playerLayer.setCell(x, y, null);
+        }
+        client.askForData();
+        for (int i = 0; i < 10; i++){
+            int x = client.playerData.get(i).x;
+            int y = client.playerData.get(i).y;
+            // kryo registration is nightmare with the Cell class
+            TiledMapTileLayer.Cell state = player.stringToState(client.playerData.get(i).state);
+            board.playerLayer.setCell(x, y, state);
+        }
+            /*
             board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
             // just doing the host for now
@@ -142,7 +155,9 @@ public class ClientScreen implements Screen {
             hostY = client.playerData.get(0).y;
             hostState = client.playerData.get(0).state;
             // board.playerLayer.setCell(hostX, hostY, player.getState());
-            board.playerLayer.setCell(hostX, hostY, hostState);
+            board.playerLayer.setCell(hostX, hostY, hostState);i
+
+            */
     }
 
 
