@@ -47,7 +47,8 @@ public class GameClient {
                     System.out.println(tempDeck.size());
                     System.out.println((((ProgramCard) object).getFilename()));
                     if (tempDeck.size() >= 9) {
-                        player.getDeck().cards = tempDeck;
+                        player.getDeck().discardAll();
+                        for (ProgramCard card: tempDeck) {player.getDeck().takeCard(card);}
                         tempDeck = new ArrayList<>();
                     }
                     tempDeck.add((ProgramCard) object);
