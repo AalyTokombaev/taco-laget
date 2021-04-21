@@ -28,13 +28,19 @@ public class GameServer{
     public TiledMapTileLayer.Cell clientState;
 
 
-    public GameServer(RoboRally game){
+    public GameServer(RoboRally game, Player player){
         server = new Server();
         this.game = game;
+        this.player = player;
         playerData = new HashMap<>();
-        // for later
+        PlayerData data = new PlayerData();
+        data.x = player.getx();
+        data.y = player.gety();
+        data.state = player.getState();
+        playerData.put(0, data);
+
         Kryo kryo = server.getKryo();
-        kryo.register(Request.class);
+        kryo.register(PlayerData.class);
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
@@ -42,7 +48,7 @@ public class GameServer{
                     String msg[] = object.toString().split(":");
                     if (msg[0].equals("connectClient")){
                         numPlayers++;
-                        connection.sendTCP(String.format("connectOK:%d", numPlayers));
+                        connection.sendTCP(String.format("connectOK:%d", numPlayers)); // this be the id client wants
 
                     }
                     if (msg[0].equals("getX")){

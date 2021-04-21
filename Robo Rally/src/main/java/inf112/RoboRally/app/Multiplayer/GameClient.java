@@ -24,11 +24,19 @@ public class GameClient {
     // ok
     public HashMap<Integer, PlayerData> playerData;
 
-    public GameClient(RoboRally game) {
+    public GameClient(RoboRally game, Player player) {
         client = new Client();
         this.game = game;
+        this.player = player;
+
         id = 0;
 
+        playerData = new HashMap<>();
+        PlayerData data = new PlayerData();
+        for (int i = 0; i < 8; i++) {playerData.put(i, new PlayerData());}
+
+        Kryo kryo = client.getKryo();
+        kryo.register(PlayerData.class);
 
 
         client.addListener(new Listener() {
@@ -37,13 +45,7 @@ public class GameClient {
                     String[] msg = object.toString().split(":");
                     if (msg[0].equals("connectOK")){
                         id = Integer.parseInt(msg[1]);
-                        // this might not be used
-                        PlayerData data = new PlayerData();
-                        data.id = id;
-                        data.x = player.getx();
-                        data.y = player.gety();
-                        data.state = player.getState();
-                        playerData.put(id, data);
+
                     }
                     if (msg[0].equals("getX")){
                         connection.sendTCP(String.format("clientX:%d:%d", player.getx(), id));
@@ -56,13 +58,16 @@ public class GameClient {
                     }
                     if (msg[0].equals("hostX")) {
                         // "hostX:X:id
-                        playerData.get(msg[2]).x = Integer.parseInt(msg[1]);
+                        int i = Integer.parseInt(msg[2]);
+                        playerData.get(i).x = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("hostY")) {
-                        playerData.get(msg[2]).y = Integer.parseInt(msg[1]);
+                        int i = Integer.parseInt(msg[2]);
+                        playerData.get(i).y = Integer.parseInt(msg[1]);
                     }
                     if (msg[0].equals("state")){
-                        playerData.get(msg[2]).state = player.stringToState(msg[1]);
+                        int i = Integer.parseInt(msg[2]);
+                        playerData.get(i).state = player.stringToState(msg[1]);
                     }
                 }
             }
@@ -89,13 +94,11 @@ public class GameClient {
     }
 
     public void setPlayer(Player player){
-        this.player = player;
-        playerData.get(this.id).x = player.getx();
-        playerData.get(this.id).y = player.gety();
-        playerData.get(this.id).state = player.getState();
-        System.out.println("client player has now");
-        System.out.println(player.getx());
-        System.out.println(player.gety());
+        PlayerData data = new PlayerData();
+        data.x = player.getx();
+        data.y = player.gety();
+        data.state = player.getState();
+        playerData.put(id, data);
     }
 
 

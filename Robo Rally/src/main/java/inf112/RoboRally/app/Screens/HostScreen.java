@@ -76,7 +76,7 @@ public class HostScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        server = new GameServer(game);
+        server = new GameServer(game, player);
 
 
         playerPosition = player.getPosition();
@@ -127,7 +127,6 @@ public class HostScreen implements Screen {
         System.out.println("hosting");
         isHost = true;
         server.host();
-        server.setPlayer(player);
         board.playerLayer.setCell(0, 0, null);
         clientX = clientY = 0;
 

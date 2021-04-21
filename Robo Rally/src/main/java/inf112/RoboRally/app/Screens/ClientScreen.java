@@ -77,7 +77,7 @@ public class ClientScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        client = new GameClient(game);
+        client = new GameClient(game, player);
         playerPosition = player.getPosition();
 
         //board.playerLayer.setCell(x, y, player.getState());
@@ -125,12 +125,11 @@ public class ClientScreen implements Screen {
         // players.remove(0);
         client.connect("localhost", 1337);
         player.put(6, 1);
-        client.setPlayer(player);
+        // client.setPlayer(player);
         board.playerLayer.setCell(0, 0, null);
         hostX = hostY = 0;
         player.put(6, 1);
         // client.setPlayer(players.get(1));
-        client.setPlayer(player);
         board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
     }
 
@@ -138,9 +137,10 @@ public class ClientScreen implements Screen {
 
             board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
-            hostX = client.hostX;
-            hostY = client.hostY;
-            hostState = client.hostState;
+            // just doing the host for now
+            hostX = client.playerData.get(0).x;
+            hostY = client.playerData.get(0).y;
+            hostState = client.playerData.get(0).state;
             // board.playerLayer.setCell(hostX, hostY, player.getState());
             board.playerLayer.setCell(hostX, hostY, hostState);
     }
