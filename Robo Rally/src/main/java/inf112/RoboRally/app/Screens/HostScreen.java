@@ -138,6 +138,7 @@ public class HostScreen implements Screen {
         server.startTurn();
         clientX = server.clientX;
         clientY = server.clientY;
+        cardViewer = new CardViewer(game.batch, player);
         TiledMapTileLayer.Cell clientState = server.clientState;
         board.playerLayer.setCell(clientX, clientY, player.getState());
 
