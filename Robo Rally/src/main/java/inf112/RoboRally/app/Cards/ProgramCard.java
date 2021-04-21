@@ -25,6 +25,10 @@ public class ProgramCard {
         this.filename = filename;
     }
 
+    public ProgramCard() {
+
+    }
+
     // Getters for class field variables
 
     public int getNumberOfMoves() {

@@ -76,8 +76,8 @@ public class CardViewer {
         // Try to load textures and parse CardInfo.txt located in assets
         try {
             // Initialize a list of ProgramCards that holds all the cards in the game
-            CardInitializer cards = new CardInitializer();
-            cards.shuffle();
+            // CardInitializer cards = new CardInitializer();
+            // cards.shuffle();
             // Load base textures for PowerDown, DamageToken & LifeToken
             //Texture texture1 = new Texture("DamageToken.jpg");
             Texture texture2 = new Texture("PowerDown.jpg");
@@ -92,15 +92,16 @@ public class CardViewer {
             ProgramCard card;
 
             // Draw cards from the shuffled list of cards
+            /*
             for (int x = 0; x < 9; x++) {
                 programCards.add(cards.deal());
-            }
+            }*/
 
-            /*
+
              for (ProgramCard pc: player.getDeck().cards) {
                  programCards.add(pc);
              }
-             */
+
 
             // Create all tables
             for (int i = 0; i < 24; i++) {
@@ -153,7 +154,7 @@ public class CardViewer {
                     bw += 1;
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

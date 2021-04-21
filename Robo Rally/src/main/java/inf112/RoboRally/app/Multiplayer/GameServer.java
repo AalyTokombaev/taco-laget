@@ -28,14 +28,18 @@ public class GameServer{
     public TiledMapTileLayer.Cell clientState;
 
 
-    public GameServer(RoboRally game, PlayerControls ctrl){
+    public GameServer(RoboRally game, Player player){
         server = new Server();
-        
+        this.player = player;
         try {
             cardInitializer = new CardInitializer();
             cardInitializer.shuffle();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        for (int i = 0; i < 9; i++) {
+            player.getDeck().takeCard(new ProgramCard(0, "", 0, "dummycard.jpg"));
         }
         
         Kryo kryo = server.getKryo();
@@ -69,6 +73,7 @@ public class GameServer{
     }
 
     public void startTurn(){
+        player.getDeck().discardAll();
         for (int i = 0; i < 9; i++){
             player.getDeck().takeCard(cardInitializer.deal());
         }

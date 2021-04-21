@@ -28,4 +28,12 @@ public class PlayerDeck {
         string = string.substring(0, string.length() - 4);
         System.out.println("You have added " + string + " to the card deck");
     }
+
+    public void discard() {
+        cards.remove(0);
+    }
+
+    public void discardAll(){
+        cards = new ArrayList<>();
+    }
 }

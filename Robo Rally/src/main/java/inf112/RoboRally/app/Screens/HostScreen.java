@@ -66,7 +66,7 @@ public class HostScreen implements Screen {
 
         logic = new GameLogic(player,board);
         ctrl = new PlayerControls(player,logic);
-        cardViewer = new CardViewer(game.batch, player);
+        // cardViewer = new CardViewer(game.batch, player);
         //if(cardViewer.player.getHp() != player.getHp())
 
         players = new ArrayList<>();
@@ -75,7 +75,7 @@ public class HostScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        server = new GameServer(game, ctrl);
+        server = new GameServer(game, player);
 
 
         playerPosition = player.getPosition();
@@ -122,11 +122,10 @@ public class HostScreen implements Screen {
 
     public void multiPlayer() {
 
-        System.out.println("t pressed");
         System.out.println("hosting");
         isHost = true;
         server.host();
-        server.setPlayer(player);
+        cardViewer = new CardViewer(game.batch, player);
         board.playerLayer.setCell(0, 0, null);
         clientX = clientY = 0;
 
@@ -136,6 +135,7 @@ public class HostScreen implements Screen {
         System.out.println(String.format("clientX, clientY"));
         board.playerLayer.setCell(clientX, clientY, null);
         server.askForData();
+        server.startTurn();
         clientX = server.clientX;
         clientY = server.clientY;
         TiledMapTileLayer.Cell clientState = server.clientState;

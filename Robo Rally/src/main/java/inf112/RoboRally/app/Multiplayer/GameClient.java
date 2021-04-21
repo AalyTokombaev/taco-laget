@@ -21,22 +21,36 @@ public class GameClient {
     public Player player;
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
+    private ArrayList<ProgramCard> tempDeck;
 
-    public GameClient(RoboRally game, PlayerControls ctrl) {
+    public GameClient(RoboRally game, Player player) {
         client = new Client();
         this.game = game;
         this.ctrl = ctrl;
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
+        this.player = player;
 
         Kryo kryo = client.getKryo();
         kryo.register(ProgramCard.class);
+
+        for (int i = 0; i < 9; i++) {
+            player.getDeck().takeCard(new ProgramCard(0, "", 0, "dummycard.jpg"));
+        }
+        tempDeck = new ArrayList<>();
 
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof ProgramCard){
-                    player.getDeck().takeCard((ProgramCard) object);
+                    System.out.println("recieved card");
+                    System.out.println(tempDeck.size());
+                    System.out.println((((ProgramCard) object).getFilename()));
+                    if (tempDeck.size() >= 9) {
+                        player.getDeck().cards = tempDeck;
+                        tempDeck = new ArrayList<>();
+                    }
+                    tempDeck.add((ProgramCard) object);
                 }
                 if (object instanceof String) {
                     // System.out.println("client recieved " + object.toString());

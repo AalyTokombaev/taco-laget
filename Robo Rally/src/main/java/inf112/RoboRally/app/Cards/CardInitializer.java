@@ -12,6 +12,7 @@ import java.util.Collections;
 public class CardInitializer {
     ArrayList<String> cardsStrings;
     ArrayList<ProgramCard> cards;
+    ArrayList<ProgramCard> cardsBackup;
     BufferedReader reader;
     ;
 
@@ -28,6 +29,8 @@ public class CardInitializer {
         cardsStrings = new ArrayList<>();
         cards = new ArrayList<>();
         initialize();
+        cardsBackup = new ArrayList<>();
+        for (ProgramCard card: cards){ cardsBackup.add(card); }
     }
 
     /**
@@ -79,6 +82,12 @@ public class CardInitializer {
      * @return a ProgramCard
      */
     public ProgramCard deal() {
+        if (cards.size() <= 0) {
+                for (ProgramCard card: cardsBackup){
+                    cards.add(card);
+                }
+            }
+
         return cards.remove(0);
     }
 }

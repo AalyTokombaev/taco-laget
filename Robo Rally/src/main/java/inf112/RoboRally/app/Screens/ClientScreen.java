@@ -68,7 +68,7 @@ public class ClientScreen implements Screen {
 
         logic = new GameLogic(player,board);
         ctrl = new PlayerControls(player,logic);
-        cardViewer = new CardViewer(game.batch, player);
+        //cardViewer = new CardViewer(game.batch, player);
         //if(cardViewer.player.getHp() != player.getHp())
 
         players = new ArrayList<>();
@@ -77,7 +77,7 @@ public class ClientScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        client = new GameClient(game, ctrl);
+        client = new GameClient(game, player);
         playerPosition = player.getPosition();
 
         //board.playerLayer.setCell(x, y, player.getState());
@@ -130,7 +130,7 @@ public class ClientScreen implements Screen {
         hostX = hostY = 0;
         player.put(6, 1);
         // client.setPlayer(players.get(1));
-        client.setPlayer(player);
+        cardViewer = new CardViewer(game.batch, player);
         board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
     }
 
