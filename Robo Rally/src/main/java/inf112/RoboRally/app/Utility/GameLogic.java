@@ -1,15 +1,13 @@
 package inf112.RoboRally.app.Utility;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 
-
 import java.util.Collections;
 
-public class GameLogic implements ApplicationListener {
+public class GameLogic {
 
     private final Player player;
 
@@ -32,9 +30,7 @@ public class GameLogic implements ApplicationListener {
 
 
     public void update() {
-
         System.out.println("logic tick");
-
         if(outOfBounds(player.getPosition())){
             player.put(0,0);
         }
@@ -57,7 +53,6 @@ public class GameLogic implements ApplicationListener {
             }
         }
         forceMove();
-
         player.getScore();
         System.out.println(player.getPosition());
 
@@ -87,41 +82,7 @@ public class GameLogic implements ApplicationListener {
                 player.getPosition().add(1, 0);
             }
             dir = conveyorChecker(player.getPosition());
-
         }
-
-    }
-
-
-
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void resize(int i, int i1) {
-
-    }
-
-    @Override
-    public void render() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 
     //Check if outBounds
@@ -144,7 +105,6 @@ public class GameLogic implements ApplicationListener {
             return gg;
         }
     }
-
 
     public String conveyorChecker(Vector2 pos){
         String gg = "";

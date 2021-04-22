@@ -20,13 +20,14 @@ import inf112.RoboRally.app.Utility.ControlInterp;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
  * More specifically, takes care of the initializing, rendering, resizing, disposing and taking inputs for the application
  */
 
 public class RoboRallyBeta implements Screen {
-
 
     private RoboRally game;
     public Board board;
@@ -82,7 +83,6 @@ public class RoboRallyBeta implements Screen {
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
-
     }
 
     /**
@@ -102,41 +102,51 @@ public class RoboRallyBeta implements Screen {
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(cardViewer.getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
+
     }
 
     @Override
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-
-        logic.clearPlayer();
-
-        if(player.getDeck().getCards().size() >= 5){
-            System.out.println(player.getDeck().getCards().size());
-            go = true;
-        }
-
-        if(v > 0.3){
-
-            test.translateMovement(go);
-            logic.update();
-            cardViewer.updateLifeTokens();
-            cardViewer.updateDamageTokens();
-            System.out.println("render tick");
-        }
-
-        if(player.getDeck().getCards().empty()){
-            go = false;
-        }
-
-        logic.setPlayer();
-
+        System.out.println("render tick");
+        updater(v);
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
 
     }
+
+    public void updater(float v){
+
+        logic.clearPlayer();
+        if(player.getDeck().getCards().size() >= 5){
+            go = true;
+        }
+
+        System.out.println(player.getDeck().getCards().size());
+        if (v > 0.3) {
+            try {
+                sleep(1000);
+                test.translateMovement(go);
+                logic.update();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cardViewer.updateLifeTokens();
+        cardViewer.updateDamageTokens();
+
+        if(player.getDeck().getCards().empty()){
+            go = false;
+
+        }
+        logic.setPlayer();
+    }
+
 
     /**
      * Resizes the game contents in correlation to resizing of application window

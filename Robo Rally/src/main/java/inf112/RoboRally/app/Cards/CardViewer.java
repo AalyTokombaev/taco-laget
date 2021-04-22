@@ -70,7 +70,6 @@ public class CardViewer {
      * Throws an exception if the textures fail to load
      */
     public void buildMenu() {
-        //TODO look into the iterator-method and look for more optimization, maybe try to reduce the number of lists
 
 
         // Try to load textures and parse CardInfo.txt located in assets
