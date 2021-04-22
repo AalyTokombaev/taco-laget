@@ -27,6 +27,7 @@ public class Board {
     public TiledMapTileLayer holeLayer;
     public TiledMapTileLayer wrenchLayer;
     public TiledMapTileLayer walls;
+    public TiledMapTileLayer conveyorLayer;
 /*
     // Walls
     public TiledMapTileLayer upperWallLayer;
@@ -87,8 +88,11 @@ public class Board {
         holeLayer = (TiledMapTileLayer) map.getLayers().get("Hole");
         // load the wrenches
         wrenchLayer = (TiledMapTileLayer) map.getLayers().get("Wrench");
-
+        // load the walls
         walls = (TiledMapTileLayer) map.getLayers().get("Walls");
+        // load the conveyor belts
+        conveyorLayer = (TiledMapTileLayer) map.getLayers().get("Conveyor");
+
 /*
         // load the walls
         upperWallLayer = (TiledMapTileLayer) map.getLayers().get("UpperWall");

@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import inf112.RoboRally.app.Objects.States;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
@@ -18,78 +17,25 @@ public class GameClient {
     public int id;
     RoboRally game;
     public Player player;
-    //public int hostX, hostY;
-    //public TiledMapTileLayer.Cell hostState;
 
-    // ok
     public HashMap<Integer, PlayerData> playerData;
 
-    public GameClient(RoboRally game, Player player) {
+    public GameClient(RoboRally game,  Player player) {
         client = new Client();
-        this.game = game;
+        this.game = gameg;
         this.player = player;
 
-        id = 0;
-
+        // initialize the hashmap
         playerData = new HashMap<>();
-        for (int i = 0; i < 10; i++) {playerData.put(i, new PlayerData());}
+        for (int i = 0; i < 10; i++){
+            playerData.put(i, new PlayerData());
+        }
 
         Kryo kryo = client.getKryo();
-        kryo.register(PlayerData.class);
         kryo.register(Request.class);
 
-
-
-        client.addListener(new Listener(){
-            public void received(Connection connection, Object object) {
-                if (object instanceof Request) {
-                    System.out.println("start client received request");
-                    Request recv = (Request) object;
-                    System.out.println(recv);
-                    int i = recv.id;
-                    int rx = recv.data.x;
-                    int ry = recv.data.y;
-                    String rstate = recv.data.state;
-                    System.out.println(String.format("%d:%d:%d:%s", i, rx, ry, rstate));
-                    playerData.get(i).x = rx;
-                    playerData.get(i).y = ry;
-                    playerData.get(i).state = rstate;
-
-                }
-                if (object instanceof String){
-                    String[] msg = ((String) object).split(":");
-                    if (msg[0].equals("connectOK")){
-                        id  = Integer.parseInt(msg[1]);
-                        PlayerData data = new PlayerData();
-                        data.x = player.getx();
-                        data.y = player.gety();
-                        data.state = player.getStringState();
-                        playerData.put(id, data);
-                    }
-                    if (msg[0].equals("requestData")){
-                        for (int i = 0; i < 10; i++){
-                            Request send = new Request();
-                            PlayerData sendData = new PlayerData();
-                            sendData.x = playerData.get(i).x;
-                            sendData.y = playerData.get(i).y;
-                            sendData.state = playerData.get(i).state;
-                            send.data = sendData;
-                            System.out.println(String.format("client sending %d %d %d %s", i, sendData.x, sendData.y, sendData.state));
-                            connection.sendTCP(send);
-                        }
-                        /*
-                        Request send = new Request();
-                        PlayerData sendData = new PlayerData();
-                        sendData.x = player.getx();
-                        sendData.y = player.gety();
-                        sendData.state = player.getStringState();
-                        send.data = sendData;
-                        send.id = id;
-                        connection.sendTCP(send);
-
-                         */
-                    }
-                }
+        client.addListener(new Listener() {
+            public void received(Connection connection, Object object){
             }
         });
     }
@@ -108,15 +54,19 @@ public class GameClient {
 
     public void askForData(){
         // System.out.println("client asking for data");
-        client.sendTCP("requestData");
+        client.sendTCP("getY");
+        client.sendTCP("getX");
+        //System.out.println("client got data:");
+        //System.out.println(String.format("hostX %d, hostY %d", hostX, hostY));
+        //System.out.println(String.format("hostSTate %s", hostState));
+        //System.out.println("client sop asking for data");
     }
 
     public void setPlayer(Player player){
-        PlayerData data = new PlayerData();
-        data.x = player.getx();
-        data.y = player.gety();
-        data.state = player.getStringState();
-        playerData.put(id, data);
+        this.player = player;
+        System.out.println("client player has now");
+        System.out.println(player.getX());
+        System.out.println(player.getY());
     }
 
 

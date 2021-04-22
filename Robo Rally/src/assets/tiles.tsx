@@ -41,6 +41,66 @@
    <property name="DIRECTION" value="SOUTH, WEST"/>
   </properties>
  </tile>
+ <tile id="32">
+  <properties>
+   <property name="DIRECTIONS" value="DOWN"/>
+  </properties>
+ </tile>
+ <tile id="33">
+  <properties>
+   <property name="DIRECTIONS" value="LEFT"/>
+  </properties>
+ </tile>
+ <tile id="34">
+  <properties>
+   <property name="DIRECTIONS" value="RIGHT"/>
+  </properties>
+ </tile>
+ <tile id="35">
+  <properties>
+   <property name="DIRECTIONS" value="DOWN"/>
+  </properties>
+ </tile>
+ <tile id="40">
+  <properties>
+   <property name="DIRECTIONS" value="RIGHT"/>
+  </properties>
+ </tile>
+ <tile id="41">
+  <properties>
+   <property name="DIRECTIONS" value="UP"/>
+  </properties>
+ </tile>
+ <tile id="42">
+  <properties>
+   <property name="DIRECTIONS" value="UP"/>
+  </properties>
+ </tile>
+ <tile id="43">
+  <properties>
+   <property name="DIRECTIONS" value="LEFT"/>
+  </properties>
+ </tile>
+ <tile id="48">
+  <properties>
+   <property name="DIRECTIONS" value="UP"/>
+  </properties>
+ </tile>
+ <tile id="49">
+  <properties>
+   <property name="DIRECTIONS" value="DOWN"/>
+  </properties>
+ </tile>
+ <tile id="50">
+  <properties>
+   <property name="DIRECTIONS" value="LEFT"/>
+  </properties>
+ </tile>
+ <tile id="51">
+  <properties>
+   <property name="DIRECTIONS" value="RIGHT"/>
+  </properties>
+ </tile>
  <tile id="54">
   <properties>
    <property name="ID" type="int" value="1"/>

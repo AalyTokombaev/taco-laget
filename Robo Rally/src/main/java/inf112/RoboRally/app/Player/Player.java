@@ -34,6 +34,9 @@ public class Player {
 
     public States states;
 
+    public String dir = "UP";
+
+
     //public Grid grid;
 
     //public int id;
@@ -51,8 +54,17 @@ public class Player {
         this.id = id;
         flagsVisited = new ArrayList<>();
 
+
         //this.grid = new Grid();
 
+    }
+
+    public void setDir(String dir){
+        this.dir = dir;
+    }
+
+    public String getDir(){
+        return dir;
     }
 
     /**
@@ -64,7 +76,6 @@ public class Player {
      */
     public void setDamage(int x) {
         healthPoints = healthPoints - x;
-        System.out.println(getHp());
         if (healthPoints <= 0) {
             lifeTokens = lifeTokens - 1;
             healthPoints = MAX_HP;
@@ -88,7 +99,6 @@ public class Player {
             state = states.win();
             System.out.println("win");
         }
-        System.out.println(score);
     }
     public void setName(String name){
         this.id = name;
@@ -177,9 +187,9 @@ public class Player {
         this.lifeTokens = lives;
     }
 
-    public int getx() {return (int) position.x; }
+    public int getX() {return (int) position.x; }
 
-    public int gety() {return (int) position.y; }
+    public int getY() {return (int) position.y; }
 
 
 

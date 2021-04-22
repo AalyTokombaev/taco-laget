@@ -16,9 +16,11 @@ import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.GameLogic;
-import inf112.RoboRally.app.Utility.PlayerControls;
+import inf112.RoboRally.app.Utility.ControlInterp;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
@@ -26,7 +28,6 @@ import java.util.ArrayList;
  */
 
 public class RoboRallyBeta implements Screen {
-
 
     private RoboRally game;
     public Board board;
@@ -40,11 +41,12 @@ public class RoboRallyBeta implements Screen {
 
     private TiledMap map;
 
-    private final PlayerControls ctrl;
     private final GameLogic logic;
 
-    ArrayList<Player> players;
-    Player player2;
+
+
+    ControlInterp test;
+    Boolean go = false;
 
 
     public RoboRallyBeta(RoboRally game) {
@@ -59,17 +61,11 @@ public class RoboRallyBeta implements Screen {
         player = new Player();
 
         logic = new GameLogic(player,board);
-        ctrl = new PlayerControls(player,logic);
         cardViewer = new CardViewer(game.batch, player);
-        //if(cardViewer.player.getHp() != player.getHp())
 
-        players = new ArrayList<>();
-        players.add(player);
+        test = new ControlInterp(player,logic);
 
         playerPosition = player.getPosition();
-
-        //board.playerLayer.setCell(x, y, player.getState());
-        // for (Player p: players){board.playerLayer.setCell(p.);}
 
 
         // Camera setup
@@ -82,7 +78,6 @@ public class RoboRallyBeta implements Screen {
         float size = (float) 1.0 / 300.0f;
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
-
     }
 
     /**
@@ -96,46 +91,57 @@ public class RoboRallyBeta implements Screen {
         renderer.dispose();
     }
 
-
-
     @Override
     public void show() {
         // Take inputs from multiple sources
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(cardViewer.getStage());
-        inputMultiplexer.addProcessor(ctrl);
         Gdx.input.setInputProcessor(inputMultiplexer);
+
     }
-
-
 
     @Override
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-
-        logic.clearPlayer();
-
-        ctrl.update();
-
-        if(v > 0.2){
-            //multiPlayer();
-            logic.update();
-            cardViewer.updateLifeTokens();
-            cardViewer.updateDamageTokens();
-            System.out.println("render tick");
-        }
-
-        logic.setPlayer();
-
+        System.out.println("render tick");
+        updater(v);
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);
         renderer.render();
 
-
-
     }
+
+    public void updater(float v){
+
+        logic.clearPlayer();
+        if(player.getDeck().getCards().size() >= 5){
+            go = true;
+        }
+
+        //System.out.println(player.getDeck().getCards().size());
+        if (v > 0.3) {
+            try {
+                sleep(1000);
+                test.translateMovement(go);
+                logic.update();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cardViewer.updateLifeTokens();
+        cardViewer.updateDamageTokens();
+
+        if(player.getDeck().getCards().empty()){
+            go = false;
+
+        }
+        logic.setPlayer();
+    }
+
 
     /**
      * Resizes the game contents in correlation to resizing of application window

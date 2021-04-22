@@ -55,8 +55,8 @@ public class RoboRally extends Game {
         loadingScreen = new LoadingScreen(this);
         setScreen(loadingScreen);
         getScreen().render(Gdx.graphics.getDeltaTime());
-        Gdx.graphics.setContinuousRendering(false);
-        Gdx.graphics.requestRendering();
+        //Gdx.graphics.setContinuousRendering(true);
+        //Gdx.graphics.requestRendering();
         }
 
     @Override

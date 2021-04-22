@@ -32,7 +32,6 @@ public class ClientScreen implements Screen {
 
     private RoboRally game;
     public Board board;
-
     public Player player;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
@@ -53,7 +52,7 @@ public class ClientScreen implements Screen {
 
     GameClient client;
     int hostX, hostY;
-    TiledMapTileLayer.Cell hostState;
+
 
     public ClientScreen(RoboRally game) {
         this.game = game;
@@ -120,20 +119,22 @@ public class ClientScreen implements Screen {
 
     public void multiPlayer() {
 
-        //System.out.println("connecting");
+        System.out.println("connecting");
         isClient = true;
         // players.remove(0);
         client.connect("localhost", 1337);
         player.put(6, 1);
-        // client.setPlayer(player);
+        client.setPlayer(player);
         board.playerLayer.setCell(0, 0, null);
         hostX = hostY = 0;
         player.put(6, 1);
         // client.setPlayer(players.get(1));
-        board.playerLayer.setCell(client.player.getx(), client.player.gety(), client.player.getState());
+        client.setPlayer(player);
+        board.playerLayer.setCell(client.player.getX(), client.player.getY(), client.player.getState());
     }
-    void clean() {
-        for (int i = 0; i < 12; i++ ){
+
+    void clean(){
+        for (int i = 0; i < 12; i++){
             for (int j = 0; j < 15; j++){
                 board.playerLayer.setCell(i, j, null);
             }
@@ -141,36 +142,16 @@ public class ClientScreen implements Screen {
     }
 
     public void call(){
-        /*
-        for (int i = 0; i < 10; i++){
-            int x = client.playerData.get(i).x;
-            int y = client.playerData.get(i).y;
-            board.playerLayer.setCell(x, y, null);
-        }
-        */
-        clean();
-        client.askForData();
-        for (int i = 0; i < 10; i++){
-            int x = client.playerData.get(i).x;
-            int y = client.playerData.get(i).y;
-            // kryo registration is nightmare with the Cell class
-            TiledMapTileLayer.Cell state = player.stringToState(client.playerData.get(i).state);
-            board.playerLayer.setCell(x, y, state);
-        }
+        // this is useless rn
             /*
             board.playerLayer.setCell(hostX, hostY, null);
             client.askForData();
-            // just doing the host for now
-            hostX = client.playerData.get(0).x;
-            hostY = client.playerData.get(0).y;
-            hostState = client.playerData.get(0).state;
-            // board.playerLayer.setCell(hostX, hostY, player.getState());
-            board.playerLayer.setCell(hostX, hostY, hostState);i
+            TiledMapTileLayer.Cell hostState = client.hostState;
+            board.playerLayer.setCell(hostX, hostY, player.getState());
 
             */
-    }
 
-
+        }
 
     @Override
     public void render(float v) {
@@ -178,7 +159,6 @@ public class ClientScreen implements Screen {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
         logic.clearPlayer();
-
         ctrl.update();
 
         if(v > 0.2){
@@ -186,11 +166,10 @@ public class ClientScreen implements Screen {
             call();
             cardViewer.updateLifeTokens();
             cardViewer.updateDamageTokens();
-            //System.out.println("render tick");
+            System.out.println("render tick");
         }
 
         logic.setPlayer();
-
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);

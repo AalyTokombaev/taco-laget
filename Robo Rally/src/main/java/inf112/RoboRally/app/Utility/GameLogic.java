@@ -1,25 +1,21 @@
 package inf112.RoboRally.app.Utility;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 
-
 import java.util.Collections;
 
-public class GameLogic implements ApplicationListener {
+public class GameLogic {
 
-    private Player player;
-    private Vector2 position;
+    private final Player player;
 
-
-
-    private TiledMapTileLayer holes;
-    private TiledMapTileLayer walls;
-    private TiledMapTileLayer flags;
-    private TiledMapTileLayer playerLayer;
+    private final TiledMapTileLayer holes;
+    private final TiledMapTileLayer walls;
+    private final TiledMapTileLayer flags;
+    private final TiledMapTileLayer playerLayer;
+    private final TiledMapTileLayer conveyors;
 
     public GameLogic(Player player, Board board) {
 
@@ -27,14 +23,16 @@ public class GameLogic implements ApplicationListener {
         this.holes = board.holeLayer;
         this.walls = board.walls;
         this.flags = board.flagLayer;
+        this.conveyors = board.conveyorLayer;
         this.playerLayer = board.playerLayer;
-        this.position = player.getPosition();
     }
 
 
     public void update() {
-
-        //System.out.println("logic tick");
+        System.out.println("logic tick");
+        if(outOfBounds(player.getPosition())){
+            player.put(0,0);
+        }
 
         if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
             player.setDamage(1);
@@ -53,48 +51,36 @@ public class GameLogic implements ApplicationListener {
                 }
             }
         }
-
+        forceMove();
         player.getScore();
 
     }
 
     public void setPlayer(){
-        playerLayer.setCell(player.getx(), player.gety(),player.getState());
+        playerLayer.setCell(player.getX(), player.getY(),player.getState());
     }
 
     public void clearPlayer(){
-        playerLayer.setCell(player.getx(),player.gety(),null);
+        playerLayer.setCell(player.getX(),player.getY(),null);
     }
 
-
-    @Override
-    public void create() {
-
-    }
-
-    @Override
-    public void resize(int i, int i1) {
-
-    }
-
-    @Override
-    public void render() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
+    public void forceMove() {
+        String dir = conveyorChecker(player.getPosition());
+        while (!dir.equals("")) {
+            if (dir.contains("DOWN")) {
+                player.getPosition().add(0, -1);
+            }
+            else if (dir.contains("UP")) {
+                player.getPosition().add(0, 1);
+            }
+            else if (dir.contains("LEFT")) {
+                player.getPosition().add(-1, 0);
+            }
+            else if (dir.contains("RIGHT")) {
+                player.getPosition().add(1, 0);
+            }
+            dir = conveyorChecker(player.getPosition());
+        }
     }
 
     //Check if outBounds
@@ -107,14 +93,24 @@ public class GameLogic implements ApplicationListener {
 
     //Checker used to find wall-tile-properties
 
-    public String DirChecker(Vector2 pos) {
+    public String dirChecker(Vector2 pos) {
         String gg = "";
         if (walls.getCell((int) pos.x, (int) pos.y) != null) {
             TiledMapTileLayer.Cell cell = walls.getCell((int) pos.x, (int) pos.y);
             gg = (String) cell.getTile().getProperties().get("DIRECTION");
             return gg;
         } else {
-            System.out.println(gg);
+            return gg;
+        }
+    }
+
+    public String conveyorChecker(Vector2 pos){
+        String gg = "";
+        if(conveyors.getCell((int) pos.x, (int) pos.y) != null){
+            TiledMapTileLayer.Cell cell = conveyors.getCell((int) pos.x, (int) pos.y);
+            gg = (String) cell.getTile().getProperties().get("DIRECTIONS");
+            return gg;
+        }else {
             return gg;
         }
     }
@@ -123,8 +119,7 @@ public class GameLogic implements ApplicationListener {
 
         if(flags.getCell((int) pos.x, (int) pos.y) != null){
             TiledMapTileLayer.Cell cell = flags.getCell((int) pos.x, (int)pos.y);
-            int id = (int) cell.getTile().getProperties().get("ID");
-            return id;
+            return (int) cell.getTile().getProperties().get("ID");
         }else{
             return 0;
         }

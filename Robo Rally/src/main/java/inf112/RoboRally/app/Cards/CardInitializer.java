@@ -3,6 +3,7 @@ package inf112.RoboRally.app.Cards;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 /**
  * This class is a tool for initializing ProgramCard objects by parsing information contained in CardInfo.txt
@@ -60,7 +61,7 @@ public class CardInitializer {
                 turn = "U-Turn";
             }
             String filename = name + "_" + priority + ".jpg";
-            cards.add(new ProgramCard(moves, turn, priority, filename));
+            cards.add(new ProgramCard(moves, turn.replace("Rotate","").toUpperCase(), priority, filename));
 
         }
 
