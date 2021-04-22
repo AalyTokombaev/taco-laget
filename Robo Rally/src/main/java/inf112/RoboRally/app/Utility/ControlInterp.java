@@ -7,7 +7,6 @@ import inf112.RoboRally.app.Player.Player;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import static java.lang.Thread.sleep;
 
 public class ControlInterp {
 
