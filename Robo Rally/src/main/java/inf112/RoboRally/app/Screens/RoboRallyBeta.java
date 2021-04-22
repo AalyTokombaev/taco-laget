@@ -50,6 +50,7 @@ public class RoboRallyBeta implements Screen {
 
 
     public RoboRallyBeta(RoboRally game) {
+
         this.game = game;
         board = new Board("Vault2.tmx");
         map = board.makeMap();
@@ -66,7 +67,6 @@ public class RoboRallyBeta implements Screen {
         test = new ControlInterp(player,logic);
 
         playerPosition = player.getPosition();
-
 
         // Camera setup
         camera = new OrthographicCamera();
@@ -104,8 +104,11 @@ public class RoboRallyBeta implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
         System.out.println("render tick");
+
         updater(v);
+
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);
@@ -121,6 +124,7 @@ public class RoboRallyBeta implements Screen {
         }
 
         //System.out.println(player.getDeck().getCards().size());
+
         if (v > 0.3) {
             try {
                 sleep(1000);
