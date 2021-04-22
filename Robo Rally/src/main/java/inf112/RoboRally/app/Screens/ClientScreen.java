@@ -23,6 +23,8 @@ import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
  * More specifically, takes care of the initializing, rendering, resizing, disposing and taking inputs for the application
@@ -55,6 +57,7 @@ public class ClientScreen implements Screen {
     int hostX, hostY;
 
     ControlInterp controllerInterpreter;
+    boolean go;
 
     public ClientScreen(RoboRally game) {
         this.game = game;
@@ -101,7 +104,6 @@ public class ClientScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map, size);
         renderer.setView(camera);
         multiPlayer();
-
     }
 
     /**
@@ -113,6 +115,27 @@ public class ClientScreen implements Screen {
         game.font.dispose();
         cardViewer.dispose();
         renderer.dispose();
+    }
+
+
+    public void updater(float v){
+
+        logic.clearPlayer();
+        if(player.getDeck().getCards().size() >= 5){
+            go = true;
+        }
+
+        //System.out.println(player.getDeck().getCards().size());
+        if (v > 0.3) {
+            try {
+                sleep(1000);
+                controllerInterpreter.translateMovement(go);
+                logic.update();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
