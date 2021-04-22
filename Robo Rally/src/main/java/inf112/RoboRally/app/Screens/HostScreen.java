@@ -17,10 +17,13 @@ import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Multiplayer.GameServer;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.ControlInterp;
 import inf112.RoboRally.app.Utility.GameLogic;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
@@ -51,6 +54,9 @@ public class HostScreen implements Screen {
     boolean isClient;
     GameServer server;
     int clientX, clientY;
+
+    ControlInterp controlInterp;
+    boolean go;
 
 
     public HostScreen(RoboRally game) {
@@ -83,6 +89,9 @@ public class HostScreen implements Screen {
         //board.playerLayer.setCell(x, y, player.getState());
         // for (Player p: players){board.playerLayer.setCell(p.);}
 
+        controlInterp = new ControlInterp(player, logic);
+        go = false;
+
 
         // Camera setup
         camera = new OrthographicCamera();
@@ -96,6 +105,35 @@ public class HostScreen implements Screen {
         renderer.setView(camera);
         multiPlayer();
 
+    }
+    public void updater(float v){
+
+        logic.clearPlayer();
+        if(player.getDeck().getCards().size() >= 5){
+            go = true;
+        }
+
+        //System.out.println(player.getDeck().getCards().size());
+
+        if (v > 0.3) {
+            try {
+                sleep(1000);
+                controlInterp.translateMovement(go);
+                logic.update();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cardViewer.updateLifeTokens();
+        cardViewer.updateDamageTokens();
+
+        if(player.getDeck().getCards().empty()){
+            go = false;
+
+        }
+        logic.setPlayer();
     }
 
     /**
@@ -116,7 +154,6 @@ public class HostScreen implements Screen {
         // Take inputs from multiple sources
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(cardViewer.getStage());
-        inputMultiplexer.addProcessor(ctrl);
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -132,7 +169,7 @@ public class HostScreen implements Screen {
 
     }
     public void call(){
-
+        /*
         System.out.println(String.format("clientX, clientY"));
         board.playerLayer.setCell(clientX, clientY, null);
         server.askForData();
@@ -140,6 +177,8 @@ public class HostScreen implements Screen {
         clientY = server.clientY;
         TiledMapTileLayer.Cell clientState = server.clientState;
         board.playerLayer.setCell(clientX, clientY, player.getState());
+
+         */
 
         }
 
@@ -150,19 +189,9 @@ public class HostScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        logic.clearPlayer();
+        System.out.println("render tick");
+        updater(v);
 
-        ctrl.update();
-
-        if(v > 0.2){
-            logic.update();
-            call();
-            cardViewer.updateLifeTokens();
-            cardViewer.updateDamageTokens();
-            System.out.println("render tick");
-        }
-
-        logic.setPlayer();
 
         camera.update();
         cardViewer.draw();

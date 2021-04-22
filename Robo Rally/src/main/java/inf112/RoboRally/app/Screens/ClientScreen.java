@@ -17,10 +17,13 @@ import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Multiplayer.GameClient;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.ControlInterp;
 import inf112.RoboRally.app.Utility.GameLogic;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 /**
  * This class handles the camera and the rendering of objects in the Robo Rally game
@@ -53,6 +56,9 @@ public class ClientScreen implements Screen {
     GameClient client;
     int hostX, hostY;
 
+    ControlInterp controlInterp;
+    boolean go;
+
 
     public ClientScreen(RoboRally game) {
         this.game = game;
@@ -79,8 +85,8 @@ public class ClientScreen implements Screen {
         client = new GameClient(game, ctrl);
         playerPosition = player.getPosition();
 
-        //board.playerLayer.setCell(x, y, player.getState());
-        // for (Player p: players){board.playerLayer.setCell(p.);}
+        controlInterp = new ControlInterp(player, logic);
+        go = false;
 
 
         // Camera setup
@@ -106,6 +112,36 @@ public class ClientScreen implements Screen {
         game.font.dispose();
         cardViewer.dispose();
         renderer.dispose();
+    }
+
+    public void updater(float v){
+
+        logic.clearPlayer();
+        if(player.getDeck().getCards().size() >= 5){
+            go = true;
+        }
+
+        //System.out.println(player.getDeck().getCards().size());
+
+        if (v > 0.3) {
+            try {
+                sleep(1000);
+                controlInterp.translateMovement(go);
+                logic.update();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        cardViewer.updateLifeTokens();
+        cardViewer.updateDamageTokens();
+
+        if(player.getDeck().getCards().empty()){
+            go = false;
+
+        }
+        logic.setPlayer();
     }
 
     @Override
@@ -149,18 +185,11 @@ public class ClientScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        logic.clearPlayer();
-        ctrl.update();
 
-        if(v > 0.2){
-            logic.update();
-            call();
-            cardViewer.updateLifeTokens();
-            cardViewer.updateDamageTokens();
-            System.out.println("render tick");
-        }
+        System.out.println("render tick");
 
-        logic.setPlayer();
+        updater(v);
+
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);
