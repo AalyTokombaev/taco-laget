@@ -43,8 +43,7 @@ public class RoboRallyBeta implements Screen {
 
     private final GameLogic logic;
 
-    ArrayList<Player> players;
-    Player player2;
+
 
     ControlInterp test;
     Boolean go = false;
@@ -65,10 +64,6 @@ public class RoboRallyBeta implements Screen {
         cardViewer = new CardViewer(game.batch, player);
 
         test = new ControlInterp(player,logic);
-
-
-        players = new ArrayList<>();
-        players.add(player);
 
         playerPosition = player.getPosition();
 
@@ -125,7 +120,7 @@ public class RoboRallyBeta implements Screen {
             go = true;
         }
 
-        System.out.println(player.getDeck().getCards().size());
+        //System.out.println(player.getDeck().getCards().size());
         if (v > 0.3) {
             try {
                 sleep(1000);

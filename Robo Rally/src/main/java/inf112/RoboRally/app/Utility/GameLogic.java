@@ -11,7 +11,6 @@ public class GameLogic {
 
     private final Player player;
 
-
     private final TiledMapTileLayer holes;
     private final TiledMapTileLayer walls;
     private final TiledMapTileLayer flags;
@@ -54,7 +53,6 @@ public class GameLogic {
         }
         forceMove();
         player.getScore();
-        System.out.println(player.getPosition());
 
     }
 
