@@ -67,7 +67,6 @@ public class RoboRallyBeta implements Screen {
 
         playerPosition = player.getPosition();
 
-
         // Camera setup
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 12, 18.8f);
@@ -105,7 +104,9 @@ public class RoboRallyBeta implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
         System.out.println("render tick");
+
         updater(v);
+
         camera.update();
         cardViewer.draw();
         renderer.setView(camera);
@@ -121,6 +122,7 @@ public class RoboRallyBeta implements Screen {
         }
 
         //System.out.println(player.getDeck().getCards().size());
+
         if (v > 0.3) {
             try {
                 sleep(1000);

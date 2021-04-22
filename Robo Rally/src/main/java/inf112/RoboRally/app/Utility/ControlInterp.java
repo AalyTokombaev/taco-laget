@@ -7,6 +7,8 @@ import inf112.RoboRally.app.Player.Player;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import static java.lang.Thread.sleep;
+
 public class ControlInterp {
 
     private Player player;
@@ -22,6 +24,7 @@ public class ControlInterp {
     public void translateMovement(Boolean go){
 
         Stack <ProgramCard> cardz = player.getDeck().getCards();
+
 
         try {
             if (go && (!cardz.empty())) {
@@ -54,6 +57,9 @@ public class ControlInterp {
             }
             player.state.setRotation(rot + 1);
         }
+        if(dir.equals("U-TURN")){
+            System.out.println("U-TURN");
+        }
         switch (player.state.getRotation()) {
 
             case 0: player.setDir("UP");
@@ -72,7 +78,7 @@ public class ControlInterp {
     public void virtMover(int x) {
 
         Vector2 nextPos = player.getPosition().cpy();
-
+        System.out.println(x);
         for (int y = 0; y < x; y++) {
 
             try {
