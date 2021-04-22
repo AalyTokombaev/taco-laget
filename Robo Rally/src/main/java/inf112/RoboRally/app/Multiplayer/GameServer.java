@@ -13,6 +13,7 @@ import inf112.RoboRally.app.Utility.PlayerControls;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class GameServer{
     private Server server;
@@ -26,7 +27,7 @@ public class GameServer{
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
-    HashMap<Integer, ArrayList<ProgramCard>> playersCards;
+    HashMap<Integer, Stack<ProgramCard>> playersCards;
 
 
     public GameServer(RoboRally game, Player player){
@@ -37,7 +38,7 @@ public class GameServer{
         numPlayers = 0;
         playersCards = new HashMap<>();
         for (int i = 0; i < 10; i++) {
-            playersCards.put(i, new ArrayList<>());
+            playersCards.put(i, new Stack<>());
         }
 
         Kryo kryo = server.getKryo();
@@ -50,9 +51,11 @@ public class GameServer{
                 if (object instanceof Request) {
                     Request recv = (Request) object;
                     int i = recv.id;
-                    ArrayList<ProgramCard> recvCards = recv.cards;
+                    Stack<ProgramCard> recvCards = recv.cards;
                     playersCards.put(i, recvCards);
                 }
+
+                // old code here for testing
                 if (object instanceof String) {
                     String msg[] = object.toString().split(":");
                     if (msg[0].equals("getX")){

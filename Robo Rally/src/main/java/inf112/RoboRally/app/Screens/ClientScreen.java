@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.CardViewer;
 import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Multiplayer.GameClient;
+import inf112.RoboRally.app.Multiplayer.Request;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.ControlInterp;
@@ -118,7 +119,13 @@ public class ClientScreen implements Screen {
 
         logic.clearPlayer();
         if(player.getDeck().getCards().size() >= 5){
-            go = true;
+            Request send = new Request();
+            send.id = client.id;
+            send.cards = player.getDeck().getCards();
+            client.client.sendTCP(send);
+            if (client.playersReady){
+                go = true;
+            }
         }
 
         //System.out.println(player.getDeck().getCards().size());

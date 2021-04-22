@@ -13,16 +13,18 @@ import inf112.RoboRally.app.Utility.PlayerControls;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class GameClient {
-    private Client client;
+    public Client client;
     public int id;
     RoboRally game;
     public Player player;
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    HashMap<Integer, ArrayList> playerCards;
+    HashMap<Integer, Stack<ProgramCard>> playerCards;
+    public boolean playersReady;
 
     public GameClient(RoboRally game, Player player) {
         client = new Client();
@@ -30,10 +32,11 @@ public class GameClient {
         this.player = player;
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
+        playersReady = false;
 
         playerCards = new HashMap<>();
         for (int i = 0; i < 10; i++){
-            playerCards.put(i, new ArrayList<>());
+            playerCards.put(i, new Stack<>());
         }
 
         Kryo kryo = client.getKryo();
@@ -47,7 +50,7 @@ public class GameClient {
                 if (object instanceof Request) {
                     Request recv = (Request) object;
                     int i = recv.id;
-                    ArrayList<ProgramCard> recvCards = recv.cards;
+                    Stack<ProgramCard> recvCards = recv.cards;
                     playerCards.put(i, recvCards);
                 }
 
