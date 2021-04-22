@@ -71,35 +71,35 @@ public class ControlInterp {
 
     public void virtMover(int x) {
 
-        int moves = x;
         Vector2 nextPos = player.getPosition().cpy();
 
-        System.out.println(moves + " moves left");
+        for (int y = 0; y < x; y++) {
 
-        try {
+            try {
 
-            if (player.getDir().equals("LEFT"))
-                if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
-                        && !logic.dirChecker(player.getPosition()).contains("WEST")) {
-                    player.getPosition().add(-1, 0);
-                }
-            if (player.getDir().equals("RIGHT"))
-                if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
-                        && !logic.dirChecker(player.getPosition()).contains("EAST")) {
-                    player.getPosition().add(1, 0);
-                }
-            if (player.getDir().equals("UP"))
-                if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
-                        && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
-                    player.getPosition().add(0, 1);
-                }
-            if (player.getDir().equals("DOWN"))
-                if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
-                        && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
-                    player.getPosition().add(0, -1);
-                }
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+                if (player.getDir().equals("LEFT"))
+                    if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
+                            && !logic.dirChecker(player.getPosition()).contains("WEST")) {
+                        player.getPosition().add(-1, 0);
+                    }
+                if (player.getDir().equals("RIGHT"))
+                    if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
+                            && !logic.dirChecker(player.getPosition()).contains("EAST")) {
+                        player.getPosition().add(1, 0);
+                    }
+                if (player.getDir().equals("UP"))
+                    if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
+                            && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
+                        player.getPosition().add(0, 1);
+                    }
+                if (player.getDir().equals("DOWN"))
+                    if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
+                            && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
+                        player.getPosition().add(0, -1);
+                    }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
