@@ -57,9 +57,13 @@ public class GameServer{
                     int rx = recv.data.x;
                     int ry = recv.data.y;
                     String rstate = recv.data.state;
+                    System.out.println(String.format("%d:%d:%d:%s", i, rx, ry, rstate));
                     playerData.get(i).x = rx;
                     playerData.get(i).y = ry;
                     playerData.get(i).state = rstate;
+
+                    PlayerData inserted = playerData.get(i);
+                    System.out.println(String.format("Inserted: %d:%d:%s at %d", inserted.x, inserted.y, inserted.state, i));
 
                 }
 
@@ -96,12 +100,6 @@ public class GameServer{
         return Integer.parseInt(s);
     }
 
-
-
-    private void addPlayer(){
-        numPlayers++;
-    }
-
     public int getNumPlayers(){
         return numPlayers;
     }
@@ -117,7 +115,6 @@ public class GameServer{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        addPlayer();
         System.out.println("hosting");
     }
 

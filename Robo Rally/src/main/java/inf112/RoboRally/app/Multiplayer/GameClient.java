@@ -43,13 +43,14 @@ public class GameClient {
         client.addListener(new Listener(){
             public void received(Connection connection, Object object) {
                 if (object instanceof Request) {
-                    System.out.println("client received request");
+                    System.out.println("start client received request");
                     Request recv = (Request) object;
                     System.out.println(recv);
                     int i = recv.id;
                     int rx = recv.data.x;
                     int ry = recv.data.y;
                     String rstate = recv.data.state;
+                    System.out.println(String.format("%d:%d:%d:%s", i, rx, ry, rstate));
                     playerData.get(i).x = rx;
                     playerData.get(i).y = ry;
                     playerData.get(i).state = rstate;
@@ -66,6 +67,17 @@ public class GameClient {
                         playerData.put(id, data);
                     }
                     if (msg[0].equals("requestData")){
+                        for (int i = 0; i < 10; i++){
+                            Request send = new Request();
+                            PlayerData sendData = new PlayerData();
+                            sendData.x = playerData.get(i).x;
+                            sendData.y = playerData.get(i).y;
+                            sendData.state = playerData.get(i).state;
+                            send.data = sendData;
+                            System.out.println(String.format("client sending %d %d %d %s", i, sendData.x, sendData.y, sendData.state));
+                            connection.sendTCP(send);
+                        }
+                        /*
                         Request send = new Request();
                         PlayerData sendData = new PlayerData();
                         sendData.x = player.getx();
@@ -74,6 +86,8 @@ public class GameClient {
                         send.data = sendData;
                         send.id = id;
                         connection.sendTCP(send);
+
+                         */
                     }
                 }
             }
