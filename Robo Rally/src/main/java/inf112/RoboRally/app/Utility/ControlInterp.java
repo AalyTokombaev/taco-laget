@@ -24,7 +24,6 @@ public class ControlInterp {
 
         Stack <ProgramCard> cardz = player.getDeck().getCards();
 
-
         try {
             if (go && (!cardz.empty())) {
 
@@ -78,10 +77,9 @@ public class ControlInterp {
 
         Vector2 nextPos = player.getPosition().cpy();
         System.out.println(x);
+
         for (int y = 0; y < x; y++) {
-
             try {
-
                 if (player.getDir().equals("LEFT"))
                     if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
                             && !logic.dirChecker(player.getPosition()).contains("WEST")) {

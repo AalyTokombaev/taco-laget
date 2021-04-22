@@ -50,6 +50,7 @@ public class RoboRallyBeta implements Screen {
 
 
     public RoboRallyBeta(RoboRally game) {
+
         this.game = game;
         board = new Board("Vault2.tmx");
         map = board.makeMap();
@@ -103,6 +104,7 @@ public class RoboRallyBeta implements Screen {
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+
         System.out.println("render tick");
 
         updater(v);
