@@ -82,7 +82,7 @@ public class ClientScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        client = new GameClient(game, ctrl);
+        client = new GameClient(game, player);
         playerPosition = player.getPosition();
 
         controlInterp = new ControlInterp(player, logic);

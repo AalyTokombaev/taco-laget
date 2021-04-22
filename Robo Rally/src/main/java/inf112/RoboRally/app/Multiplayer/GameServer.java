@@ -1,18 +1,24 @@
 package inf112.RoboRally.app.Multiplayer;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameServer{
     private Server server;
-    public int numPlayers = 0;
+    public int numPlayers;
+    // players done with turn
+    int playersDone;
     RoboRally game;
     PlayerControls ctrl;
     public Player player;
@@ -20,14 +26,33 @@ public class GameServer{
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
 
+    HashMap<Integer, ArrayList<ProgramCard>> playersCards;
 
-    public GameServer(RoboRally game, PlayerControls ctrl){
+
+    public GameServer(RoboRally game, Player player){
         server = new Server();
         this.game = game;
-        this.ctrl = ctrl;
+        this.player = player;
+        playersDone = 0;
+        numPlayers = 0;
+        playersCards = new HashMap<>();
+        for (int i = 0; i < 10; i++) {
+            playersCards.put(i, new ArrayList<>());
+        }
+
+        Kryo kryo = server.getKryo();
+        kryo.register(Request.class);
+        kryo.register(Player.class);
+        kryo.register(ArrayList.class);
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
+                if (object instanceof Request) {
+                    Request recv = (Request) object;
+                    int i = recv.id;
+                    ArrayList<ProgramCard> recvCards = recv.cards;
+                    playersCards.put(i, recvCards);
+                }
                 if (object instanceof String) {
                     String msg[] = object.toString().split(":");
                     if (msg[0].equals("getX")){

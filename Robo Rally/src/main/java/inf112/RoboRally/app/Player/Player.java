@@ -30,7 +30,7 @@ public class Player {
     public List<Integer> flagsVisited;
     public int score = 0;
 
-    private String id;
+    public int id;
 
     public States states;
 
@@ -99,9 +99,6 @@ public class Player {
             state = states.win();
             System.out.println("win");
         }
-    }
-    public void setName(String name){
-        this.id = name;
     }
 
     /**

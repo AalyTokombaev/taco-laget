@@ -81,7 +81,7 @@ public class HostScreen implements Screen {
         isClient = false;
         isHost = false;
 
-        server = new GameServer(game, ctrl);
+        server = new GameServer(game, player);
 
 
         playerPosition = player.getPosition();

@@ -1,36 +1,60 @@
 package inf112.RoboRally.app.Multiplayer;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameClient {
     private Client client;
     public int id;
     RoboRally game;
-    private PlayerControls ctrl;
     public Player player;
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    public GameClient(RoboRally game, PlayerControls ctrl) {
+    HashMap<Integer, ArrayList> playerCards;
+
+    public GameClient(RoboRally game, Player player) {
         client = new Client();
         this.game = game;
-        this.ctrl = ctrl;
+        this.player = player;
         hostX = hostY = 0;
         hostState = new TiledMapTileLayer.Cell();
 
+        playerCards = new HashMap<>();
+        for (int i = 0; i < 10; i++){
+            playerCards.put(i, new ArrayList<>());
+        }
+
+        Kryo kryo = client.getKryo();
+        kryo.register(ProgramCard.class);
+        kryo.register(ArrayList.class);
+        kryo.register(Request.class);
+
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
+
+                if (object instanceof Request) {
+                    Request recv = (Request) object;
+                    int i = recv.id;
+                    ArrayList<ProgramCard> recvCards = recv.cards;
+                    playerCards.put(i, recvCards);
+                }
+
                 if (object instanceof String) {
                     // System.out.println("client recieved " + object.toString());
                     if (object.toString().equals("OK")){
+
                         System.out.println("OK");
                     }
                     String[] msg = object.toString().split(":");
