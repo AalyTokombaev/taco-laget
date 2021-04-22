@@ -17,6 +17,7 @@ import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Multiplayer.GameClient;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.RoboRally;
+import inf112.RoboRally.app.Utility.ControlInterp;
 import inf112.RoboRally.app.Utility.GameLogic;
 import inf112.RoboRally.app.Utility.PlayerControls;
 
@@ -53,6 +54,7 @@ public class ClientScreen implements Screen {
     GameClient client;
     int hostX, hostY;
 
+    ControlInterp controllerInterpreter;
 
     public ClientScreen(RoboRally game) {
         this.game = game;
@@ -73,8 +75,13 @@ public class ClientScreen implements Screen {
         players = new ArrayList<>();
         players.add(player);
 
+        // are these even used?
         isClient = false;
         isHost = false;
+
+
+        // controller setup
+        controllerInterpreter = new ControlInterp(player, logic);
 
         client = new GameClient(game, player);
         playerPosition = player.getPosition();
