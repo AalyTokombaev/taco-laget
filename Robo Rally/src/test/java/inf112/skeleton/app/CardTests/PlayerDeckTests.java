@@ -1,15 +1,7 @@
 package inf112.skeleton.app.CardTests;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.graphics.GL20;
-import inf112.RoboRally.app.Player.Player;
-import inf112.RoboRally.app.Grid.Board;
-import inf112.RoboRally.app.Utility.GameLogic;
-import inf112.RoboRally.app.Utility.PlayerControls;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Cards.ProgramCard;
 
