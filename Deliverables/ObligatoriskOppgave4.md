@@ -47,6 +47,13 @@
 3. Implement chat(If time)
 4. Implement sound(if time)
 
+## Bugs
+* In multiplayer there has arised a bug for some people using Windows and Visual Studio Code.
+We have tested it on several computers and on one of them it fails. The client times out, and crash the program.
+  On the other Windows computer using Visual Studio Code it works, and nothing fails or times out.
+  We have tried to fix it, but can not seem to found out the problem. 
+  
+* 
 ## Demands
 * Out of the MVP's it is only Multiplayer that do not work as expected.
 * Our goal is to make it work fine.
@@ -109,7 +116,7 @@ Running the game on
   9. To choose cards and use them, you simply click them with the mouse
 
 * Multiplayer:
-  * To start multiplayer as a host press `t` on your keyboard. 
+  * To start multiplayer as a host press "New" 
   * This will spawn a dummy player which is removed when player 2 connects. 
   * To join a started game, press `j` on your keyboard.
 
