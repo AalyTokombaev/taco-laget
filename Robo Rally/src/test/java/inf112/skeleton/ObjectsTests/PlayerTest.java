@@ -13,7 +13,8 @@ import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import inf112.skeleton.app.EmptyApplication;
 
-public class PlayerTest {
+public class
+PlayerTest {
     private Player player;
     private Board board;
     private GameLogic logic;

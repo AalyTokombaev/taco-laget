@@ -18,8 +18,6 @@ import inf112.RoboRally.app.RoboRally;
 import inf112.RoboRally.app.Utility.GameLogic;
 import inf112.RoboRally.app.Utility.ControlInterp;
 
-import java.util.ArrayList;
-
 import static java.lang.Thread.sleep;
 
 /**

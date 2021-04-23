@@ -23,6 +23,6 @@ public class PlayerDeckTests {
      @Test
      public void takeCardTest(){
         deck.takeCard(moveOneCard);
-        assertEquals(moveOneCard, deck.getCards().pop());
+        assertEquals(moveOneCard, deck.getCards().remove(0));
      }
 }
