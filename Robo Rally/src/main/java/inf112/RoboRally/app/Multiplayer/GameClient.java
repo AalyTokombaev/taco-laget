@@ -22,7 +22,7 @@ public class GameClient {
 
     public GameClient(RoboRally game,  Player player) {
         client = new Client();
-        this.game = gameg;
+        this.game = game;
         this.player = player;
 
         // initialize the hashmap
