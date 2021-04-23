@@ -6,6 +6,11 @@ import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.Utility.PlayerControls;
 import org.junit.Test;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
+import static org.mockito.Mockito.mock;
+
 import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
@@ -14,11 +19,15 @@ import static org.junit.Assert.assertTrue;
  * Unit test for simple App.
  */
 public class AppTest {
-    /**
-     * Rigorous Test :-)
-     */
+    Player player;
 
-
+    @Before
+    public void setUp(){
+        Gdx.gl = mock(GL20.class);
+        new HeadlessApplication(new EmptyApplication());
+        player = new Player();
+    }
+    
     @Test
     public void shouldAnswerWithTrue() {
         assertTrue(true);
