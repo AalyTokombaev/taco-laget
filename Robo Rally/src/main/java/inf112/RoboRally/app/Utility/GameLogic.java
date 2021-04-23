@@ -16,6 +16,7 @@ public class GameLogic {
     private final TiledMapTileLayer flags;
     private final TiledMapTileLayer playerLayer;
     private final TiledMapTileLayer conveyors;
+    private final TiledMapTileLayer wrench;
 
     public GameLogic(Player player, Board board) {
 
@@ -25,6 +26,7 @@ public class GameLogic {
         this.flags = board.flagLayer;
         this.conveyors = board.conveyorLayer;
         this.playerLayer = board.playerLayer;
+        this.wrench = board.wrenchLayer;
     }
 
 
@@ -34,10 +36,23 @@ public class GameLogic {
             player.put(0,0);
         }
 
-        if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
+        if(wrench.getCell( player.getX(),player.getY()) != null){
+            int hp = player.getHp();
+            if(hp < 10) {
+                player.setHP(hp + 1);
+            }
+            if(hp == 10 && player.getLifeTokens() < 3){
+                //TODO fiks denne
+                int lifetokens = player.getLifeTokens();
+                player.setHP(1);
+                player.setLifeTokens(lifetokens+1);
+            }
+        }
+
+        if (holes.getCell(player.getX(), player.getY()) != null) {
             player.setDamage(1);
         }
-        if(flags.getCell((int) player.getPosition().x, (int)player.getPosition().y) != null) {
+        if(flags.getCell(player.getX(), player.getY()) != null) {
 
             int id = flagIdChecker(player.getPosition());
             if(player.flagsVisited.contains(id)){

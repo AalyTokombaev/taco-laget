@@ -6,6 +6,11 @@
    <property name="DIRECTION" value="SOUTH, EAST"/>
   </properties>
  </tile>
+ <tile id="14">
+  <properties>
+   <property name="ACTION" value="WRENCH"/>
+  </properties>
+ </tile>
  <tile id="15">
   <properties>
    <property name="DIRECTION" value="NORTH, EAST"/>

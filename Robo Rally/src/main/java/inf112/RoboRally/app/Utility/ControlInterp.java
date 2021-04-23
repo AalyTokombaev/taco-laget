@@ -5,7 +5,11 @@ import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
 import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
+
+import static com.badlogic.gdx.Gdx.input;
 
 
 public class ControlInterp {
@@ -20,14 +24,20 @@ public class ControlInterp {
         this.deck = player.getDeck();
     }
 
+
     public void translateMovement(Boolean go){
 
-        Stack <ProgramCard> cardz = player.getDeck().getCards();
+        List<ProgramCard> cardz = player.getDeck().getCards();
+
 
         try {
-            if (go && (!cardz.empty())) {
+            if (go && (!cardz.isEmpty())) {
 
-                ProgramCard card = cardz.pop();
+
+                Iterator<ProgramCard> nextCard = cardz.iterator();
+
+                ProgramCard card = nextCard.next();
+                player.getDeck().discard();
 
                 if (!card.getTurn().equals("")) {
                     rotator(player.state.getRotation(),card.getTurn());
@@ -58,6 +68,11 @@ public class ControlInterp {
         if(dir.equals("U-TURN")){
             System.out.println("U-TURN");
         }
+
+        if(dir.equals("BACK-UP")){
+            System.out.println("BACK-UP");
+
+        }
         switch (player.state.getRotation()) {
 
             case 0: player.setDir("UP");
@@ -77,8 +92,7 @@ public class ControlInterp {
 
         Vector2 nextPos = player.getPosition().cpy();
         System.out.println(x);
-
-        for (int y = 0; y < x; y++) {
+        while(x!=0){
             try {
                 if (player.getDir().equals("LEFT"))
                     if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
@@ -103,6 +117,7 @@ public class ControlInterp {
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
+            x -= 1;
         }
     }
 }

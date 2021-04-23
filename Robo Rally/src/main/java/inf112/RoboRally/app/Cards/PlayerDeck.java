@@ -1,5 +1,6 @@
 package inf112.RoboRally.app.Cards;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -12,24 +13,37 @@ public class PlayerDeck {
     /**
      * @param cards is a list of ProgramCards which should not hold more than 5 ProgramCards at the same time
      */
-    private Stack<ProgramCard> cards;
+    private ArrayList<ProgramCard> cards;
 
     public PlayerDeck() {
-        cards = new Stack<>();
+        cards = new ArrayList<>();
     }
 
     /**
      * Method for adding a card to the PlayerDeck
+     *
      * @param card is the card to be added to the list
      */
     public void takeCard(ProgramCard card) {
-        cards.add(card);
-        String string = card.getFilename();
-        string = string.substring(0, string.length() - 4);
-        System.out.println("You have added " + string + " to the card deck");
+        if (cards.contains(card)) {
+            cards.remove(card);
+            String string = card.getFilename();
+            string = string.substring(0, string.length() - 4);
+            System.out.println("You have removed " + string + " from the card deck");
+        } else {
+            cards.add(card);
+            String string = card.getFilename();
+            string = string.substring(0, string.length() - 4);
+            System.out.println("You have added " + string + " to the card deck");
+        }
     }
 
-    public Stack<ProgramCard> getCards(){
+    public void discard(){
+        cards.remove(0);
+    }
+
+
+    public ArrayList<ProgramCard> getCards() {
         return cards;
     }
 }
