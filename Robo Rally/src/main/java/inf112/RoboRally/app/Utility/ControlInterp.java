@@ -4,8 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.RoboRally.app.Cards.PlayerDeck;
 import inf112.RoboRally.app.Cards.ProgramCard;
 import inf112.RoboRally.app.Player.Player;
+
 import java.util.EmptyStackException;
-import java.util.Stack;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class ControlInterp {
@@ -20,20 +22,24 @@ public class ControlInterp {
         this.deck = player.getDeck();
     }
 
+
     public void translateMovement(Boolean go){
 
-        Stack <ProgramCard> cardz = player.getDeck().getCards();
+        List<ProgramCard> cardz = player.getDeck().getCards();
 
         try {
-            if (go && (!cardz.empty())) {
+            if (go && (!cardz.isEmpty())) {
 
-                ProgramCard card = cardz.pop();
+                Iterator<ProgramCard> nextCard = cardz.iterator();
+
+                ProgramCard card = nextCard.next();
+                player.getDeck().discard();
 
                 if (!card.getTurn().equals("")) {
                     rotator(player.state.getRotation(),card.getTurn());
                 }
                 else{
-                    virtMover(card.getNumberOfMoves());
+                    moveIt(card.getNumberOfMoves());
                 }
             }
         }catch (EmptyStackException e){
@@ -43,13 +49,13 @@ public class ControlInterp {
 
     public void rotator(int rot, String dir) {
 
-        if(dir.equals("LEFT")){
+        if(dir.equals("RIGHT")){
             if(rot - 1 < 0){
                 rot = 4;
             }
             player.state.setRotation(rot - 1);
         }
-        if(dir.equals("RIGHT")){
+        if(dir.equals("LEFT")){
             if(rot + 1 > 3){
                 rot = -1;
             }
@@ -58,18 +64,20 @@ public class ControlInterp {
         if(dir.equals("U-TURN")){
             System.out.println("U-TURN");
         }
-        switch (player.state.getRotation()) {
 
-            case 0: player.setDir("UP");
-                    break;
-            case 1: player.setDir("RIGHT");
-                    break;
-            case 2: player.setDir("DOWN");
-                    break;
-            case 3: player.setDir("LEFT");
-                    break;
-            default:
-                    break;
+        if(dir.equals("BACK-UP")){
+            System.out.println("BACK-UP");
+
+        }
+    }
+
+    public void moveIt(int moves) {
+
+        if(moves == 0){
+            return;
+        }else {
+            virtMover(moves);
+            moveIt(moves-1);
         }
     }
 
@@ -77,32 +85,30 @@ public class ControlInterp {
 
         Vector2 nextPos = player.getPosition().cpy();
         System.out.println(x);
-
-        for (int y = 0; y < x; y++) {
-            try {
-                if (player.getDir().equals("LEFT"))
-                    if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
-                            && !logic.dirChecker(player.getPosition()).contains("WEST")) {
-                        player.getPosition().add(-1, 0);
-                    }
-                if (player.getDir().equals("RIGHT"))
-                    if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
-                            && !logic.dirChecker(player.getPosition()).contains("EAST")) {
-                        player.getPosition().add(1, 0);
-                    }
-                if (player.getDir().equals("UP"))
-                    if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
-                            && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
-                        player.getPosition().add(0, 1);
-                    }
-                if (player.getDir().equals("DOWN"))
-                    if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
-                            && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
-                        player.getPosition().add(0, -1);
-                    }
-            } catch (NullPointerException e) {
-                e.printStackTrace();
-            }
+        try {
+            if (player.state.getRotation()==1)
+                if (!logic.dirChecker(nextPos.add(-1, 0)).contains("EAST")
+                        && !logic.dirChecker(player.getPosition()).contains("WEST")) {
+                    player.getPosition().add(-1, 0);
+                }
+            if (player.state.getRotation()==3)
+                if (!logic.dirChecker(nextPos.add(1, 0)).contains("WEST")
+                        && !logic.dirChecker(player.getPosition()).contains("EAST")) {
+                    player.getPosition().add(1, 0);
+                }
+            if (player.state.getRotation()==0)
+                if (!logic.dirChecker(nextPos.add(0, 1)).contains("SOUTH")
+                        && !logic.dirChecker(player.getPosition()).contains("NORTH")) {
+                    player.getPosition().add(0, 1);
+                }
+            if (player.state.getRotation()==2)
+                if (!logic.dirChecker(nextPos.add(0, -1)).contains("NORTH")
+                        && !logic.dirChecker(player.getPosition()).contains("SOUTH")) {
+                    player.getPosition().add(0, -1);
+                }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 }
+

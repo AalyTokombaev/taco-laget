@@ -139,7 +139,7 @@ public class RoboRallyBeta implements Screen {
         cardViewer.updateLifeTokens();
         cardViewer.updateDamageTokens();
 
-        if(player.getDeck().getCards().empty()){
+        if(player.getDeck().getCards().isEmpty()){
             go = false;
 
         }

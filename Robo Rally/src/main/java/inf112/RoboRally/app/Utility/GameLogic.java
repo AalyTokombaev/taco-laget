@@ -16,6 +16,7 @@ public class GameLogic {
     private final TiledMapTileLayer flags;
     private final TiledMapTileLayer playerLayer;
     private final TiledMapTileLayer conveyors;
+    private final TiledMapTileLayer wrench;
 
     public GameLogic(Player player, Board board) {
 
@@ -25,19 +26,43 @@ public class GameLogic {
         this.flags = board.flagLayer;
         this.conveyors = board.conveyorLayer;
         this.playerLayer = board.playerLayer;
+        this.wrench = board.wrenchLayer;
     }
 
 
     public void update() {
         System.out.println("logic tick");
+
+        //Checks if the player will move out of bounds
         if(outOfBounds(player.getPosition())){
             player.put(0,0);
         }
 
-        if (holes.getCell((int) player.getPosition().x, (int) player.getPosition().y) != null) {
+        //Checks if the player is on a wrench
+        if(wrench.getCell( player.getX(),player.getY()) != null){
+            int hp = player.getHp();
+            if(hp < 10) {
+                player.setHP(hp + 1);
+            }
+            if(hp == 10 && player.getLifeTokens() < 3){
+                //TODO fiks denne
+                int lifetokens = player.getLifeTokens();
+                player.setHP(1);
+                player.setLifeTokens(lifetokens+1);
+            }
+            else{
+                System.out.println("Hp is full");
+            }
+        }
+
+
+        //Checks if the player is on a Hole-tile
+        if (holes.getCell(player.getX(), player.getY()) != null) {
             player.setDamage(1);
         }
-        if(flags.getCell((int) player.getPosition().x, (int)player.getPosition().y) != null) {
+
+        // Checks if the player visits flags and that its in the right order
+        if(flags.getCell(player.getX(), player.getY()) != null) {
 
             int id = flagIdChecker(player.getPosition());
             if(player.flagsVisited.contains(id)){
@@ -65,6 +90,8 @@ public class GameLogic {
     }
 
     public void forceMove() {
+
+
         String dir = conveyorChecker(player.getPosition());
         while (!dir.equals("")) {
             if (dir.contains("DOWN")) {

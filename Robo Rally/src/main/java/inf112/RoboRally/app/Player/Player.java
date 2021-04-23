@@ -34,7 +34,7 @@ public class Player {
 
     public States states;
 
-    public String dir = "UP";
+
 
 
     //public Grid grid;
@@ -59,13 +59,6 @@ public class Player {
 
     }
 
-    public void setDir(String dir){
-        this.dir = dir;
-    }
-
-    public String getDir(){
-        return dir;
-    }
 
     /**
      * Inflicts damage on the Player by decreasing the healthPoints variable by the input amount
