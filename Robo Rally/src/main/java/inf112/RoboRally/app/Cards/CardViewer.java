@@ -114,7 +114,7 @@ public class CardViewer {
                 tableList.get(j).addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
-                        player.getDeck().takeCard(programCards.get(finalJ));
+                        player.getDeck().chooseCard(programCards.get(finalJ));
                         System.out.println("clicked" + (finalJ + 1) + "!");
                     }
                 });

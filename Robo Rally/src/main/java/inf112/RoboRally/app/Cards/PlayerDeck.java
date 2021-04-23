@@ -19,14 +19,21 @@ public class PlayerDeck {
     }
 
     /**
-     * Method for adding a card to the PlayerDeck
-     * @param card is the card to be added to the list
+     * Method for choosing a card to be added/removed to/from the PlayerDeck
+     * @param card is the card to be added/removed to/from the list
      */
-    public void takeCard(ProgramCard card) {
-        cards.add(card);
-        String string = card.getFilename();
-        string = string.substring(0, string.length() - 4);
-        System.out.println("You have added " + string + " to the card deck");
+    public void chooseCard(ProgramCard card) {
+        if(cards.contains(card)){
+            cards.remove(card);
+            String string = card.getFilename();
+            string = string.substring(0, string.length() - 4);
+            System.out.println("You have removed " + string + " from the card deck");
+        }else{
+            cards.add(card);
+            String string = card.getFilename();
+            string = string.substring(0, string.length() - 4);
+            System.out.println("You have added " + string + " to the card deck");
+        }
     }
 
     public Stack<ProgramCard> getCards(){
