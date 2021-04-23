@@ -149,7 +149,7 @@ Running the game on
 
   To start multiplayer as a host press `t` on your keyboard. This will spawn a dummy player which is removed when player 2 connects. To join a started game, press `j` on your keyboard.
 ## Class diagram
-* __Kommer med siste commit før innlevering__
+![Image](img/class-diagram-3.png)![Image](img/class-diagram.png
 
 ## Projectboard
 ![Image](img/projectboardweek12.PNG)
