@@ -49,13 +49,13 @@ public class ControlInterp {
 
     public void rotator(int rot, String dir) {
 
-        if(dir.equals("LEFT")){
+        if(dir.equals("RIGHT")){
             if(rot - 1 < 0){
                 rot = 4;
             }
             player.state.setRotation(rot - 1);
         }
-        if(dir.equals("RIGHT")){
+        if(dir.equals("LEFT")){
             if(rot + 1 > 3){
                 rot = -1;
             }
