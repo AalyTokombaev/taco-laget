@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import inf112.RoboRally.app.Grid.GridDirection;
 
-
 public class DirectionTests {
     int north;
     int east;

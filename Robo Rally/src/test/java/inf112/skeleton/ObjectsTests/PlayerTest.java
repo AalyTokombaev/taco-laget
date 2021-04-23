@@ -1,4 +1,3 @@
-package inf112.skeleton.app;
 package inf112.skeleton.ObjectsTests;
 
 import com.badlogic.gdx.Gdx;
