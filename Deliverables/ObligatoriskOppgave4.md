@@ -119,7 +119,7 @@ Running the game on
   * To join a started game, press `j` on your keyboard.
 
 ## Class diagram
-Kommer siste dag
+![Image](img/ClassDiagram.png)
 
 ## Project board
 ![Image](img/FinalProjectBoard.PNG)
