@@ -4,7 +4,7 @@
     * The client can connect to the host
     * The player board pieces move on both the client side and host side
     
-# Check that the client can connect to the host:
+## Check that the client can connect to the host:
 1. Start the game by running "Main.java"
 2. Click the "Multiplayer"-button
 3. Click the "Host"-button
