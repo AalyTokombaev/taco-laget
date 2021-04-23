@@ -121,7 +121,7 @@ Running the game on
 Kommer siste dag
 
 ## Project board
-![Image](img/ProjectBoardFinal.PNG)
+![Image](img/FinalProjectBoard.PNG)
 
 ## User-stories:
 * **Creating a map with a conveyorbelt**
