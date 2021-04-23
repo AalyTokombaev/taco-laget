@@ -7,7 +7,6 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import static org.mockito.Mockito.mock;
 import static org.junit.Assert.assertNotNull;
 import inf112.skeleton.app.EmptyApplication;
-
 import org.junit.Before;
 import org.junit.Test;
 
