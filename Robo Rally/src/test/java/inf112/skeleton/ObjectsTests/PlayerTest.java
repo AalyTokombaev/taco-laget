@@ -3,10 +3,11 @@ package inf112.skeleton.ObjectsTests;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
+
 import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.Utility.GameLogic;
-import inf112.RoboRally.app.Utility.PlayerControls;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,6 @@ import inf112.skeleton.app.EmptyApplication;
 
 public class PlayerTest {
     private Player player;
-    private PlayerControls ctrl;
     private Board board;
     private GameLogic logic;
 
@@ -26,11 +26,10 @@ public class PlayerTest {
         Gdx.gl = mock(GL20.class);
         new HeadlessApplication(new EmptyApplication());
         board = new Board("Vault2.tmx");
-        player = new Player();
-        ctrl = new PlayerControls(player,logic);
         logic = new GameLogic(player,board);
+        player = new Player();
 
-        this.player = new Player("testPlayer", new Vector2(1, 1), 0, ctrl);
+
     }
 
     @Test
@@ -42,7 +41,6 @@ public class PlayerTest {
     public void isXAmountDamageWithdrawnTest(){
         player.setDamage(5);
         assertEquals(5, player.getHp());
-
     }
 
     @Test
@@ -68,14 +66,11 @@ public class PlayerTest {
     public void repairPlayerTest(){
         player.setDamage(5);
         player.setHP(5);
-        player.setHP(10);
         assertEquals(10, player.getHp());
     }
 
     @Test
     public void canPlayerDieFromDamageTest(){
-        //player.setLifeTokens(0);
-
         if (!(player.getHp() == 10))
         if (player.getHp() != 10)
             player.setHP(10);
