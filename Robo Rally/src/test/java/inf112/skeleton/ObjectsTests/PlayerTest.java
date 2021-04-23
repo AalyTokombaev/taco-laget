@@ -26,12 +26,11 @@ public class PlayerTest {
         Gdx.gl = mock(GL20.class);
         new HeadlessApplication(new EmptyApplication());
         board = new Board("Vault2.tmx");
-        this.player = new Player();
-        this.ctrl = new PlayerControls(player,logic);
+        player = new Player();
+        ctrl = new PlayerControls(player,logic);
         logic = new GameLogic(player,board);
 
-        this.ctrl = new Controls();
-        this.player = new Player("testPlayer", new Vector2(), 0, ctrl);
+        this.player = new Player("testPlayer", new Vector2(1, 1), 0, ctrl);
     }
 
     @Test
