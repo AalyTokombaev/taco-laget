@@ -53,7 +53,8 @@ We have tested it on several computers and on one of them it fails. The client t
   On the other Windows computer using Visual Studio Code it works, and nothing fails or times out.
   We have tried to fix it, but can not seem to found out the problem. 
   
-* 
+* If the player is moving towards a wall, and then uses example a "move 2"-card, it will "jump" over the wall.
+
 ## Demands
 * Out of the MVP's it is only Multiplayer that do not work as expected.
 * Our goal is to make it work fine.
