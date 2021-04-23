@@ -67,10 +67,7 @@ We have tested it on several computers and on one of them it fails. The client t
 * The most important MVP demand for us now is to set up a game-phase so the game can be played. 
 
 ## Extra features
-* It would be fun to implement a in-game chat, and some sound elements if we have time when everything else is done. 
-
-## Testing
-Huske å sjekke at testene ikke returnerer nullpointerexception
+* It would be fun to implement a in-game chat, and some sound elements if we have time when everything else is done.
 
 ## Difference in commits
 * There is a difference in commits as we do a lot of remote programming where everyone watches one screen and one code. 
