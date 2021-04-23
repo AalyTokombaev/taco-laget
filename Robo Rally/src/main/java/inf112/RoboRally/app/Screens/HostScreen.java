@@ -162,8 +162,6 @@ public class HostScreen implements Screen {
     }
 
     public void multiPlayer() {
-
-        System.out.println("t pressed");
         System.out.println("hosting");
         isHost = true;
         server.host();

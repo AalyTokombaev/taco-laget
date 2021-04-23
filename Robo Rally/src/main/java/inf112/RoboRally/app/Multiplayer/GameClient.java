@@ -105,9 +105,6 @@ public class GameClient {
 
     public void setPlayer(Player player){
         this.player = player;
-        System.out.println("client player has now");
-        System.out.println(player.getX());
-        System.out.println(player.getY());
     }
 
 

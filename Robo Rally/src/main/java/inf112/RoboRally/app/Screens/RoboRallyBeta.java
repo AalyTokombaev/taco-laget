@@ -103,7 +103,6 @@ public class RoboRallyBeta implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 
-        System.out.println("render tick");
 
         updater(v);
 
@@ -117,10 +116,8 @@ public class RoboRallyBeta implements Screen {
     public void updater(float v){
 
         logic.clearPlayer();
-        System.out.println("player deck size is " + player.getDeck().getCards().size());
         if(player.getDeck().getCards().size() >= 5){
             go = true;
-            System.out.println("doing the go");
         }
 
         if (v > 0.3) {

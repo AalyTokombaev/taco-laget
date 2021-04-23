@@ -31,8 +31,6 @@ public class GameLogic {
 
 
     public void update() {
-        System.out.println("logic tick");
-
         //Checks if the player will move out of bounds
         if(outOfBounds(player.getPosition())){
             player.put(0,0);

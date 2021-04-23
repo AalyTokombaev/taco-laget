@@ -95,11 +95,6 @@ public class GameServer{
         //System.out.println("server asking for data");
         server.sendToAllTCP("getY");
         server.sendToAllTCP("getX");
-        //System.out.println("serfer got data");
-        //System.out.println(String.format("ClientX %d, ClientY %d", clientX, clientY));
-        //System.out.println(String.format("clientSTate %s", clientState));
-        //System.out.println("server stop asking for data");
-
     }
     public void host(){
         try{
