@@ -22,7 +22,8 @@ public class PlayerDeckTests {
 
      @Test
      public void takeCardTest(){
-         deck.takeCard(moveOneCard);
-         assertEquals(moveOneCard, deck.showCards().get(0));
+         deck.getCards();
+         //deck.takeCard(moveOneCard);
+         assertEquals(moveOneCard, deck.getCards());
      }
 }
