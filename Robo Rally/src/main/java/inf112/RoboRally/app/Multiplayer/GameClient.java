@@ -43,6 +43,7 @@ public class GameClient {
         kryo.register(ProgramCard.class);
         kryo.register(ArrayList.class);
         kryo.register(Request.class);
+        kryo.register(Stack.class);
 
         client.addListener(new Listener() {
             public void received (Connection connection, Object object) {
@@ -59,6 +60,9 @@ public class GameClient {
                     if (object.toString().equals("OK")){
 
                         System.out.println("OK");
+                    }
+                    if (object.toString().equals(("ready"))){
+                        playersReady = true;
                     }
                     String[] msg = object.toString().split(":");
                     if (msg[0].equals("getX")){

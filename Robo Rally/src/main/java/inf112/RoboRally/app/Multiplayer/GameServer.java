@@ -16,16 +16,18 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class GameServer{
-    private Server server;
+    public Server server;
     public int numPlayers;
     // players done with turn
     int playersDone;
     RoboRally game;
-    PlayerControls ctrl;
     public Player player;
 
     public int clientX, clientY;
     public TiledMapTileLayer.Cell clientState;
+
+    public boolean playersReady;
+    public int playersPlayed;
 
     HashMap<Integer, Stack<ProgramCard>> playersCards;
 
@@ -36,6 +38,9 @@ public class GameServer{
         this.player = player;
         playersDone = 0;
         numPlayers = 0;
+        playersPlayed = 0;
+        playersReady = false;
+
         playersCards = new HashMap<>();
         for (int i = 0; i < 10; i++) {
             playersCards.put(i, new Stack<>());
@@ -45,6 +50,8 @@ public class GameServer{
         kryo.register(Request.class);
         kryo.register(Player.class);
         kryo.register(ArrayList.class);
+        kryo.register(Stack.class);
+
 
         server.addListener(new Listener() {
             public void received (Connection connection, Object object) {
@@ -53,6 +60,7 @@ public class GameServer{
                     int i = recv.id;
                     Stack<ProgramCard> recvCards = recv.cards;
                     playersCards.put(i, recvCards);
+                    playersPlayed++;
                 }
 
                 // old code here for testing

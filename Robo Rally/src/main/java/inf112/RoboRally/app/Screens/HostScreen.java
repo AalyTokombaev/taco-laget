@@ -110,7 +110,12 @@ public class HostScreen implements Screen {
 
         logic.clearPlayer();
         if(player.getDeck().getCards().size() >= 5){
-            go = true;
+            // go = true;
+            if (server.playersPlayed >= server.numPlayers) {
+                server.playersReady = true;
+                server.server.sendToAllTCP("ready");
+                go = true;
+            }
         }
 
         //System.out.println(player.getDeck().getCards().size());
