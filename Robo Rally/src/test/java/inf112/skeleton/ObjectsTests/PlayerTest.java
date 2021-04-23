@@ -3,14 +3,11 @@ package inf112.skeleton.ObjectsTests;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
-
 import inf112.RoboRally.app.Grid.Board;
 import inf112.RoboRally.app.Player.Player;
 import inf112.RoboRally.app.Utility.GameLogic;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
@@ -28,8 +25,6 @@ public class PlayerTest {
         board = new Board("Vault2.tmx");
         logic = new GameLogic(player,board);
         player = new Player();
-
-
     }
 
     @Test
