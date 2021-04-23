@@ -29,7 +29,7 @@ public class GameServer{
     public boolean playersReady;
     public int playersPlayed;
 
-    HashMap<Integer, Stack<ProgramCard>> playersCards;
+    HashMap<Integer, ArrayList<ProgramCard>> playersCards;
 
 
     public GameServer(RoboRally game, Player player){
@@ -43,7 +43,7 @@ public class GameServer{
 
         playersCards = new HashMap<>();
         for (int i = 0; i < 10; i++) {
-            playersCards.put(i, new Stack<>());
+            playersCards.put(i, new ArrayList<>());
         }
 
         Kryo kryo = server.getKryo();
@@ -58,7 +58,7 @@ public class GameServer{
                 if (object instanceof Request) {
                     Request recv = (Request) object;
                     int i = recv.id;
-                    Stack<ProgramCard> recvCards = recv.cards;
+                    ArrayList<ProgramCard> recvCards = recv.cards;
                     playersCards.put(i, recvCards);
                     playersPlayed++;
                 }

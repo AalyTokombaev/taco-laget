@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class Request {
     public int id;
-    public Stack<ProgramCard> cards;
+    public ArrayList<ProgramCard> cards;
 
     public Request(){
 

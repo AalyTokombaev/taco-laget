@@ -23,7 +23,7 @@ public class GameClient {
     public int hostX, hostY;
     public TiledMapTileLayer.Cell hostState;
 
-    HashMap<Integer, Stack<ProgramCard>> playerCards;
+    HashMap<Integer, ArrayList<ProgramCard>> playerCards;
     public boolean playersReady;
 
     public GameClient(RoboRally game, Player player) {
@@ -36,7 +36,7 @@ public class GameClient {
 
         playerCards = new HashMap<>();
         for (int i = 0; i < 10; i++){
-            playerCards.put(i, new Stack<>());
+            playerCards.put(i, new ArrayList<>());
         }
 
         Kryo kryo = client.getKryo();
@@ -51,7 +51,7 @@ public class GameClient {
                 if (object instanceof Request) {
                     Request recv = (Request) object;
                     int i = recv.id;
-                    Stack<ProgramCard> recvCards = recv.cards;
+                    ArrayList<ProgramCard> recvCards = recv.cards;
                     playerCards.put(i, recvCards);
                 }
 
