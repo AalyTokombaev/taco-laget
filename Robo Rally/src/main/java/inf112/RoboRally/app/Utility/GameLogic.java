@@ -32,10 +32,13 @@ public class GameLogic {
 
     public void update() {
         System.out.println("logic tick");
+
+        //Checks if the player will move out of bounds
         if(outOfBounds(player.getPosition())){
             player.put(0,0);
         }
 
+        //Checks if the player is on a wrench
         if(wrench.getCell( player.getX(),player.getY()) != null){
             int hp = player.getHp();
             if(hp < 10) {
@@ -47,11 +50,18 @@ public class GameLogic {
                 player.setHP(1);
                 player.setLifeTokens(lifetokens+1);
             }
+            else{
+                System.out.println("Hp is full");
+            }
         }
 
+
+        //Checks if the player is on a Hole-tile
         if (holes.getCell(player.getX(), player.getY()) != null) {
             player.setDamage(1);
         }
+
+        // Checks if the player visits flags and that its in the right order
         if(flags.getCell(player.getX(), player.getY()) != null) {
 
             int id = flagIdChecker(player.getPosition());
@@ -80,6 +90,8 @@ public class GameLogic {
     }
 
     public void forceMove() {
+
+
         String dir = conveyorChecker(player.getPosition());
         while (!dir.equals("")) {
             if (dir.contains("DOWN")) {
